@@ -1,0 +1,119 @@
+/ Dashboard wrapper start
+.dashboard-wrapper
+  / Page title start
+  .row.page-title
+    %h2
+      Usuarios
+      %small
+        %li Inicio
+        %li /
+        %li Usuarios
+  / Page title end
+  / Row start
+  .row
+    .col-md-12
+      .widget
+        .widget-body{style:"border:none;"}
+          %button#registrar_usuario.btn.btn-primary.btn-block{type: "button"} 
+            %span.fs1{"aria-hidden" => "true", "data-icon" => ""} 
+            Registrar Usuario
+  / Row end
+  / Row start
+  .row
+  = render 'layouts/mensaje'
+  .col-md-12#usuario{style: "display:none"}
+    .widget
+      .widget-header
+        .title
+          %span.fs1{"aria-hidden" => "true", "data-icon" => ""}
+          Registrar Usuario
+      .widget-body
+        = form_tag("" , {:method=>'post',:class=>'form-horizontal', :id => "form_usuario" , :name => "form_usuario"}) do
+          %input#id_usuario{type:"hidden", name:"id_usuario"}
+          #usuarioswizard
+            %ol
+              %li Registrar
+              %li Perfil
+            %button.btncancelarform.btn.btn-default{type: "button", style:"float: right;"} Cancelar
+            %div
+              .form-group
+                %label.col-lg-2.control-label{for: "email"} E-mail
+                .col-lg-10
+                  .row
+                    .col-lg-2.col-sm-2
+                      %input#email.form-control{name: "email", type: "text", class:"validate[required,custom[email]]"}
+                    %label.col-lg-2.col-sm-2.control-label Password
+                    .col-lg-2.col-sm-2
+                      %input#password.form-control{name: "password", type: "password", class:"validate[minSize[8]]"}
+              .form-group
+                %label.col-lg-2.control-label{for: "nombre"} Nombre
+                .col-lg-10
+                  .row
+                    .col-lg-2.col-sm-2
+                      %input#nombre.form-control{name: "nombre", type: "text", class:"validate[custom[onlyLetterSp]"}
+                    %label.col-lg-2.col-sm-2.control-label Apellido
+                    .col-lg-2.col-sm-2
+                      %input#apellido.form-control{name: "apellido", type: "text", class:"validate[custom[onlyLetterSp]"}
+                    %label.col-lg-2.col-sm-2.control-label N° Documento
+                    .col-lg-2.col-sm-2
+                      %input#num_doc.form-control{name: "num_doc", type: "text", class:"validate[required,minSize[8],maxSize[8]],custom[onlyNumberSp]"}
+            %div
+              .form-group
+                %label.col-lg-2.control-label Opciones
+                .col-lg-10
+                  .row
+                    %label.col-lg-2.col-sm-2.checkbox-inline
+                      %input#persona{type: "checkbox", name: "permiso",value: "persona" , class:"validate[minCheckbox[1]]"}/
+                      Persona
+                    %label.col-lg-2.col-sm-2.checkbox-inline
+                      %input#diezmo{type: "checkbox", name: "permiso", value: "diezmo", class:"validate[minCheckbox[1]]"}/
+                      Diezmos
+                    %label.col-lg-2.col-sm-2.checkbox-inline
+                      %input#ofrenda{type: "checkbox", name: "permiso",value:"ofrenda", class:"validate[minCheckbox[1]]"}/
+                      Ofrendas
+                    %label.col-lg-2.col-sm-2.checkbox-inline
+                      %input#reporte{type: "checkbox", name: "permiso", value: "reporte", class:"validate[minCheckbox[1]]"}/
+                      Reportes
+              .form-group
+                %label.col-lg-2.control-label Administrativas
+                .col-lg-10
+                  .row
+                    %label.col-lg-2.col-sm-2.checkbox-inline
+                      %input#asistencia{type: "checkbox", name: "permiso", value: "asistencia", class:"validate[minCheckbox[1]]"}/
+                      Asistencia
+                    %label.col-lg-2.col-sm-2.checkbox-inline
+                      %input#informacion{type: "checkbox", name: "permiso", value: "informacion", class:"validate[minCheckbox[1]]"}/
+                      Información
+                    %label.col-lg-2.col-sm-2.checkbox-inline
+                      %input#configuracion{type: "checkbox", name: "permiso", value: "configuracion", class:"validate[minCheckbox[1]]"}/
+                      Configuración
+              .form-group
+                .col-lg-offset-2.col-lg-10
+                  %input#btnRegistrar_Usuario.btn.btn-success{type: "button", value: "Registrar"}
+                  %input#btnGuardar_Usuario.btn.btn-success{type: "button", value: "Guardar", style: "display:none;"}
+  / Row end
+  / Row start
+  .row
+    .col-md-12
+      .widget
+        .widget-header
+          .title
+            %span.fs1{"aria-hidden" => "true", "data-icon" => ""}
+            Usuarios
+        .widget-body
+          .dt_example.example_alt_pagination
+            %table#table_registrados.data-table.table.table-condensed.table-striped.table-hover.table-bordered.pull-left
+              %thead
+                %tr
+                  %th{style: "width:25%"} Email
+                  %th{style: "width:35%"} Nombre
+                  %th.hidden-phone{style: "width:15%"} Apellido
+              %tbody
+            .clearfix
+  / Row end
+- content_for :bloquejavascript do 
+  = javascript_include_tag "datatables.actions.js"
+  = javascript_include_tag "wizard/bwizard.js"
+  = javascript_include_tag :usuario
+  :javascript
+    $('##{@mactive} > span').addClass('current-arrow');

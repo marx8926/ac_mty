@@ -1,0 +1,2 @@
+class SecretariaController < ApplicationController
+end

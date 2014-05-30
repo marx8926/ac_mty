@@ -1,0 +1,76 @@
+/ Dashboard wrapper start
+.dashboard-wrapper
+  / Page title start
+  .row.page-title
+    %h2
+      Miembros y Visitantes
+      %small
+        %li Home
+        %li /
+        %li Dashboard
+        %li /
+        %li Miembros/Visitantes
+  / Page title end
+  / Row start
+  .row
+    .col-md-12
+      .widget
+        .row
+          .col-md-12.col-sm-12
+            .widget
+              .widget-header
+                .title 
+                  %span.fs1{"aria-hidden" => "true", "data-icon" => ""}
+                    Estadísticas 
+              .widget-body
+                %form#form_membresia.form-horizontal{name: "form_membresia", method: "post"}
+                  .form-group
+                    %label.col-lg-2.control-label{for: "anio"} Año
+                    .col-lg-10
+                      .row
+                        .col-lg-2.col-sm-2
+                          %input#anio.form-control{name: "anio", type: "text", class: "validate[required,custom[onlyNumberSp],minSize[4],maxSize[4]]"}
+                        %label.col-lg-2.col-sm-2.checkbox-inline{style:"text-align:right;"}
+                          %input#mes{type: "checkbox", name: "mes", style:"float:none;"}
+                          Mes
+                        .col-lg-2.col-sm-2
+                          %select#mes_lista.form-control{name: "mes_lista"}
+                            %option{value: "0"} Todos
+                            %option{value: "1"} Enero
+                            %option{value: "2"} Febrero
+                            %option{value: "3"} Marzo
+                            %option{value: "4"} Abril
+                            %option{value: "5"} Mayo
+                            %option{value: "6"} Junio
+                            %option{value: "7"} Julio
+                            %option{value: "8"} Agosto
+                            %option{value: "9"} Setiembre
+                            %option{value: "10"} Octubre
+                            %option{value: "11"} Noviembre
+                            %option{value: "12"} Diciembre
+                        .col-lg-2.col-sm-2
+                          %button#btnGenerar_diezmo.btn.btn-success{type: "button", name: "btnGenerar_membresia"} 
+                            Generar
+          .row
+            .col-md-6.col-sm-6
+              .widget
+                .widget-body
+                  #dash_miembro_lineas
+            .col-md-6.col-sm-6
+              .widget
+                .widget-body
+                  #dash_visita_lineas
+
+          .row
+            .col-md-6.col-sm-6
+              .widget
+                .widget-body
+                  #dash_pie_membresia
+
+- content_for :bloquejavascript do
+  = javascript_include_tag "highcharts.js"
+  = javascript_include_tag "exporting.js"
+  = javascript_include_tag :informacion
+  = javascript_include_tag :dash_membresia
+  :javascript
+    $('##{@mactive} > span').addClass('current-arrow');

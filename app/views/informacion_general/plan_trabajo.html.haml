@@ -1,0 +1,151 @@
+/ Dashboard wrapper start
+.dashboard-wrapper
+  / Page title start
+  .row.page-title
+    %h2
+      Plan de Trabajo
+      %small
+        %li Home
+        %li /
+        %li Información General
+        %li /
+        %li Plan de Trabajo
+  / Page title end
+  / Row start
+  .row
+    #accordion.col-md-12
+      .widget
+        .widget-header
+          %a#agregar.btn.btn-primary.btn-block{"data-icon" => ""}
+            Registrar Plan de Trabajo
+        #regPlan_trabajo{style: "display:NONE"}
+          .widget-body
+            = form_tag("", {:method=>'post',:class=>'form-horizontal', :id => "form_plan_trabajo", :name=> "form_plan_trabajo"}) do
+              .form-group
+                %label.col-lg-6.control-label{for: "nombre"} Plan de Trabajo al Año
+                .col-lg-6
+                  .row
+                    .col-lg-4.col-sm-4
+                      %input#nombre.form-control{name: "nombre", type: "text"}
+              .form-group
+                %label.col-lg-2.control-label{for: "select_proceso"} Tipo de Proceso
+                .col-lg-10
+                  .row
+                    .col-lg-4.col-sm-4
+                      %select#select_proceso.form-control{name: "select_proceso"}
+                        %option{value: "1"} A
+                        %option{value: "0"} B
+              .form-group
+                %label.col-lg-2.control-label{for: "actividad"} Actividad
+                .col-lg-10
+                  .row
+                    .col-lg-6.col-sm-6
+                      %input#actividad.form-control{name: "actividad", type: "text"}
+              .form-group                
+                %label.col-lg-2.col-sm-2.checkbox-inline{style:"text-align:right;"}
+                  %input#descripcion{type: "checkbox", name: "descripcion", style:"float:none;"}
+                    Descripción
+                .col-lg-5.col-sm-4
+                  %input#descripcion.form-control{name: "descripcion", type: "text"}
+              .form-group
+                %label.col-lg-2.col-sm-2.checkbox-inline{style:"text-align:right;"}
+                  %input#red{type: "checkbox", name: "red", style:"float:none;"}
+                    Red
+                .col-lg-2.col-sm-2
+                  %select#red_lista.form-control{name: "red_lista"}
+                    %option{value: "0"} Todos
+                    %option{value: "1"} R1
+                    %option{value: "2"} R2
+                    %option{value: "3"} R3
+                %label.col-lg-1.col-sm-1.checkbox-inline{style:"text-align:right;"}
+                  %input#miembro{type: "checkbox", name: "miembro", style:"float:none;"}
+                    Miembro
+                .col-lg-2.col-sm-4
+                  %input#miembro.form-control{name: "miembro", type: "text"}                      
+                %a.btn{'href' => '#showModal', 'data-toggle' => 'modal', "data-icon" => ""}
+                #showModal.modal.fade{'aria-hidden' => 'true',:tabindex => "-1"}
+                  .modal-dialog
+                    .modal-content
+                      .modal-header
+                        %button.close{'aria-hidden' => 'true','data-dismiss' => 'modal', type: "button"}
+                        %h4.modal-title Buscar Miembros  
+                      .modal-body
+                        .form-horizontal
+                          %table.table.table-condensed.table-striped.table-hover.table-bordered.pull-left 
+                            %thead
+                              %tr
+                                %th{style: "width:40%"} #
+                                %th{style: "width:60%"} Nombres y Apellidos
+                            %tbody
+                              
+                          .clearfix
+                      .modal-footer     
+                        %button.btn.btn-default{'data-dismiss' => 'modal',type: "button"}              
+                          Cancelar
+                        %button.btn.btn-primary{type: "button"}              
+                          Guardar
+              .form-group
+                %label.col-lg-2.col-sm-2.checkbox-inline{style:"text-align:right;"}
+                  %input#fecha{type: "checkbox", name: "fecha", style:"float:none;"}
+                    Fecha
+                .col-lg-10
+                  .row
+                    .col-lg-5.col-sm-5
+                      %div#datepicker.input-daterange.input-group
+                        %input#fecha1.form-control{name: "fecha1", type: "text"}
+                        %span.input-group-addon 
+                          al
+                        %input#fecha2.form-control{name: "fecha2", type: "text"}
+                    %label.col-lg-1.col-sm-1.checkbox-inline{style:"text-align:right;"}
+                      %input#mes{type: "checkbox", name: "mes", style:"float:none;"}
+                      Mes
+                    .col-lg-2.col-sm-2
+                      %select#mes_lista.form-control{name: "mes_lista"}
+                        %option{value: "0"} Todos
+                        %option{value: "1"} Enero
+                        %option{value: "2"} Febrero
+                        %option{value: "3"} Marzo
+                        %option{value: "4"} Abril
+                        %option{value: "5"} Mayo
+                        %option{value: "6"} Junio
+                        %option{value: "7"} Julio
+                        %option{value: "8"} Agosto
+                        %option{value: "9"} Setiembre
+                        %option{value: "10"} Octubre
+                        %option{value: "11"} Noviembre
+                        %option{value: "12"} Diciembre
+              .form-group
+                .col-lg-offset-2.col-lg-10
+                  %button.cancelarGuardar.btn.btn-default{type: "button"} Cancelar
+                  %input.btn.btn-success{type: "button", value: "Guardar"}
+  / Row end
+  / Row start
+  .row
+    .col-md-12
+      .widget
+        .widget-header
+          .title
+            %span.fs1{"aria-hidden" => "true", "data-icon" => ""}
+            Registrados
+        .widget-body
+          .dt_example.example_alt_pagination
+            %table.data-table.table.table-condensed.table-striped.table-hover.table-bordered.pull-left
+              %thead
+                %tr
+                  %th{style: "width:25%"} Procesos
+                  %th{style: "width:25%"} Actividad
+                  %th{style: "width:20%"} Responsable
+                  %th{style: "width:15%"} Mes
+                  %th{style: "width:15%"} Fecha Asignada
+              %tbody                
+            .clearfix
+  / Row end
+  #loader{style: "display:none"}
+    = render "layouts/loader"
+/ Dashboard wrapper end
+/ Main Container end
+- content_for :bloquejavascript do
+  = javascript_include_tag "wizard/bwizard.js"
+  = javascript_include_tag :plan_trabajo
+  :javascript
+    $('##{@mactive} > span').addClass('current-arrow');

@@ -1,0 +1,19 @@
+%form.login-wrapper{action: "#", method: "post"}
+  .header
+    .row
+      .col-md-12
+        %h3
+          Iniciar Sesión
+          = image_tag("logo.png", :class => 'pull-right', :alt => 'Logo')
+        %p Fill out the form below to login.
+  .content
+    .row
+      .col-md-12.col-sm-12
+        %input.input.col-md-12.col-sm-12.email{id: "", name: "", placeholder: "tucorreo@mail.com", required: "required", type: "email", value: ""}/
+    .row
+      .col-md-12.col-sm-12
+        %input.input.col-md-12.col-sm-12.password{id: "", name: "", required: "required", type: "password"}/
+  .actions
+    %a.btn.btn-danger{href: "index.html"} Login
+    %a.link{href: "#"} Forgot Password?
+    .clearfix

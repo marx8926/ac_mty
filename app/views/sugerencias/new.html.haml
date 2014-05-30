@@ -1,0 +1,50 @@
+/ Dashboard wrapper start
+.dashboard-wrapper
+  / Page title start
+  .row.page-title
+    %h2
+      Buzón de Sugerencias
+      %small
+        %li Home
+        %li /
+        %li Buzón de Sugerencias
+  / Page title end
+  / Row start
+  .row
+    .col-md-12
+      .widget
+        .widget-header
+          .title
+            %span.fs1{"aria-hidden" => "true", "data-icon" => ""}
+            Escribir Sugerencia
+        .widget-body.no-border
+          - flash.each do |iglesia, msg|
+            - if msg.is_a?(String)
+              %div{:class => "alert alert-#{iglesia == :notice ? "success go-green-bg" : "error ruby-red-bg"} alert-block no-margin"}
+                %a.close{"data-dismiss" => "alert"}
+                  &times;
+                = content_tag :div, msg, :id => "flash_#{iglesia}", class: 'text-white'
+          %br
+          .row
+            .col-md-8.col-sm-8.col-md-offset-1
+              / = image_tag('dona-970-100.png', alt: "Donar")
+              %p El Buzón de Sugerencias es creado con la finalidad de poder brindarle un mejor servicio a través de la recopilación de información que usted nos haga llegar por este medio. Dicha información es muy importante, ya que ayudará a mejorar temas como la visualización de  los reportes (excel, gráficos) y otras cosas adicionales que usted desearía que se mejoren, enriquiendo así el funcionamiento del sistema.
+              %p Le agradecemos de ante mano, solicitándole se exprese de manera clara y concisa y con la seriedad del caso al momento de escribirnos sus sugerencias.
+              = form_for @sugerencia,:url => {action: "create"}, :html => {:class => 'form-horizontal', :id => 'form_sugerencia'} do |f|
+                .form-group
+                  %label.col-sm-2.control-label{for: "sugerencia"} Asunto
+                  .col-sm-7
+                    = f.select :sugerencia, [['Persona','Persona'],['Diezmos','Diezmos'],['Ofrendas','Ofrendas'],['Asistencia','Asistencia'],['Información - Asistencia','Información - Asistencia'],['Información - Diezmos','Información - Diezmos'],['Información - Ofrendas','Información - Ofrendas'],['Información - Miembros/Visitantes','Información - Miembros/Visitantes'],['Reportes - Asistencia','Reportes - Asistencia'],['Reportes - Diezmos','Reportes - Diezmos'], ['Reportes - Ofrendas','Reportes - Ofrendas'],['Reportes - Miembros/Visitantes','Reportes - Miembros/Visitantes'],['Reportes - Servicios','Reportes - Servicios'],['Otros','Otros']], {}, {class: 'form-control'}
+                .form-group
+                  %label.col-sm-2.control-label{for: "mensaje"} Mensaje
+                  .col-sm-7
+                    = f.text_area :mensaje, size: '30x4', class: 'form-control'
+                = f.hidden_field :iglesia, :value => ( @igle.nil? ? nil :  @igle.var_iglesia_nombre )
+                .form_submit.clearfix
+                  .row
+                    .col-sm-10.col-sm-offset-2
+                      %button.btn.btn-primary#btnGuardar_iglesia{type:'submit'} Enviar
+            .col-md-3.col-sm-3
+              %a{href:donaciones_path}
+                = image_tag('dona-200-300.png', alt: "Donar")
+  / Row end

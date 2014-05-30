@@ -1,0 +1,56 @@
+/ Dashboard wrapper start
+.dashboard-wrapper
+  / Page title start
+  .row.page-title
+    %h2
+      Inicio
+      %small
+        %li Inicio
+  #index-landing
+    #descubre.row
+      .col-lg-3
+        #panal1
+          %div
+      .col-lg-8
+        %h1 DESCUBRE ADMINCHURCH
+    #content1.row
+      .col-lg-3.text-right
+        %img{src: "http://adminchurch.com/img/cubo-60-71.png"}/
+      .col-lg-8
+        %h2 HERRAMIENTA ÁGIL, SEGURA Y CONFIABLE
+        %p Adminchurch nace de la necesidad de mejorar la administración de información de las Iglesias Cristianas, ofreciéndole la agilidad, seguridad y confianza que usted necesita.
+      .col-lg-4.col-lg-offset-5.col-md-4.col-md-offset-5.col-sm-4.col-sm-offset-4.col-xs-8.col-xs-offset-3
+        %img{src: "http://adminchurch.com/img/cubo-1-360.png"}/
+    #content2.row
+      .col-lg-3.text-right
+        %img{src: "http://adminchurch.com/img/cubo-60-71.png"}/
+      .col-lg-8
+        %h2 SOFTWARE GRATUITO
+        %p A través de este software gratuito cada iglesia podrá gestionar mejor tus recursos, hacer seguimiento a los nuevos discípulos, evaluar el crecimiento cuantitativo en sus congregaciones y usar la información para la toma de decisiones.
+      .col-lg-4.col-lg-offset-5.col-md-4.col-md-offset-5.col-sm-4.col-sm-offset-4.col-xs-8.col-xs-offset-3
+        %img{src: "http://adminchurch.com/img/cubo-2-360.png"}/
+    #content3.row
+      .col-lg-3.text-right
+        %img{src: "http://adminchurch.com/img/cubo-60-71.png"}/
+      .col-lg-8
+        %h2 ATRIBUTOS
+        .row.text-center
+          .col-lg-4
+            .content3-text
+              %h3 Fácil Uso
+              %p Lo práctico y funcional ayuda a que usuarios de cualquier edad puedan manipular el programa.
+            %img{src: "http://adminchurch.com/img/user.png"}/
+          .col-lg-4
+            .content3-text
+              %h3 Accesible
+              %p Puede ingresar al sistema desde cualquier parte del mundo con acceso a Internet.
+            %img{src: "http://adminchurch.com/img/earth.png"}/
+          .col-lg-4
+            .content3-text
+              %h3 Diseño Versátil
+              %p Puede ser usado desde una PC, smartphone o tablet.
+            %img{src: "http://adminchurch.com/img/smartphone.png"}/
+          .clearfix
+          %hr/
+- content_for :bloquecss do
+  = stylesheet_link_tag "index.css"

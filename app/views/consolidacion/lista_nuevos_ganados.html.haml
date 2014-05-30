@@ -1,0 +1,142 @@
+/ Dashboard wrapper start
+.dashboard-wrapper
+  / Page title start
+  .row.page-title
+    %h2
+      Lista Nuevos Ganados
+      %small
+        %li Home
+        %li /
+        %li Consolidación
+        %li /
+        %li Lista Nuevos Ganados
+  / Page title end
+
+  .row
+    .col-md-12
+      .widget
+        .row
+          .col-md-12.col-sm-12
+            .widget
+              .widget-header
+                .title 
+                  %span.fs1{"aria-hidden" => "true", "data-icon" => ""}
+                    Filtro
+              .widget-body
+                %form#form_ganados.form-horizontal{name: "form_ganados", method: "post"}
+                  .form-group
+                    %br
+                    %label.col-lg-2.control-label{for: "servicio"} Del
+                    .col-lg-10
+                      .row
+                        .col-lg-5.col-sm-5
+                          %div#datepicker.input-daterange.input-group
+                            %input#fecha1.form-control{name: "fecha1", type: "text"}
+                            %span.input-group-addon 
+                              al
+                            %input#fecha2.form-control{name: "fecha2", type: "text"}
+                        .col-lg-2.col-sm-2
+                          %button#btnGenerar_ganados.btn.btn-success{type: "button", name: "btnGenerar_ganados"} 
+                            Generar
+        .row
+          .col-md-12.col-sm-12
+            .widget
+              .widget-header
+                .title
+                  %span.fs1{"aria-hidden" => "true", "data-icon" => ""}
+                  Lista Nuevos Ganados - Sin Pertenecen a Ningun Grupo
+            .widget-body
+              %table#ganadostable.table.table-condensed.table-striped.table-hover.table-bordered.pull-left
+                %thead
+                  %tr
+                  %th Nombre y Apellido
+                  %th Dirección
+                  %th Teléfono
+                  %th Fecha de Conversión
+                  %th Asignar
+                %tbody
+                  %tr
+                  %td Nombre y Apellido
+                  %td Dirección
+                  %td Teléfono
+                  %td Fecha de Conversión
+                  %td 
+                    /%a.btn{'href' => '#showModal', 'data-toggle' => 'modal', "data-icon"=>""}
+                    %a.btn{'href' => '#showModal', 'data-toggle' => 'modal', "data-icon" => ""}
+                    #showModal.modal.fade{'aria-hidden' => 'true',:tabindex => "-1"}
+                      .modal-dialog
+                        .modal-content
+                          .modal-header
+                            %button.close{'aria-hidden' => 'true','data-dismiss' => 'modal', type: "button"}
+                            %h4.modal-title Seleccionar Grupo 
+                          .modal-body
+                            .form-horizontal
+                              %table#-table.table.table-condensed.table-striped.table-hover.table-bordered.pull-left 
+                                %thead
+                                  %tr
+                                    %th{style: "width:10%"} #
+                                    %th{style: "width:30%"} Nombre Grupo
+                                    %th{style: "width:40%"} Responsable
+                                    %th{style: "width:20%"} # miembros
+                                %tbody
+                                  
+                              .clearfix
+                          .modal-footer     
+                            %button.btn.btn-default{'data-dismiss' => 'modal',type: "button"}              
+                              Cancelar
+                            %button.btn.btn-primary{type: "button"}              
+                              Elegir
+
+              .clearfix
+  .row
+    .col-md-12
+      .widget
+        .widget-header
+          .title
+            %span.fs1{"aria-hidden" => "true", "data-icon" => ""}
+            Registrados
+        .widget-body
+          %table#table_registrados.data-table.table.table-condensed.table-striped.table-hover.table-bordered.pull-left
+            %thead
+              %tr
+                %th{style: "width:35%"} Nombre y Apellido
+                %th{style: "width:10%"} Fec. Nacimiento
+                %th{style: "width:10%"} Fec. Conversión
+                %th{style: "width:10%"} Nivel
+            %tbody
+
+            .clearfix
+  #loader{style: "display:none"}
+    = render "layouts/loader"
+  #confirmmodal.panel.panel-info{style: "display:none"}
+    .panel-heading
+      %h3.panel-title
+        Confirmar
+    .panel-body
+      %p
+        ¿Desea Guardar permanentemente los cambios?
+      %button.btnNo.btn.btn-default{type: "button"} No
+      %button#btnSiGuardar.btn.btn-default{type: "button"} Si
+  #dangermodal.panel.panel-danger{style: "display:none"}
+    .panel-heading
+      %h3.panel-title
+        Alerta!
+    .panel-body
+      %p
+        ¿Desea eliminar permanentemente el registro?
+      %button.btnNo.btn.btn-default{type: "button"} No
+      %button#btnSiEliminar.btn.btn-default{type: "button"} Si
+  / Row end
+- content_for :bloquejavascript do
+  = javascript_include_tag "custom-tables.js"
+  / Editable Inputs 
+  = javascript_include_tag "wysiwyg/bootstrap-wysihtml5.js"
+  / Custom Js 
+  = javascript_include_tag "wizard/bwizard.js"
+  / custom Js
+  = javascript_include_tag "custom-forms.js"
+  = javascript_include_tag "jquery.blockUI.js"
+  = javascript_include_tag "util/datatable_plugins.js" 
+  = javascript_include_tag :ganar
+  :javascript
+    $('##{@mactive} > span').addClass('current-arrow');

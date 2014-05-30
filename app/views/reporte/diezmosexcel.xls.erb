@@ -1,0 +1,32 @@
+<table>
+  <tr>
+    <th colspan="4"><strong>Reporte de Diezmos</strong></th>
+  </tr>
+  <tr>
+    <td>Fecha</td>
+    <td><%= @fecha1 %></td>
+    <td>Al</td>
+    <td><%= @fecha2 %></td>
+  </tr>
+</table>
+<br>
+<table border="1">
+  <tr>
+    <th><strong>Miembro</strong></th>
+    <th><strong>Fecha</strong></th>
+    <th><strong>Peticion</strong></th>
+    <th><strong>Monto</strong></th>
+  </tr>
+  <% @diezmos.each do |diezmo| %>
+    <tr>
+      <td><%= diezmo["persona"] %></td>
+      <td><%= diezmo["fecharegistro"] %></td>
+      <td><%= diezmo["peticion"] %></td>
+      <td><%= diezmo["monto"] %></td>
+    </tr>
+  <% end %>
+  <tr>
+    <td colspan="3">Total</td>
+    <td><%= @total %></td>
+  </tr>
+</table>

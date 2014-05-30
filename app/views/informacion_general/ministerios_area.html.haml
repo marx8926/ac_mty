@@ -1,0 +1,174 @@
+/ Dashboard wrapper start
+.dashboard-wrapper
+  / Page title start
+  .row.page-title
+    %h2
+      Ministerio - Areas de Servicio
+      %small
+        %li Home
+        %li /
+        %li Información General
+        %li /
+        %li Ministerio - Areas de Servicio
+  / Page title end
+  / Row start
+  .row
+    .col-md-12
+      .widget
+        .widget-body{style:"border:none;"}
+          .row
+            .col-md-12.col-sm-12
+              %button#registrar_ministArea.btn.btn-primary.btn-block{type: "button"} 
+                %span.fs1{"aria-hidden" => "true", "data-icon" => ""} 
+                CREAR MINISTERIOS o ÁREAS DE SERVICIO
+  / Row end
+  / Row start
+  .row
+  .col-md-12#minsterioArea{style: "display:none"}
+    .widget
+      .widget-header
+        .title
+          %span.fs1{"aria-hidden" => "true", "data-icon" => ""}
+          Crear Ministerios O Áreas de Servicio
+      .widget-body
+        = form_tag("" , {:method=>'post',:class=>'form-horizontal', :id => "form_minist_area" , :name => "form_minist_area"}) do
+          %input#idpersona{type:"hidden",name:"idpersona"}
+          #MinsterioAreawizard
+            %ol
+              %li Datos
+              %li Actividades
+              %li Integrantes
+            %button.btncancelarform.btn.btn-default{type: "button", style:"float: right;"} Cancelar
+            %div
+              .form-group
+                %label.col-lg-2.control-label{for: "nombre"} Nombres
+                .col-lg-10
+                  .row
+                    .col-lg-4.col-sm-4
+                      %input#nombre.form-control{name: "nombre", type: "text"}
+                    %label.col-lg-2.col-sm-2.control-label Responsable
+                    .col-lg-4.col-sm-4
+                      %input#responsable.form-control{name: "responsable", type: "text"}                      
+                    %a.btn{'href' => '#showModal', 'data-toggle' => 'modal', "data-icon" => ""}
+                    #showModal.modal.fade{'aria-hidden' => 'true',:tabindex => "-1"}
+                      .modal-dialog
+                        .modal-content
+                          .modal-header
+                            %button.close{'aria-hidden' => 'true','data-dismiss' => 'modal', type: "button"}
+                            %h4.modal-title Buscar Miembros  
+                          .modal-body
+                            .form-horizontal
+                              %table.table.table-condensed.table-striped.table-hover.table-bordered.pull-left 
+                                %thead
+                                  %tr
+                                    %th{style: "width:40%"} #
+                                    %th{style: "width:60%"} Nombres y Apellidos
+                                %tbody
+                                  
+                              .clearfix
+                          .modal-footer     
+                            %button.btn.btn-default{'data-dismiss' => 'modal',type: "button"}              
+                              Cancelar
+                            %button.btn.btn-primary{type: "button"}              
+                              Guardar
+            %div
+              .form-group
+                %label.col-lg-2.control-label{for: "actividad"} Actividad
+                .col-lg-10
+                  .row
+                    .col-lg-4.col-sm-4
+                      %input#actividad.form-control{name: "actividad", type: "text"}
+              .form-group
+                %label.col-lg-2.col-sm-2.control-label{for: "select_dia"} Día de Reunión
+                .col-lg-10
+                  .row                    
+                    .col-lg-2.col-sm-2
+                      %select#select_dia.form-control{name: "select_dia"}
+                        %option{value: "1"} A
+                        %option{value: "0"} B 
+                    %label.col-lg-2.col-sm-2.control-label Hora Inicio
+                    .col-lg-2.col-sm-2
+                      %input#hora_ini.form-control{name: "hora_ini", type: "text"}
+                    %label.col-lg-2.col-sm-2.control-label Hora fin
+                    .col-lg-2.col-sm-2
+                      %input#hora_fin.form-control{name: "hora_fin", type: "text"}          
+            %div
+              .form-group
+                %label.col-lg-2.control-label{for: "persona"} Persona
+                .col-lg-10
+                  .row
+                    .col-lg-6.col-sm-4
+                      %input#persona.form-control{name: "persona", type: "text"}                      
+                    %a.btn{'href' => '#miembros', 'data-toggle' => 'modal', "data-icon" => ""}
+                    #miembros.modal.fade{'aria-hidden' => 'true',:tabindex => "-1"}
+                      .modal-dialog
+                        .modal-content
+                          .modal-header
+                            %button.close{'aria-hidden' => 'true','data-dismiss' => 'modal', type: "button"}
+                            %h4.modal-title Buscar Miembros 
+                          .modal-body
+                            .form-horizontal
+                              %table#-table.table.table-condensed.table-striped.table-hover.table-bordered.pull-left 
+                                %thead
+                                  %tr
+                                    %th{style: "width:40%"} #
+                                    %th{style: "width:60%"} Nombres y Apellidos
+                                %tbody
+                                  
+                              .clearfix
+                          .modal-footer     
+                            %button.btn.btn-default{'data-dismiss' => 'modal',type: "button"}              
+                              Cancelar
+                            %button.btn.btn-primary{type: "button"}              
+                              Guardar  
+              .form-group          
+                %label.col-lg-2.col-sm-2.control-label Descripcion Función:
+                .col-lg-5.col-sm-4
+                  %input#descri_func.form-control{name: "descri_func", type: "text"}              
+              .form-group
+                %table.table.table-condensed.table-striped.table-hover.table-bordered.pull-left
+                  %thead
+                    %tr
+                      %th{style: "width:33%"} #
+                      %th.hidden-phone{style: "width:33%"} Nombre y Apellido
+                      %th.hidden-phone{style: "width:33%"} Función
+                  %tbody 
+              .form-group
+                .col-lg-offset-10.col-lg-10
+                  %input.btn.btn-success{type: "button", value: "Guardar"}          
+  / Row end
+  / Row start
+  .row
+    .col-md-12
+      .widget
+        .widget-header
+          .title
+            %span.fs1{"aria-hidden" => "true", "data-icon" => ""}
+            Registrados
+        .widget-body
+          .dt_example.example_alt_pagination
+            %table.data-table.table.table-condensed.table-striped.table-hover.table-bordered.pull-left
+              %thead
+                %tr
+                  %th{style: "width:15%"} N° 
+                  %th{style: "width:15%"} Nombre 
+                  %th{style: "width:30%"} Descripción
+                  %th{style: "width:20%"} Responsable                 
+                  %th{style: "width:20%"} N° de Integrantes
+              %tbody
+
+            .clearfix
+  / Row end
+- content_for :bloquejavascript do
+  = javascript_include_tag "custom-tables.js"
+  / Editable Inputs 
+  = javascript_include_tag "wysiwyg/bootstrap-wysihtml5.js"
+  / Custom Js 
+  = javascript_include_tag "wizard/bwizard.js"
+  / custom Js
+  = javascript_include_tag "custom-forms.js"
+  = javascript_include_tag "jquery.blockUI.js"
+  = javascript_include_tag "util/datatable_plugins.js" 
+  = javascript_include_tag :ministerio_area
+  :javascript
+    $('##{@mactive} > span').addClass('current-arrow');

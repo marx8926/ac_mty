@@ -1,0 +1,209 @@
+!!!
+/[if lt IE 7]
+  <html class="lt-ie9 lt-ie8 lt-ie7" lang="es">
+/[if IE 7]
+  <html class="lt-ie9 lt-ie8" lang="es">
+/[if IE 8]
+  <html class="lt-ie9" lang="es">
+/
+  [if gt IE 8]>
+  <!
+%html{lang: "es"}
+  /
+    <![endif]
+  %head
+    %meta{charset: "utf-8"}
+    %title= @titulo + ' - Admin Church'
+    %meta{content: "CLM Developers", name: "author"}
+    %meta{content: "width=device-width, initial-scale=1.0, user-scalable=no", name: "viewport"}
+    %meta{content: "Admin Church", name: "description"}
+    %meta{content: "Admin Chuch, CLM Developers, Administración Eclesiástica, Iglesia", name: "keywords"}
+    %link{href: "/images/favicon.ico", rel: "shortcut icon"}
+    = javascript_include_tag "html5-trunk.js"
+    = stylesheet_link_tag :application, :media => "all"
+    /[if lte IE 7]
+      = javascript_include_tag "icomoon/lte-ie7.js"
+    =yield :bloquecss
+
+  %body
+    / Header start
+    %header
+      / Logo start
+      .logo
+        = image_tag('logo-ac-103.png', alt: "Admin Church", style: "border-bottom: 1px solid #383838;") 
+      / Logo end
+      / Optional Dropdown start
+      #optional-dropdown
+        %ul
+          %li
+            %a{href: index_path}
+              %span.fs1{"aria-hidden" => "true", "data-icon" => ""}
+      / Optional Dropdown end
+      / Mini navigation start
+      #mini-nav
+        %ul
+          %li.hidden-sm
+            %a{href: "http://facebook.com/adminchurch", target: "_blank"}
+              %span.fs1{"aria-hidden" => "true", "data-icon" => ""}
+          %li.hidden-sm
+            %a{href: ayuda_path}
+              %span.text-label Ayuda
+              %span.fs1{"aria-hidden" => "true", "data-icon" => ""}
+          %li.hidden-sm
+            %a{href: new_sugerencia_path}
+              %span.text-label Sugerencias
+              %span.fs1{"aria-hidden" => "true", "data-icon" => ""}
+          %li.hidden-sm
+            %a{href: "#"}
+              %span.text-label #{@nombreusuario}
+              %span.fs1{"aria-hidden" => "true", "data-icon" => ""}
+            %ul
+              %li
+                %a{href: destroy_user_session_path} 
+                  %span.fs1{"aria-hidden" => "true", "data-icon" => ""}
+                  Logout
+                %span.clearfix
+      / Mini navigation end
+    / Header end
+    / Main Container start
+    .main-container
+      / Mian navigation start
+      #mainnav
+        %ul
+          - if @menuvariable["informacion"]
+            %li#minformacion
+              %span
+              %a{href: "#"}
+                .icon
+                  %span.fs1{"aria-hidden" => "true", "data-icon" => ""}
+                Información General
+              %ul
+                %li
+                  %a{href: informacion_general_datos_generales_path} Datos Generales   
+                %li
+                  %a{href: informacion_general_niveles_organizacion_path} Niveles Organización  
+                %li
+                  %a{href: informacion_general_grupos_path} Grupos  
+                %li
+                  %a{href: informacion_general_ministerios_area_path} Ministerio/ Área de Servicio    
+                %li
+                  %a{href: informacion_general_plan_trabajo_path} Plan de Trabajo                          
+                %li
+                  %a{href: informacion_general_inform_plantrabajo_path} Informe de Plan de Trabajo
+                %li
+                  %a{href: informacion_general_inform_ministerio_area_path} Informe de Ministerio/ Área de Servicio
+                %li
+                  %a{href: informacion_general_inform_rept_grupos_path} Informe y Reporte de Grupos de la Iglesia
+                %li
+                  %a{href: informacion_general_grupos_principales_path} Grupos Principales
+
+          - if @menuvariable["diezmo"]
+            %li#mdiezmo
+              %span
+              %a{href: "#"}
+                .icon
+                  %span.fs1{"aria-hidden" => "true", "data-icon" => ""}
+                Membresia
+          - if @menuvariable["asistencia"]
+            %li#masistencia
+              %span
+              %a{href: asistencia_path}
+                .icon
+                  %span.fs1{"aria-hidden" => "true", "data-icon" => ""}
+                Asistencia
+          - if @menuvariable["informacion"]
+            %li#minformacion
+              %span
+              %a{href: "#"}
+                .icon
+                  %span.fs1{"aria-hidden" => "true", "data-icon" => ""}
+                Consolidación               
+              %ul
+                %li
+                  %a{href: consolidacion_lista_nuevos_ganados_path} Lista Nuevos Ganados
+                %li
+                  %a{href: consolidacion_coordinadores_path} Coordinadores
+                %li
+                  %a{href: consolidacion_consolidadores_path} Consolidadores
+                %li
+                  %a{href: consolidacion_herramientas_consolidacion_path} Herramientas de Consolidación
+                %li
+                  %a{href: consolidacion_asignar_miembros_consolidacion_path} Asignar Miembros a Consolidar
+                %li
+                  %a{href: consolidacion_seguimiento_consolidado_path} Seguimiento Consolidado
+                %li
+                  %a{href: consolidacion_informe_lista_nuevos_ganados_path} Informe de Lista Nuevos Ganados
+                %li
+                  %a{href: consolidacion_informe_coordinadores_path} Informe Coordinadores
+                %li
+                  %a{href: consolidacion_informe_herramientas_consolidacion_path} Informe Herramientas de Consolidación
+                %li
+                  %a{href: consolidacion_informe_miembros_consolidar_path} Informe de Miembros a Consolidar
+                %li
+                  %a{href: consolidacion_informe_seguimiento_consolidado_path} Informe de Seguimiento Consolidado              
+          - if @menuvariable["informacion"]
+            %li#minformacion
+              %span
+              %a{href: "#"}
+                .icon
+                  %span.fs1{"aria-hidden" => "true", "data-icon" => ""}
+                Escuela Bíblica 
+              %ul
+                %li
+                  %a{href: escuela_biblica_maestros_path} Maestros
+                %li
+                  %a{href: escuela_biblica_ambientes_path} Ambientes
+                %li
+                  %a{href: escuela_biblica_cursos_path} Cursos
+                %li
+                  %a{href: escuela_biblica_programar_cursos_path} Programar Cursos
+                %li
+                  %a{href: escuela_biblica_gestion_inscripcion_path} Gestión de Inscripción
+                %li
+                  %a{href: escuela_biblica_gestion_asistencia_path} Gestión de Asistencia 
+                %li
+                  %a{href: escuela_biblica_gestion_notas_path} Gestión de Notas
+          - if @menuvariable["informacion"]
+            %li#minformacion
+              %span
+              %a{href: "#"}
+                .icon
+                  %span.fs1{"aria-hidden" => "true", "data-icon" => ""}
+                Secretaría
+          - if @menuvariable["informacion"]
+            %li#minformacion
+              %span
+              %a{href: "#"}
+                .icon
+                  %span.fs1{"aria-hidden" => "true", "data-icon" => ""}
+                Tesorería
+          - if @menuvariable["configuracion"]
+            %li#mconfiguracion
+              %span
+              %a{href: "#"}
+                .icon
+                  %span.fs1{"aria-hidden" => "true", "data-icon" => ""}
+                Configuración
+              %ul                
+                %li
+                  %a{href: configuracion_lugar_path} Lugar
+                %li
+                  %a{href: configuracion_usuario_path} Usuarios
+                %li
+                  %a{href: configuracion_servicios_path} Servicios
+                %li
+                  %a{href: configuracion_categoria_path} Categorías
+                %li
+                  %a{href: configuracion_TipoNiveles_path} Niveles Tipo de Organización
+                %li
+                  %a{href: configuracion_TipoGrupos_path} Tipo Grupos         
+          %li
+            %a{href: donaciones_path}
+              = image_tag('dona-100-240.png', alt: "Donar", style: "width:100%;")
+      / Mian navigation end
+    =yield
+    / Scripts
+    :javascript
+      urlES = "/dt_ES.txt"
+    = javascript_include_tag :application
+    =yield :bloquejavascript

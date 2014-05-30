@@ -1,0 +1,56 @@
+<table>
+  <tr>
+    <th colspan="4"><strong>Reporte de Asistencia General</strong></th>
+  </tr>
+  <tr>
+    <td>Fecha</td>
+    <td><%= @fecha1 %></td>
+    <td>Al</td>
+    <td><%= @fecha2 %></td>
+  </tr>
+</table>
+<br>
+<table border="1">
+  <tr>
+    <th>TIPO SERVICIO</th>
+    <td>SERVICIO</td>
+    <td>TOTAL</td>
+  </tr>
+  <% @asistencia_general.each do |asistencia| %>
+    <tr>
+      <td><%= asistencia["tiposervicio"] %></td>
+      <td><%= asistencia["servicio"] %></td>
+      <td><%= asistencia["cantidad"] %></td>
+    </tr>
+  <% end %>
+  <tr>
+    <td colspan="2">Total</td>
+    <td><%= @total %></td>
+  </tr>
+</table>
+<br>
+<br>
+<table>
+  <tr>
+    <th colspan="4"><strong>Reporte de Asistencia Por Categoria Por Servicio</strong></th>
+  </tr>
+</table>
+<br>
+<table border="1">
+  <tr>
+    <th>PERIODO</th>
+    <th>TIPO SERVICIO</th>
+    <th>SERVICIO</th>
+    <th>CATEGORIA</th>
+    <th>CANTIDAD</th>    
+  </tr>
+  <% @asistencia.each do |asistencia| %>
+    <tr>
+      <td><%= asistencia["mes"] %></td>
+      <td><%= asistencia["tiposervicio"] %></td>
+      <td><%= asistencia["servicio"] %></td>      
+      <td><%= asistencia["categoria"] %></td>
+      <td><%= asistencia["cantidad"] %></td>
+    </tr>
+  <% end %>
+</table>

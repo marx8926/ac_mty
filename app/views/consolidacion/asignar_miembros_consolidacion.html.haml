@@ -1,0 +1,106 @@
+/ Dashboard wrapper start
+.dashboard-wrapper
+  / Page title start
+  .row.page-title
+    %h2
+      Asignar miembros a consolidar
+      %small
+        %li Home
+        %li /
+        %li Consolidación
+        %li /
+        %li Asignar miembros a consolidar
+  / Page title end
+
+  / Row start
+  .row
+    .col-md-12
+      .widget
+        .row
+          .col-md-12.col-sm-12
+            .widget
+              .widget-header
+                .title 
+                  %span.fs1{"aria-hidden" => "true", "data-icon" => ""}
+                  Filtro
+              .widget-body
+                %br
+                %form#form_coordinadores.form-horizontal{name: "form_coordinadores", method: "post"}
+                  .form-group
+                    %label.col-lg-2.col-sm-2.checkbox-inline{style:"text-align:right;"}
+                      
+                      Grupos Principales
+                    .col-lg-3.col-sm-2
+                      %select#red_lista.form-control{name: "red_lista"}
+                        %option{value: "0"} RH 1 - Hombres
+                        %option{value: "1"} R1
+                        %option{value: "2"} R2
+                        %option{value: "3"} R3
+
+        .row
+          .col-md-12.col-sm-12
+            .widget
+              .widget-header
+                .title
+                  %span.fs1{"aria-hidden" => "true", "data-icon" => ""}
+                  Lista Miembros sin consolidados
+            .widget-body
+              %table#consolidartable.table.table-condensed.table-striped.table-hover.table-bordered.pull-left
+                %thead
+                  %tr
+                  %th ID
+                  %th Nombre y Apellido
+                  %th Dirección
+                  %th Teléfono
+                  %th Fecha Conversión
+                  %th Asignar
+                %tbody
+                  %tr
+                  %td ID
+                  %td Nombre y Apellido
+                  %td Dirección
+                  %td Teléfono
+                  %td Fecha Conversión
+                  %td 
+                    %a.btn{'href' => '#showModal', 'data-toggle' => 'modal', "data-icon" => ""}
+                    #showModal.modal.fade{'aria-hidden' => 'true',:tabindex => "-1"}
+                      .modal-dialog
+                        .modal-content
+                          .modal-header
+                            %button.close{'aria-hidden' => 'true','data-dismiss' => 'modal', type: "button"}
+                            %h4.modal-title Seleccionar Consolidador 
+                          .modal-body
+                            .form-horizontal
+                              .form-group
+                                %label.col-lg-3.control-label{for: "select_reunion"} Consolidador
+                                .col-lg-8
+                                  .row
+                                    .col-lg-10.col-sm-4
+                                      %select#select_reunion.form-control{name: "select_reunion"}
+                                        %option{value: "1"} A
+                                        %option{value: "0"} B
+                          .modal-footer     
+                            %button.btn.btn-default{'data-dismiss' => 'modal',type: "button"}              
+                              Cancelar
+                            %button.btn.btn-primary{type: "button"}              
+                              Elegir
+              .clearfix
+        .row
+          .col-md-12.col-sm-12
+            .widget
+              %br
+              %br
+              .widget-header
+                .title
+                  %span.fs1{"aria-hidden" => "true", "data-icon" => ""}
+                  Lista de Miembros con Consolidador   
+            .widget-body
+              %table#consolidartable.table.table-condensed.table-striped.table-hover.table-bordered.pull-left
+                %thead
+                  %tr
+                  %th Nro
+                  %th Nombre y Apellido
+                  %th Consolidador
+                  %th Acción
+                %tbody
+              .clearfix

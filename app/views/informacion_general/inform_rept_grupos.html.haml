@@ -1,0 +1,95 @@
+/ Dashboard wrapper start
+.dashboard-wrapper
+  / Page title start
+  .row.page-title
+    %h2
+      Informe y Reporte Grupos de la Iglesia
+      %small
+        %li Home
+        %li /
+        %li Información General
+        %li /
+        %li Informe y Reporte Grupos de la Iglesia
+  / Page title end  
+  / Row start
+  .row
+    .col-md-12
+      .widget
+        .row
+          .col-md-12.col-sm-12
+            .widget
+              .widget-header
+                .title 
+                  %span.fs1{"aria-hidden" => "true", "data-icon" => ""}
+                    Filtro
+              .widget-body
+                %br
+                %form#form_datos_generales.form-horizontal{name: "form_datos_generales", method: "post"}
+                  .form-group
+                    .col-lg-10
+                      .row
+                        .col-lg-7
+                          %label.col-lg-3.col-sm-3.checkbox-inline{style:"text-align:right;"}
+                            %input#grupo{type: "checkbox", name: "grupo", style:"float:none;"}
+                            Por Grupo 
+                          .col-lg-3.col-sm-3
+                            %select#grupo_lista.form-control{name: "grupo_lista"}
+                              %option{value: "0"} Todos
+                              %option{value: "1"} Celula #1
+                              %option{value: "2"} Celula #2
+                              %option{value: "3"} Celula #3
+                        .col-lg-5
+                          %label.col-lg-4.col-sm-4.checkbox-inline{style:"text-align:right;"}
+                            %input#fecha{type: "checkbox", name: "fecha", style:"float:none;"}
+                            Fecha de Inicio
+                          .col-lg-4.col-sm-4
+                            %input#fecha_ini.form-control.datepicker{type: "text", name:"fecha_ini"}
+                          .col-lg-2.col-sm-2
+                            %button#btnBuscar_grupo.btn.btn-success{type: "button", name: "btnBuscar_grupo"} 
+                              Buscar             
+        .row
+          .col-md-12.col-sm-12
+            .widget
+              .widget-header
+                .title
+                  %span.fs1{"aria-hidden" => "true", "data-icon" => ""}
+                  Reporte de Grupos
+            .widget-body
+              %table.table.table-condensed.table-striped.table-hover.table-bordered.pull-left
+                %thead
+                  %tr
+                    %th Nro Grupo
+                    %th Nombre Grupo
+                    %th Responsable
+                    %th Lugar
+                    %th Nro Integrante
+                %tbody
+              .clearfix
+              
+        .row
+          .col-md-12.col-sm-12
+            .widget
+              %br              
+              .widget-header
+                .title
+                  %span.fs1{"aria-hidden" => "true", "data-icon" => ""}
+                  Reporte por Grupos   
+            .widget-body
+              %table.table.table-condensed.table-striped.table-hover.table-bordered.pull-left
+                %thead
+                  %tr
+                    %th Nro Grupo
+                    %th Integrantes
+                %tbody
+              .clearfix
+        .row
+          .col-md-12.col-sm-12
+            .widget
+              /%a#btnImprimir.btn.btn-default{type: "button", name: "btnImprimir"}
+              /  %span.fs1{"aria-hidden" => "true", "data-icon" => ""} 
+              /  Imprimir
+              %br
+              %br
+              %a#btnReporte.btn.btn-success{type: "button", name: "btnReporte"}
+                %span.fs1{"aria-hidden" => "true", "data-icon" => ""} 
+                Reporte Excel

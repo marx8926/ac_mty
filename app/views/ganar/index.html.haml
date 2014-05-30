@@ -1,0 +1,297 @@
+/ Dashboard wrapper start
+.dashboard-wrapper
+  / Page title start
+  .row.page-title
+    %h2
+      Información General
+      %small
+        %li Inicio
+        %li /
+        %li Información General
+  / Page title end
+  / Row start
+  .row
+    .col-md-12
+      .widget
+        .widget-body{style:"border:none;"}
+          .row
+            .col-md-6.col-sm-6
+              %button#registrar_miembro.btn.btn-primary.btn-block{type: "button"} 
+                %span.fs1{"aria-hidden" => "true", "data-icon" => ""} 
+                Registrar Miembro
+            .col-md-6.col-sm-6
+              %button#registrar_visitante.btn.btn-danger.btn-block{type: "button"} 
+                %span.fs1{"aria-hidden" => "true", "data-icon" => ""} 
+                Registrar Visitante
+  / Row end
+  / Row start
+  .row
+  .col-md-12#miembro{style: "display:none"}
+    .widget
+      .widget-header
+        .title
+          %span.fs1{"aria-hidden" => "true", "data-icon" => ""}
+          Registrar Miembro
+      .widget-body
+        = form_tag("" , {:method=>'post',:class=>'form-horizontal', :id => "form_miembro" , :name => "form_miembro"}) do
+          %input#idpersona{type:"hidden",name:"idpersona"}
+          #Miembrowizard
+            %ol
+              %li Datos Personales
+              %li Directorio
+              %li Datos Finales
+            %button.btncancelarform.btn.btn-default{type: "button", style:"float: right;"} Cancelar
+            %div
+              .form-group
+                %label.col-lg-2.control-label{for: "nombre"} Nombres
+                .col-lg-10
+                  .row
+                    .col-lg-2.col-sm-2
+                      %input#nombre.form-control{name: "nombre", type: "text", class:"validate[required,custom[onlyLetterSp]]"}
+                    %label.col-lg-2.col-sm-2.control-label Apellidos
+                    .col-lg-2.col-sm-2
+                      %input#apellido.form-control{name: "apellido", type: "text",class:"validate[required,custom[onlyLetterSp]]"}
+                    %label.col-lg-2.col-sm-2.control-label Edad
+                    .col-lg-2.col-sm-2
+                      %input#edad.form-control{name: "edad", type: "text", min: "0" , max: "60", value: "0", class:"validate[required,custom[integer],min[0],max[150]]"}
+              .form-group
+                %label.col-lg-2.control-label{for: "estado_civil"} Estado Civil
+                .col-lg-10
+                  .row
+                    .col-lg-2.col-sm-2
+                      %select#estado_civil.form-control{name: "estado_civil"}
+                        %option{value: "0"} Solter@
+                        %option{value: "1"} Casad@
+                        %option{value: "2"} Viud@
+                        %option{value: "3"} Divorciad@
+                    %label.col-lg-2.col-sm-2.control-label Sexo
+                    .col-lg-2.col-sm-2
+                      %select#sexo.form-control{name: "sexo"}
+                        %option{value: "M"} Masculino
+                        %option{value: "F"} Femenino
+                    %label.col-lg-2.col-sm-2.control-label Fecha de Nacimiento
+                    .col-lg-2.col-sm-2
+                      %input#fec_nac.form-control.datepicker{name: "fec_nac", type: "text", class:"validate[required,custom[date]]"}
+              .form-group
+                %label.col-lg-2.control-label{for: "monto"} DNI
+                .col-lg-10
+                  .row
+                    .col-lg-2.col-sm-2
+                      %input#dni.form-control{name: "dni", type: "text",class:"validate[required,custom[onlyNumberSp],maxSize[8],minSize[8]]"}
+                    %label.col-lg-2.col-sm-2.control-label Ocupación
+                    .col-lg-2.col-sm-2
+                      %input#ocupacion.form-control{name: "ocupacion", type: "text", class:"validate[custom[onlyLetterSp]"}
+                    %label.col-lg-2.col-sm-2.control-label Profesión
+                    .col-lg-2.col-sm-2
+                      %input#profesion.form-control{name: "profesion", type: "text", class:"validate[custom[onlyLetterSp]"}
+            %div
+              .form-group
+                %label.col-lg-2.control-label{for: "tipo_tel"} Tipo de Teléfono
+                .col-lg-10
+                  .row
+                    .col-lg-2.col-sm-2
+                      %select#tipo_tel.form-control{name: "tipo_tel"}
+                        %option{value: "0"} Fijo
+                        %option{value: "1"} Celular
+                    %label.col-lg-2.col-sm-2.control-label Teléfono
+                    #codigotelM.col-lg-1.col-sm-1
+                      %input#codigo_tel.form-control{name: "codigo_tel", type: "text" , placeholder: "0XX",class:"validate[custom[onlyNumberSp],minSize[2],maxSize[3]]"}
+                    .col-lg-2.col-sm-2
+                      %input#telefono.form-control{name: "telefono", type: "text", placeholder: "XXXXXXX",class:"validate[custom[onlyNumberSp],minSize[6],maxSize[7]]"}
+                    %label.col-lg-2.col-sm-2.control-label 
+                    .col-lg-2.col-sm-2
+                      %button.btn.btn-default#add_numero{"data-original-title" => "", type: "button"} +
+              .dt_example.example_alt_pagination.col-lg-8.col-lg-offset-2
+                %table#table_telefonos_miembro.table.table-condensed.table-striped.table-hover.table-bordered.pull-left
+                  %thead
+                    %tr
+                      %th{style: "width:33%"} Teléfono
+                      %th.hidden-phone{style: "width:33%"} Tipo
+                      %th.hidden-phone{style: "width:33%"} Acciones
+                  %tbody                  
+              .clearfix
+              .form-group
+                %label.col-lg-2.control-label{for: "departamento"} Departamento
+                .col-lg-10
+                  .row
+                    .col-lg-2.col-sm-2
+                      %select#departamento.form-control{name: "departamento"}
+                    %label.col-lg-2.col-sm-2.control-label Provincia
+                    .col-lg-2.col-sm-2
+                      %select#provincia.form-control{name: "provincia"}
+                    %label.col-lg-2.col-sm-2.control-label Distrito
+                    .col-lg-2.col-sm-2
+                      %select#distrito.form-control{name: "distrito"}
+              .form-group
+                %label.col-lg-2.control-label{for: "direccion"} Dirección
+                .col-lg-10
+                  %input#direccion.form-control{name: "direccion", type: "text",class:"validate[required]"}
+              .form-group
+                %label.col-lg-2.control-label{for: "referencia"} Referencia
+                .col-lg-10
+                  %input#referencia.form-control{name: "referencia", type: "text"}
+            %div
+              .form-group
+                %label.col-lg-2.control-label{for: "lugar"} Lugar
+                .col-lg-10
+                  .row                    
+                    .col-lg-2.col-sm-2
+                      = lugar_select()
+                    %label.col-lg-2.col-sm-2.control-label Fecha de Conversión
+                    .col-lg-2.col-sm-2
+                      %input#fec_conversion.form-control.datepicker{name: "fec_conversion", type: "text",class:"validate[required]"}
+                    %label.col-lg-2.col-sm-2.control-label Fecha de Bautismo
+                    .col-lg-2.col-sm-2
+                      %input#fec_bautismo.form-control.datepicker{name: "fec_bautismo", type: "text",class:"validate[required]"}
+              .form-group
+                %label.col-lg-2.control-label{for: "monto"} Invitado por
+                .col-lg-10
+                  .row
+                    .col-lg-6
+                      %input#invitado.form-control{name: "invitado", type: "text",class:"validate[custom[onlyLetterSp]]"}
+                    %label.col-lg-2.col-sm-2.control-label Email
+                    .col-lg-2.col-sm-2
+                      %input#email.form-control{name: "email", type: "text", class:"validate[custom[email]]"}
+              .form-group
+                %label.col-lg-2.control-label{for: "mot_oracion"} Motivo de Oración
+                .col-lg-5
+                  %input#mot_oracion.form-control{name: "mot_oracion", type: "text",class:"validate[required]"}
+              .form-group
+                .col-lg-offset-2.col-lg-10
+                  %input#btnGuardar_Miembro.btn.btn-success{type: "button", value: "Guardar"}
+                  %input#btneditar_Miembro.btn.btn-success{type: "button", value: "Guardar"}
+  / Row end
+  / Row start
+  .row
+  .col-md-12#visitante{style: "display:none"}
+    .widget
+      .widget-header
+        .title
+          %span.fs1{"aria-hidden" => "true", "data-icon" => ""}
+          Registrar Visitante
+      .widget-body
+        %form#form_visita.form-horizontal{  :method=>'post', :name=> "form_visita"}
+          %input#idPersonav{type:"hidden",name:"idPersonav"}
+          #Visistawizard
+            %ol
+              %li Datos Personales
+              %li Directorio
+              %li Datos Finales
+            %button.btncancelarform.btn.btn-default{type: "button", style:"float: right;"} Cancelar
+            %div
+              .form-group
+                %label.col-lg-2.control-label{for: "nombrev"} Nombre
+                .col-lg-10
+                  .row
+                    .col-lg-2.col-sm-2
+                      %input#nombrev.form-control{name: "nombrev", type: "text", class:"validate[required,custom[onlyLetterSp]]"}
+                    %label.col-lg-2.col-sm-2.control-label Apellido
+                    .col-lg-2.col-sm-2
+                      %input#apellidov.form-control{name: "apellidov", type: "text", class:"validate[required,custom[onlyLetterSp]]"}
+                    %label.col-lg-2.col-sm-2.control-label Edad
+                    .col-lg-2.col-sm-2
+                      %input#edadv.form-control{name: "edadv", type: "text",class:"validate[required,custom[integer],min[0],max[150]]"}
+            %div
+              .form-group
+                %label.col-lg-2.control-label{for: "telefono"} Tipo de Teléfono
+                .col-lg-10
+                  .row
+                    .col-lg-2.col-sm-2
+                      %select#tipo_telv.form-control{name: "tipo_telv"}
+                        %option{value: "0"} Fijo
+                        %option{value: "1"} Celular
+                    %label.col-lg-2.col-sm-2.control-label Teléfono
+                    #codigotelV.col-lg-1.col-sm-1
+                      %input#codigo_telv.form-control{name: "codigo_telv", type: "text" , placeholder: "0XX",class:"validate[custom[onlyNumberSp],minSize[2],maxSize[3]]"}
+                    .col-lg-2.col-sm-2
+                      %input#telefonov.form-control{name: "telefonov", type: "text", placeholder: "XXXXXXX",class:"validate[custom[onlyNumberSp],minSize[6],maxSize[7]]"}
+                    %label.col-lg-2.col-sm-2.control-label 
+                    .col-lg-2.col-sm-2
+                      %button#add_numerov.btn.btn-default{"data-original-title" => "", type: "button"} +
+              .dt_example.example_alt_pagination.col-lg-8.col-lg-offset-2
+                %table#table_telefonos_visitante.table.table-condensed.table-striped.table-hover.table-bordered.pull-left
+                  %thead
+                    %tr
+                      %th{style: "width:33%"} Teléfono
+                      %th.hidden-phone{style: "width:33%"} Tipo
+                      %th.hidden-phone{style: "width:33%"} Acciones
+                  %tbody
+                    
+              .clearfix
+            %div
+              .form-group
+                %label.col-lg-2.control-label{for: "monto"} Invitado por
+                .col-lg-5
+                  %input#invitadov.form-control{name: "invitadov", type: "text",class:"validate[custom[onlyLetterSp]]"}
+              .form-group
+                %label.col-lg-2.control-label{for: "mot_oracionv"} Motivo de Oración
+                .col-lg-5
+                  %input#mot_oracionv.form-control{name: "mot_oracionv", type: "text",class:"validate[required]"}
+              #nivelc.form-group
+                %label.col-lg-2.control-label{for: "mot_oracionv"} Nivel de Crecimiento
+                .col-lg-5
+                  %select.form-control{name: "nivelc", style:"dysplay:none"}
+                    %option{value: "0"} Visitante
+                    %option{value: "1"} Miembro
+              .form-group
+                .col-lg-offset-2.col-lg-10
+                  %input#btnguardarv.btn.btn-success{type: "button", value: "Guardar"}
+                  %input#btneditarv.btn.btn-success{type: "button", value: "Guardar"}
+  / Row end
+  / Row start
+  .row
+    .col-md-12
+      .widget
+        .widget-header
+          .title
+            %span.fs1{"aria-hidden" => "true", "data-icon" => ""}
+            Registrados
+        .widget-body
+          .dt_example.example_alt_pagination
+            %a.btn.btn-info{href:"/personacsv.xls", target:"_blank", style:"margin:5px 0;"} 
+              %span.fs1{"aria-hidden" => "true", "data-icon" => ""} 
+              Generar Excel
+            %table#table_registrados.data-table.table.table-condensed.table-striped.table-hover.table-bordered.pull-left
+              %thead
+                %tr
+                  %th{style: "width:35%"} Nombre y Apellido
+                  %th{style: "width:10%"} Fec. Nacimiento
+                  %th{style: "width:10%"} Fec. Conversión
+                  %th{style: "width:10%"} Nivel
+              %tbody
+
+            .clearfix
+  #loader{style: "display:none"}
+    = render "layouts/loader"
+  #confirmmodal.panel.panel-info{style: "display:none"}
+    .panel-heading
+      %h3.panel-title
+        Confirmar
+    .panel-body
+      %p
+        ¿Desea Guardar permanentemente los cambios?
+      %button.btnNo.btn.btn-default{type: "button"} No
+      %button#btnSiGuardar.btn.btn-default{type: "button"} Si
+  #dangermodal.panel.panel-danger{style: "display:none"}
+    .panel-heading
+      %h3.panel-title
+        Alerta!
+    .panel-body
+      %p
+        ¿Desea eliminar permanentemente el registro?
+      %button.btnNo.btn.btn-default{type: "button"} No
+      %button#btnSiEliminar.btn.btn-default{type: "button"} Si
+  / Row end
+- content_for :bloquejavascript do
+  = javascript_include_tag "custom-tables.js"
+  / Editable Inputs 
+  = javascript_include_tag "wysiwyg/bootstrap-wysihtml5.js"
+  / Custom Js 
+  = javascript_include_tag "wizard/bwizard.js"
+  / custom Js
+  = javascript_include_tag "custom-forms.js"
+  = javascript_include_tag "jquery.blockUI.js"
+  = javascript_include_tag "util/datatable_plugins.js" 
+  = javascript_include_tag :ganar
+  :javascript
+    $('##{@mactive} > span').addClass('current-arrow');

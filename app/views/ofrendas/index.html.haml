@@ -1,0 +1,72 @@
+/ Dashboard wrapper start
+.dashboard-wrapper
+  / Page title start
+  .row.page-title
+    %h2
+      Ofrendas
+      %small
+        %li Home
+        %li /
+        %li Ofrendas
+  / Page title end
+  / Row start
+  .row
+    .col-md-12
+      .widget
+        .widget-header
+          %a.btn#registrar_ofrenda.btn-primary.btn-block
+            Agregar Ofrenda
+        %div#ofrenda_div{style: "display:none"}
+          .widget-body
+            = form_tag("" , {:method=>'post',:class=>'form-horizontal' , :id => "form_ofrenda" , :name=> "form_ofrenda"}) do
+              .form-group
+                %label.col-lg-2.control-label{for: "servicio"} Servicio
+                .col-lg-10                  
+                  = servicios_select()
+
+              .form-group
+                %label.col-lg-2.control-label{for: "turno"} Turno
+                .col-lg-10                  
+                  %select#turno{name: "turno", class: "form-control"}
+
+              .form-group
+                %label.col-lg-2.control-label{for: "fecha"} Fecha
+                .col-lg-10
+                  %input#fecha.form-control.datepicker{name: "fecha", type: "text" ,class:"validate[required,custom[date]]"}/
+              .form-group
+                %label.col-lg-2.control-label{for: "monto"} Monto
+                .col-lg-10
+                  %input#monto.form-control{name: "monto", type: "text",class:"validate[required,custom[number]]"}/
+              .form-group
+                .col-lg-offset-2.col-lg-10
+                  %button.btnCancelar.btn.btn-default{type: "button"} Cancelar
+                  %button#btnGuardar_Ofrenda.btn.btn-success{type: "button"} Guardar
+  / Row end
+  / Row start
+  .row
+    .col-md-12
+      .widget
+        .widget-header
+          .title
+            %span.fs1{"aria-hidden" => "true", "data-icon" => ""}
+            Lista de Ofrendas
+        .widget-body
+          .dt_example.example_alt_pagination
+            %table#dataOfremdas.table.table-striped.table-hover.table-bordered.pull-left
+              %thead
+                %tr
+                  %th{style: "width:25%"} Servicio
+                  %th{style: "width:35%"} Turno
+                  %th.hidden-phone{style: "width:15%"} Fec. Registro
+                  %th.hidden-phone{style: "width:15%"} Monto
+              %tbody
+            .clearfix
+  / Row end
+
+#loader{style: "display:none"}
+  = render "layouts/loader"
+- content_for :bloquejavascript do
+  = javascript_include_tag :application
+  = javascript_include_tag :ofrendas
+  :javascript
+    $('##{@mactive} > span').addClass('current-arrow');

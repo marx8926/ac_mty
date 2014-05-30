@@ -1,0 +1,81 @@
+/ Dashboard wrapper start
+.dashboard-wrapper
+  / Page title start
+  .row.page-title
+    %h2
+      Informe Ministerios - Áreas de Servicios
+      %small
+        %li Home
+        %li /
+        %li Información General
+        %li /
+        %li Informe Ministerios - Áreas de Servicios
+  / Page title end
+  / Row start
+  .row
+    .col-md-12
+      .widget
+        .row
+          .col-md-12.col-sm-12
+            .widget
+              .widget-header
+                .title 
+                  %span.fs1{"aria-hidden" => "true", "data-icon" => ""}
+                    Filtro
+              .widget-body
+                %br
+                %form#form_ministerios.form-horizontal{name: "form_ministerios", method: "post"}               
+                  .form-group
+                    %label.col-lg-3.col-sm-3.checkbox-inline{style:"text-align:right;"}
+                      %input{type: "checkbox", name: "ministerio", style:"float:none;"}
+                      Por Ministerio
+                    .col-lg-3.col-sm-3
+                      %select#ministerio_lista.form-control{name: "ministerio_lista"}
+                        %option{value: "0"} 1
+                        %option{value: "1"} 2
+                    .col-lg-2.col-sm-2
+                      %button#btnBuscar_ministerio.btn.btn-success{type: "button", name: "btnBuscar_ministerio"} 
+                        Buscar             
+        .row
+          .col-md-12.col-sm-12
+            .widget
+              .widget-header
+                .title
+                  %span.fs1{"aria-hidden" => "true", "data-icon" => ""}
+                  Reporte de Ministerios
+            .widget-body
+              %table.table.table-condensed.table-striped.table-hover.table-bordered.pull-left
+                %thead
+                  %tr
+                  %th Nro
+                  %th Nombre 
+                  %th Descripción
+                  %th Responsable
+                  %th Nro Integrante
+                %tbody
+              .clearfix
+              
+        .row
+          .col-md-12.col-sm-12
+            .widget
+              %br
+              .widget-header
+                .title
+                  %span.fs1{"aria-hidden" => "true", "data-icon" => ""}
+                  Reporte Por Ministerios 
+            .widget-body
+              %table#ministeriotable.table.table-condensed.table-striped.table-hover.table-bordered.pull-left
+                %thead
+                  %tr
+                    %th{style: "width:50%"} Nro
+                    %th{style: "width:50%"} Integrantes
+                %tbody
+              .clearfix
+
+        .row
+          .col-md-12.col-sm-12
+            .widget
+              %br
+              %a#btnReporte.btn.btn-success{type: "button", name: "btnReporte"}
+                %span.fs1{"aria-hidden" => "true", "data-icon" => ""} 
+                Reporte Excel

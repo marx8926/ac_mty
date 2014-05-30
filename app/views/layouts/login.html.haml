@@ -1,0 +1,14 @@
+%html
+  %head
+    %meta{:content => "width=device-width, initial-scale=1.0", :name => "viewport"}
+      %title= content_for?(:title) ? yield(:title) : "AdminChurch"
+      %meta{:content => content_for?(:description) ? yield(:description) : "AdminChurch", :name => "description"}
+      = stylesheet_link_tag "icomoon/style.css"
+      = javascript_include_tag "html5-trunk.js"
+      = stylesheet_link_tag "bootstrap.css"
+      = stylesheet_link_tag "main.css"
+      = csrf_meta_tags
+  %body
+    .main-container
+      .row
+        = yield

@@ -1,0 +1,48 @@
+/ Dashboard wrapper start
+.dashboard-wrapper
+  / Page title start
+  .row.page-title
+    %h2
+      Servicios
+      %small
+        %li Home
+        %li /
+        %li Reportes
+        %li /
+        %li Servicios
+  / Page title end
+  / Row start
+  .row
+    .col-md-12
+      .widget
+        .row
+          .col-md-12.col-sm-12
+            .widget
+              .widget-header
+                .title 
+                  %span.fs1{"aria-hidden" => "true", "data-icon" => ""}
+                    Reporte
+              .widget-body
+                #dt_example.example_alt_pagination.col-lg-12
+                  %form#form_asistencia.form-horizontal{name: "form_asistencia", method: "post"}
+                    %table#table_servicios.table.table-condensed.table-striped.table-hover.table-bordered.pull-left
+                      %thead
+                        %tr
+                          %th{style: "width:33%"} Nombre Servicio
+                          %th.hidden-phone{style: "width:33%"} Día
+                          %th.hidden-phone{style: "width:33%"} Turno
+                      %tbody
+        .row
+          .col-md-12.col-sm-12
+            .widget
+              %button#btnImprimir.btn.btn-default{type: "button", name: "btnImprimir"}
+                %span.fs1{"aria-hidden" => "true", "data-icon" => ""} 
+                Imprimir
+              %button#btnReporte.btn.btn-success{type: "button", name: "btnReporte"}
+                %span.fs1{"aria-hidden" => "true", "data-icon" => ""} 
+                Reporte Excel
+
+- content_for :bloquejavascript do
+  = javascript_include_tag :configuracion
+  :javascript
+    $('##{@mactive} > span').addClass('current-arrow');

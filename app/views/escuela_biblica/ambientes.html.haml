@@ -1,0 +1,77 @@
+/ Dashboard wrapper start
+.dashboard-wrapper
+  / Page title start
+  .row.page-title
+    %h2
+      Ambientes
+      %small
+        %li Home
+        %li /
+        %li Escuela Bíblica
+        %li /
+        %li Ambientes
+  / Page title end
+  / Row start
+  .row
+    #accordion.col-md-12
+      .widget
+        .widget-header
+          %a#agregar.btn.btn-primary.btn-block
+            %span.fs1{"aria-hidden" => "true", "data-icon" => ""} 
+            Asignar Ambientes
+        #regasistencia{style: "display:NONE"}
+          .widget-body
+            = form_tag(asistencia_guardar_path , {:method=>'post',:class=>'form-horizontal', :id => "form_ambientes", :name=> "form_ambientes"}) do              
+              .form-group
+                %label.col-lg-2.control-label{for: "nombre"} Nombre
+                .col-lg-10
+                  .row
+                    .col-lg-4.col-sm-4
+                      %input#nombre.form-control{name: "nombre", type: "text"}
+                    %label.col-lg-2.col-sm-2.control-label Tipo Ambiente
+                    .col-lg-4.col-sm-4
+                      %select#tipo_ambiente.form-control{name: "tipo_ambiente"}
+                        %option{value: "1"} A
+                        %option{value: "0"} B
+              .form-group
+                %label.col-lg-2.control-label{for: "nro_person"} Nro Personas
+                .col-lg-10
+                  .row
+                    .col-lg-1.col-sm-1
+                      %input#nro_person.form-control{name: "nro_person", type: "number"}                   
+              .form-group
+                .col-lg-offset-2.col-lg-10
+                  %button.cancelarGuardar.btn.btn-default{type: "button"} Cancelar
+                  %input#btnGuardar_Asistencia.btn.btn-success{type: "button", value: "Guardar"}
+  / Row end
+  / Row start
+  .row
+    .col-md-12
+      .widget
+        .widget-header
+          .title
+            %span.fs1{"aria-hidden" => "true", "data-icon" => ""}
+            Lista de Ambientes
+        .widget-body
+          .dt_example.example_alt_pagination
+            %table.data-table.table.table-condensed.table-striped.table-hover.table-bordered.pull-left
+              %thead
+                %tr
+                  %th{style: "width:10%"} Nro
+                  %th{style: "width:30%"} Nombre
+                  %th{style: "width:20%"} Tipo 
+                  %th{style: "width:20%"} # de Personas
+                  %th{style: "width:20%"} Estado
+              %tbody
+                
+            .clearfix
+  / Row end
+  #loader{style: "display:none"}
+    = render "layouts/loader"
+/ Dashboard wrapper end
+/ Main Container end
+- content_for :bloquejavascript do
+  = javascript_include_tag "wizard/bwizard.js"
+  = javascript_include_tag :ambientes
+  :javascript
+    $('##{@mactive} > span').addClass('current-arrow');

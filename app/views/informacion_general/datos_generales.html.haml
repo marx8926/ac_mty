@@ -1,0 +1,101 @@
+/ Dashboard wrapper start
+.dashboard-wrapper
+  / Page title start
+  .row.page-title
+    %h2
+      Datos Generales
+      %small
+        %li Home
+        %li /
+        %li Datos Generales
+  / Page title end
+  / Row start
+  .row
+    .col-md-12
+      .widget.no-margin
+        .widget-header
+          .title
+            %span.fs1{"aria-hidden" => "true", "data-icon" => ""}
+            Perfil de la Iglesia
+        .widget-body
+          .row
+            .col-md-2.col-sm-3
+              .thumbnail
+                %img{alt: "300x200", src: "http://bit.ly/1dqW8yO"}/
+            .col-md-10.col-sm-9
+              %form.form-horizontal#form_iglesia{method: "post"}
+                %h3.heading-a General
+                .form-group
+                  %label.col-sm-2.control-label{for: "fec_creacion"} Fecha de Creación
+                  .col-sm-10
+                    .row
+                      .col-sm-5
+                        %input#fec_creacion.form-control.datepicker{type: "text", name:"fec_creacion",class:"validate[required,custom[date]]"}
+                      %label.col-sm-1.control-label{for: "telefono"} Teléfono
+                      .col-sm-5
+                        %input#telefono.form-control{type: "text", name: "telefono",class:"validate[required,custom[phone]]"}
+                .form-group
+                  %label.col-sm-2.control-label{for: "nombre"} Nombre
+                  .col-sm-10
+                    .row
+                      .col-sm-5
+                        %input#nombre.form-control{type: "text", name:"nombre",class:"validate[required]"}
+                      %label.col-sm-1.control-label{for: "sigla"} Sigla
+                      .col-sm-5
+                        %input#sigla.form-control{type: "text", name: "sigla",class:"validate[required]"}
+                %h3.heading-a Pastor Principal
+                .form-group
+                  %label.col-sm-2.control-label{for: "psn1"} Ps. 1
+                  .col-sm-10
+                    %input#pastoractual{type: "hidden", name:"pastoractual"}
+                    %input#nuevopastor{type: "hidden", name:"nuevopastor"}
+                    %input#psn1.form-control{type: "text", name: "psn1",class:"validate[required]"}/
+                %h3.heading-a Ubicación
+                .form-group
+                  %label.col-lg-2.control-label{for: "departamento"} Departamento
+                  .col-lg-10
+                    .row
+                      .col-lg-3.col-sm-3
+                        %select#departamento.form-control{name: "departamento"}
+                      %label.col-lg-1.col-sm-1.control-label Provincia
+                      .col-lg-3.col-sm-3
+                        %select#provincia.form-control{name: "provincia"}
+                      %label.col-lg-1.col-sm-1.control-label Distrito
+                      .col-lg-3.col-sm-3
+                        %select#distrito.form-control{name: "distrito"}
+                .form-group
+                  %label.col-sm-2.control-label{for: "direccion"} Dirección
+                  .col-sm-10
+                    %input#direccion.form-control{type: "text", name: "direccion",class:"validate[required]"}/
+                .form-group
+                  %label.col-sm-2.control-label{for: "referencia"} Referencia
+                  .col-sm-10
+                    %textarea#referencia.form-control{cols: "30", name: "referencia", rows: "4"}
+                .form-group
+                  %label.col-sm-2.control-label{for: "referencia"} Mapa
+                  .col-sm-10
+                    %fieldset.gllpLatlonPicker
+                      %div{:class=>'gllpMap'} Google Maps
+                      %input#latitud{type: "hidden", name:"latitud",class:'gllpLatitude'}
+                      %input#longitud{type: "hidden", name:"longitud",class:'gllpLongitude'}
+                      %input{:class=>'gllpZoom',:type => "hidden", :value=>'15'}                  
+                .form_submit.clearfix{style: ""}
+                  .row
+                    .col-sm-10.col-sm-offset-2
+                      %button.btn.btn-primary#btnGuardar_iglesia Guardar
+  / Row end
+  #loader{style: "display:none"}
+    = render "layouts/loader"
+/ Dashboard wrapper end
+
+- content_for :bloquecss do
+  = stylesheet_link_tag "mapa/jquery-gmaps-lation-picker.css"
+  = stylesheet_link_tag "smooth/jquery-ui-1.10.4.custom.min.css"
+- content_for :bloquejavascript do
+  = javascript_include_tag "https://maps.googleapis.com/maps/api/js?sensor=true"   
+  = javascript_include_tag "datatables.actions.js"
+  = javascript_include_tag "jquery/jquery-ui-1.10.4.custom.min.js"
+  = javascript_include_tag :iglesia
+  = javascript_include_tag "mapa/jquery-gmaps-lation-picker.js"
+  :javascript
+    $('##{@mactive} > span').addClass('current-arrow');

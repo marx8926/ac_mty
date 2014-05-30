@@ -1,0 +1,22 @@
+= form_for(resource, :as => resource_name, :html=>{:class=>'login-wrapper'}, :url => session_path(resource_name)) do |f|
+  .header
+    .row
+      .col-md-12
+        %h3{style:"text-align:center;"}
+          = image_tag("logo-ac-120.png", :alt => 'Logo', :style => 'margin-bottom:10px;')
+          %br
+          Inicio de Sesión
+  .content
+    .row
+      .col-md-12.col-sm-12
+        %br/
+        = f.email_field :email, :autofocus => true, :class => 'input col-md-12 col-sm-12 email', :placeholder => 'tucorreo@mail.com'
+    .row
+      .col-md-12.col-sm-12
+        %br/
+        = f.password_field :password, :class => 'input col-md-12 col-sm-12 password'
+
+ 
+  .actions
+    %div= f.submit "Acceder", :class => 'btn btn-danger'
+    = render "devise/shared/links"

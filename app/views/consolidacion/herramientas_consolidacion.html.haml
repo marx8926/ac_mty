@@ -1,0 +1,125 @@
+/ Dashboard wrapper start
+.dashboard-wrapper
+  / Page title start
+  .row.page-title
+    %h2
+      Herramientas de consolidacion
+      %small
+        %li Home
+        %li /
+        %li Consolidación
+        %li /
+        %li Herramientas de consolidacion
+  / Page title end
+
+  / Row start
+  .row
+    #accordion.col-md-12
+      .widget
+        .widget-header
+          %a#agregar.btn.btn-primary.btn-block
+            Crear Herramienta de Consolidación
+        #regasistencia{style: "display:none"}
+          .widget-body
+            = form_tag(asistencia_guardar_path , {:method=>'post',:class=>'form-horizontal', :id => "form_asistencia", :name=> "form_asistencia"}) do
+              %br
+              
+              .form-group
+                %label.col-sm-2.control-label{for: "nombre"} Persona
+                .col-sm-10
+                  .row
+                    .col-sm-2
+                      %input#nombre.form-control{type: "text", name:"nombre",class:"validate[required]"}
+                    %label.col-lg-4.col-sm-2.checkbox-inline{style:"text-align:right;"}                    
+                    .col-sm-5
+                      %input#red{type: "checkbox", name: "red", style:"float:none;"}
+                        Red
+                    
+                    /.........Modal para Asignar Temas........./ 
+                    #showModal.modal.fade{'aria-hidden' => 'true',:tabindex => "-1"}
+                      .modal-dialog
+                        .modal-content
+                          .modal-header
+                            %button.close{'aria-hidden' => 'true','data-dismiss' => 'modal', type: "button"}
+                            %h4.modal-title Registar Temas o Clases 
+                            
+
+                          .modal-body
+                            .form-horizontal
+                              .form-group
+                                %label.col-lg-2.control-label{for: "Nombre"} Nombre
+                                .col-lg-10
+                                  .row
+                                  .col-lg-10.col-sm-10
+                                    %input#Nombre.form-control{name: "Nombre", type: "text", style:"float: left;"}
+                                  %a.btn{'href' => '#showModal', 'data-toggle' => 'modal', "data-icon" => ""}                    
+                              .form-group
+                                %table#-table.table.table-condensed.table-striped.table-hover.table-bordered.pull-left 
+                                  %thead
+                                    %tr
+                                      %th{style: "width:40%"} ID
+                                      %th{style: "width:60%"} Nombress
+                                  %tbody
+                              .clearfix
+
+                          .modal-footer
+                              
+                            %button.btn.btn-default{'data-dismiss' => 'modal',type: "button"}              
+                              Cancelar
+                            %button.btn.btn-primary{type: "button"}              
+                              Guardar
+
+              .form-group
+                %label.col-sm-2.control-label{for: "nombre"} Duración(días)
+                .col-sm-10
+                  .row
+                    .col-sm-2
+                      %input#nombre.form-control{type: "number", name:"nombre",class:"validate[required]"}
+                    %label.col-sm-5.control-label{for: "nombre"} Repetición(días)
+                    .col-sm-2
+                      %input#nombre.form-control{type: "number", name:"nombre",class:"validate[required]"}
+              
+             
+              %br
+              %br
+              .form-group
+                .col-lg-offset-2.col-lg-10
+                  %button.cancelarGuardar.btn.btn-default{type: "button"} Cancelar
+                  %input#btnGuardar_Asistencia.btn.btn-success{type: "button", value: "Guardar"}
+  / Row end
+
+  / Row start
+  .row
+    .col-md-12
+      .widget
+        .widget-header
+          .title
+            %span.fs1{"aria-hidden" => "true", "data-icon" => ""}
+            Lista de Herramientas
+        .widget-body
+          .dt_example.example_alt_pagination
+            %table#-table.table.table-condensed.table-striped.table-hover.table-bordered.pull-left
+ 
+              %thead
+                %tr
+                  %th{style: "width:5%"} ID
+                  %th{style: "width:15%"} Descripción
+                  %th{style: "width:15%"} Duración
+                  %th{style: "width:15%"} Repetición
+                  %th{style: "width:25%"} Asignado Temas
+                  %th.hidden-phone{style: "width:15%"} Estado
+              %tbody
+                
+            .clearfix
+    / Row end
+
+  #loader{style: "display:none"}
+    = render "layouts/loader"
+/ Dashboard wrapper end
+/ Main Container end
+- content_for :bloquejavascript do
+  = javascript_include_tag "wizard/bwizard.js"
+  = javascript_include_tag :herramientas_consolidacion
+  :javascript
+    $('##{@mactive} > span').addClass('current-arrow');
+

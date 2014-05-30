@@ -1,0 +1,135 @@
+/ Dashboard wrapper start
+.dashboard-wrapper
+  / Page title start
+  .row.page-title
+    %h2
+      Seguimientos Consolidados
+      %small
+        %li Home
+        %li /
+        %li Consolidación
+        %li /
+        %li Seguimientos Consolidados
+  / Page title end
+
+  / Row start
+  .row
+    .col-md-12
+      .widget
+        .row
+          .col-md-12.col-sm-12
+            .widget
+              .widget-header
+                .title 
+                  %span.fs1{"aria-hidden" => "true", "data-icon" => ""}
+                    Filtro
+              .widget-body
+                %br
+                %form#form_seguimiento_consolidado.form-horizontal{name: "form_seguimiento_consolidado", method: "post"}
+                  .form-group
+                    %label.col-lg-2.col-sm-2.checkbox-inline{style:"text-align:right;"}
+                      
+                      Grupo Principal
+                    .col-lg-3.col-sm-2
+                      %select#red_lista.form-control{name: "red_lista"}
+                        %option{value: "0"} RH 1 - Hombres
+                        %option{value: "1"} R1
+                        %option{value: "2"} R2
+                        %option{value: "3"} R3
+            
+                    %label.col-lg-3.col-sm-2.checkbox-inline{style:"text-align:right;"}
+                      
+                      Estado
+                    .col-lg-3.col-sm-2
+                      %select#red_lista.form-control{name: "red_lista"}
+                        %option{value: "0"} Proceso de Consolidar
+                        %option{value: "1"} Proceso Concluido (consolidado)
+                        %option{value: "2"} Descartados
+                        %option{value: "3"} R3
+                %br
+
+
+
+        .row
+          .col-md-12.col-sm-12
+            .widget
+              .widget-header
+                .title
+                  %span.fs1{"aria-hidden" => "true", "data-icon" => ""}
+                  Lista de Consolidantes
+            .widget-body
+              %table#seguimientotable.table.table-condensed.table-striped.table-hover.table-bordered.pull-left
+                %thead
+                  %tr
+                  %th Nro
+                  %th Nombre y Apellido
+                  %th Teléfono
+                  %th Fecha de Conversión
+                  %th Consolidador
+                  %th Estado
+                  %th Acción
+                %tbody
+                  %tr
+                  %td Nro
+                  %td Nombre y Apellido
+                  %td Teléfono
+                  %td Fecha de Conversión
+                  %td Consolidador
+                  %td Estado
+                  %td 
+                    %a.btn{'href' => '#showModal', 'data-toggle' => 'modal', "data-icon" => "Editar"}
+                    #showModal.modal.fade{'aria-hidden' => 'true',:tabindex => "-1"}
+                      .modal-dialog
+                        .modal-content
+                          .modal-header
+                            %button.close{'aria-hidden' => 'true','data-dismiss' => 'modal', type: "button"}
+                            %h4.modal-title Actualizar Registro Consolidado
+                          .modal-body
+                            .form-horizontal
+                              .form-group
+                                %label.col-lg-3.control-label{for: "select_reunion"} Herramienta
+                                .col-lg-8
+                                  .row
+                                    .col-lg-10.col-sm-4
+                                      %select#select_reunion.form-control{name: "select_reunion"}
+                                        %option{value: "1"} A
+                                        %option{value: "0"} B                          
+                              
+                              .form-group
+                                
+                                %label.col-lg-3.control-label Hora Inicio
+                                .col-lg-9
+                                  .row                                                      
+                                    .col-lg-3.col-sm-2
+                                      %input#hora_ini.form-control{name: "hora_ini", type: "text"}
+                                    %label.col-lg-2.col-sm-2.control-label Hora fin
+                                    .col-lg-4.col-sm-2
+                                      %input#hora_fin.form-control{name: "hora_fin", type: "text"}
+                                    %a.btn{'href' => '', 'data-toggle' => 'modal', "data-icon" => ""}
+                                    %a.btn{'href' => '', 'data-toggle' => 'modal', "data-icon" => ""}                                                            
+                              .form-group                                
+                                %table#-table.table.table-condensed.table-striped.table-hover.table-bordered.pull-left 
+                                  %thead
+                                    %tr
+                                      %th{style: "width:10%"} #
+                                      %th{style: "width:30%"} Nombre Grupo
+                                      %th{style: "width:40%"} Responsable
+                                      %th{style: "width:20%"} # miembros
+                                  %tbody
+                                .clearfix
+
+                              .form-group
+                                %label.col-lg-3.control-label{for: "select_reunion"} Estado
+                                .col-lg-8
+                                  .row
+                                    .col-lg-10.col-sm-4
+                                      %select#select_reunion.form-control{name: "select_reunion"}
+                                        %option{value: "1"} A
+                                        %option{value: "0"} B   
+
+                          .modal-footer     
+                            %button.btn.btn-default{'data-dismiss' => 'modal',type: "button"}              
+                              Cancelar
+                            %button.btn.btn-primary{type: "button"}              
+                              Actualizar
+              .clearfix

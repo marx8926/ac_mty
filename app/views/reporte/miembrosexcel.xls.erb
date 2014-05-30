@@ -1,0 +1,36 @@
+<table>
+  <tr>
+    <th colspan="4"><strong>Reporte Miembros</strong></th>
+  </tr>
+  <tr>
+    <td>Fecha</td>
+    <td><%= @fecha1 %></td>
+    <td>Al</td>
+    <td><%= @fecha2 %></td>
+  </tr>
+</table>
+<br>
+<table border="1">
+  <tr>
+    <th><strong>Nombres</strong></th>
+    <th><strong>Edad</strong></th>
+    <th><strong>conversion</strong></th>
+    <th><strong>Naciento</strong></th>
+    <th><strong>Ocupacion</strong></th>
+    <th><strong>Direccion</strong></th>
+    <th><strong>Referencias</strong></th>
+    <th><strong>Telefono</strong></th>
+  </tr>
+  <% @personas.each do |persona| %>
+    <tr>
+      <td><%= persona["nombrecompleto"] %></td>
+      <td><%= persona["edad"] %></td>
+      <td><%= persona["fecconvertido"] %></td>
+      <td><%= persona["fecnacimiento"] %></td>
+      <td><%= persona["var_persona_ocupacion"] %></td>
+      <td><%= persona["direccion"] %></td>
+      <td><%= persona["referencias"] %></td>
+      <td><%= persona["telefono"] %></td>
+    </tr>
+  <% end %>
+</table>

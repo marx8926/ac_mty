@@ -1,0 +1,34 @@
+<table>
+  <tr>
+    <th colspan="4"><strong>Reporte de Ofrendas</strong></th>
+  </tr>
+  <tr>
+    <td>Fecha</td>
+    <td><%= @fecha1 %></td>
+    <td>Al</td>
+    <td><%= @fecha2 %></td>
+  </tr>
+</table>
+<br>
+<table border="1">
+  <tr>
+    <th><strong>Tipo Servicio</strong></th>
+    <th><strong>Servicio</strong></th>
+    <th><strong>Fecha</strong></th>
+    <th><strong>Turno</strong></th>
+    <th><strong>Monto</strong></th>
+  </tr>
+  <% @ofrendas.each do |ofrenda| %>
+    <tr>
+      <td><%= ofrenda["tiposervicio"] %></td>
+      <td><%= ofrenda["servicio"] %></td>
+      <td><%= ofrenda["fecha"] %></td>
+      <td><%= ofrenda["turno"] %></td>
+      <td><%= ofrenda["monto"] %></td>
+    </tr>
+  <% end %>
+  <tr>
+    <td colspan="4">Total</td>
+    <td><%= @total %></td>
+  </tr>
+</table>

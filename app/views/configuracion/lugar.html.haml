@@ -1,0 +1,80 @@
+/ Dashboard wrapper start
+.dashboard-wrapper
+  / Page title start
+  .row.page-title
+    %h2
+      Lugar
+      %small
+        %li Home
+        %li /
+        %li Lugar
+  / Page title end
+  / Row start
+  .row
+    .col-md-12
+      .widget
+        .widget-body
+          .row
+            .col-md-6.col-sm-6
+              .widget
+                .widget-header
+                  .title 
+                    %span.fs1{"aria-hidden" => "true", "data-icon" => ""}
+                    Lista de Lugares
+                .widget-body
+                  .dt_example.example_alt_pagination
+                    %table#lugartable.table.table-condensed.table-striped.table-hover.table-bordered.pull-left
+                      %thead
+                        %tr
+                          %th{style: "width:20%"} ID
+                          %th{style: "width:60%"} Descripción
+                          %th{style: "width:20%"} Acciones
+                      %tbody
+                    .clearfix
+            .col-md-6.col-sm-6
+              .widget
+                .widget-header
+                  .title 
+                    %span.fs1{"aria-hidden" => "true", "data-icon" => ""}
+                    Registrar Lugar
+                .widget-body
+                  %form#form_lugar.form-horizontal{role: "form"}
+                    %input#idlugar{name:"idlugar", type: "hidden"}
+                    .form-group
+                      %label.col-lg-2.control-label{for: "descripcion"} Descripción
+                      .col-lg-10
+                        %input#descripcion.form-control{name: "descripcion", type: "text",class:"validate[required]"}
+                    .form-group
+                      .col-lg-offset-2.col-lg-10
+                        %button.btnCancelar.btn.btn-default{type: "button"} Cancelar
+                        %button#btnRegistrar_Lugar.btn.btn-success{type: "button"} Registrar
+                        %button#btnGuardar_Lugar.btn.btn-success{type: "button", style: "display:none"} Guardar
+  / Row end
+  #loader{style: "display:none"}
+    = render "layouts/loader"
+  #confirmmodal.panel.panel-info{style: "display:none"}
+    .panel-heading
+      %h3.panel-title
+        Confirmar
+    .panel-body
+      %p
+        ¿Desea Guardar permanentemente los cambios?
+      %button.btnNo.btn.btn-default{type: "button"} No
+      %button#btnSiGuardar.btn.btn-default{type: "button"} Si
+  #dangermodal.panel.panel-danger{style: "display:none"}
+    .panel-heading
+      %h3.panel-title
+        Alerta!
+    .panel-body
+      %p
+        ¿Desea eliminar permanentemente el Lugar?
+      %button.btnNo.btn.btn-default{type: "button"} No
+      %button#btnSiEliminar.btn.btn-default{type: "button"} Si
+
+- content_for :bloquejavascript do
+  = javascript_include_tag "https://maps.googleapis.com/maps/api/js?sensor=true"   
+  = javascript_include_tag "datatables.actions.js"
+  = javascript_include_tag :configuracion
+  = javascript_include_tag :lugar
+  :javascript
+    $('##{@mactive} > span').addClass('current-arrow');

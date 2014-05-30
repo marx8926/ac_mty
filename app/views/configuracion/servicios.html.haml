@@ -1,0 +1,107 @@
+/ Dashboard wrapper start
+.dashboard-wrapper
+  / Page title start
+  .row.page-title
+    %h2
+      Servicios
+      %small
+        %li Home
+        %li /
+        %li Servicios
+  / Page title end
+  / Row start
+  .row
+    = render 'layouts/mensaje'
+    .col-md-12
+      .widget
+        .widget-header
+          %a#registrar.btn.btn-primary.btn-block
+            Agregar Servicio
+        #servicio{style: "display:none"}
+          .widget-body
+            = form_tag("", {:method=>'post',:class=>'form-horizontal' , :id => "formServicio" , :name=> "formServicio"}) do
+              .form-group
+                %input#idservicio{name: "idservicio", type: "hidden"}/
+                %label.col-lg-2.control-label{for: "tipo"} Tipo
+                .col-lg-10
+                  .row
+                    .col-lg-2
+                      %select#tipo.form-control{name: "tipo"}
+                        %option{value: "1"} Culto General
+                        %option{value: "2"} Culto Jovenes
+                    %label.col-lg-2.control-label{for: "nombre"} Nombre
+                    .col-lg-3
+                      %input#nombre.form-control{name: "nombre", type: "text",class:"validate[required,custom[onlyLetterNumberSp]]"}/
+              .form-group
+                %label.col-lg-2.control-label{for: "dia"} Día
+                .col-lg-10
+                  .row
+                    .col-lg-2
+                      %select#dia.form-control{name: "dia"}
+                        %option{value: "0"} Domingo
+                        %option{value: "1"} Lunes
+                        %option{value: "2"} Martes
+                        %option{value: "3"} Miercoles
+                        %option{value: "4"} Jueves
+                        %option{value: "5"} Viernes
+                        %option{value: "6"} Sabado
+                        
+                    %label.col-lg-2.control-label{for: "hora"} Hora Inicio
+                    .col-lg-1
+                      %input#hinicio.form-control{type: "text", name:"hinicio", class:"validate[required]"}
+                    %label.col-lg-2.control-label{for: "hora"} Hora Fin
+                    .col-lg-1
+                      %input#hfin.form-control{type: "text", name:"hfin",class:"validate[required]"}
+              .form-group
+                .col-lg-offset-2.col-lg-10
+                  %button.cancelarGuardar.btn.btn-default{type: "button"} Cancelar
+                  %button#btnRegistrarServicio.btn.btn-success{type: "button", name: "btnRegistrarServicio" } Registrar
+                  %button#btnGuardarServicio.btn.btn-success{type: "button", name: "btnGuardarServicio", style:"display:none" } Guardar
+                  
+  / Row end
+  / Row start
+  .row
+    .col-md-12
+      .widget
+        .widget-header
+          .title
+            %span.fs1{"aria-hidden" => "true", "data-icon" => ""}
+            Lista de Servicios
+        .widget-body
+          .dt_example.example_alt_pagination
+            %table#tablaservicios.table.table-condensed.table-striped.table-hover.table-bordered.pull-left
+              %thead
+                %tr
+                  %th{style: "width:35%"} Servicio
+                  %th.hidden-phone{style: "width:15%"} Tipo
+                  %th.hidden-phone{style: "width:15%"} Hora
+              %tbody
+
+            .clearfix
+  #loader{style: "display:none"}
+    = render "layouts/loader"
+  #confirmmodal.panel.panel-info{style: "display:none"}
+    .panel-heading
+      %h3.panel-title
+        Confirmar
+    .panel-body
+      %p
+        ¿Desea Guardar permanentemente los cambios?
+      %button.btnNo.btn.btn-default{type: "button"} No
+      %button#btnSiGuardar.btn.btn-default{type: "button"} Si
+  #dangermodal.panel.panel-danger{style: "display:none"}
+    .panel-heading
+      %h3.panel-title
+        Alerta!
+    .panel-body
+      %p
+        ¿Desea eliminar permanentemente el servicio?
+      %button.btnNo.btn.btn-default{type: "button"} No
+      %button#btnSiEliminar.btn.btn-default{type: "button"} Si
+  / Row end
+- content_for :bloquejavascript do
+  = javascript_include_tag "https://maps.googleapis.com/maps/api/js?sensor=true"   
+  = javascript_include_tag "datatables.actions.js"
+  = javascript_include_tag :servicios
+  :javascript
+    $('##{@mactive} > span').addClass('current-arrow');

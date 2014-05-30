@@ -1,0 +1,2 @@
+class MembresiaController < ApplicationController
+end

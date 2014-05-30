@@ -1,0 +1,31 @@
+
+development:
+  adapter: postgresql
+  encoding: unicode
+  database: ac_mty
+  pool: 5
+  username: postgres
+  password: '260489'
+  host: 'localhost'
+  port: 5432
+
+
+test:
+  adapter: postgresql
+  encoding: unicode
+  database: ac_mty
+  pool: 5
+  username: postgres
+  password: '260489'
+  host: 'localhost'
+  port: 5432
+
+production:
+  adapter: postgresql
+  encoding: unicode
+  database: ac_mty
+  pool: 5
+  username: postgres
+  password: '260489'
+  host: 'localhost'
+  port: 5432

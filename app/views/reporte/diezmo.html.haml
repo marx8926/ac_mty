@@ -1,0 +1,81 @@
+/ Dashboard wrapper start
+.dashboard-wrapper
+  / Page title start
+  .row.page-title
+    %h2
+      Diezmo
+      %small
+        %li Home
+        %li /
+        %li Reportes
+        %li /
+        %li Diezmo
+  / Page title end
+  / Row start
+  .row
+    .col-md-12
+      .widget
+        .row
+          .col-md-12.col-sm-12
+            .widget
+              .widget-header
+                .title 
+                  %span.fs1{"aria-hidden" => "true", "data-icon" => ""}
+                    Filtro
+              .widget-body
+                %form#form_asistencia.form-horizontal{name: "form_asistencia", method: "post"}
+                  .form-group
+                    %label.col-lg-2.control-label{for: "servicio"} Del
+                    .col-lg-10
+                      .row
+                        .col-lg-5.col-sm-5
+                          %div#datepicker.input-daterange.input-group
+                            %input#fecha1.form-control{name: "fecha1", type: "text"}
+                            %span.input-group-addon 
+                              al
+                            %input#fecha2.form-control{name: "fecha2", type: "text"}
+                        .col-lg-3.col-sm-3
+                          %div.input-group
+                            %span.input-group-addon
+                              %input#checkpersona{name: "checkpersona", type: "checkbox"}
+                            %input#persona.form-control{name: "persona", type: "text", placeholder: "Por Persona", disabled: "disabled"}
+                        .col-lg-2.col-sm-2
+                          %button#btnGenerar_diezmo.btn.btn-success{type: "button", name: "btnGenerar_asistencia"} 
+                            Generar
+        .row
+          .col-md-12.col-sm-12
+            .widget
+              .widget-header
+                .title
+                  %span.fs1{"aria-hidden" => "true", "data-icon" => ""}
+                  Reporte de Diezmos General
+              .dt_example
+                %table#table_diezmo.data-table.table.table-condensed.table-striped.table-hover.table-bordered.pull-left
+                  %thead
+                    %tr
+                      %th Miembro
+                      %th Fecha
+                      %th Petición
+                      %th Monto
+                  %tbody                
+                  %tfoot
+                    %tr
+                      %th{colspan:"3"} Total
+                      %th#totaldiezmo
+        .row
+          .col-md-12.col-sm-12
+            .widget
+              /%a#btnImprimir.btn.btn-default{type: "button", name: "btnImprimir"}
+              /  %span.fs1{"aria-hidden" => "true", "data-icon" => ""} 
+              /  Imprimir
+              %a#btnReporte.btn.btn-success{type: "button", name: "btnReporte"}
+                %span.fs1{"aria-hidden" => "true", "data-icon" => ""} 
+                Reporte Excel
+
+- content_for :bloquecss do
+  = stylesheet_link_tag "smooth/jquery-ui-1.10.4.custom.min.css"
+- content_for :bloquejavascript do
+  = javascript_include_tag "jquery/jquery-ui-1.10.4.custom.min.js"
+  = javascript_include_tag :reporte_diezmos
+  :javascript
+    $('##{@mactive} > span').addClass('current-arrow');

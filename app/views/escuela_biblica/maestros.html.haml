@@ -1,0 +1,89 @@
+/ Dashboard wrapper start
+.dashboard-wrapper
+  / Page title start
+  .row.page-title
+    %h2
+      Maestros
+      %small
+        %li Home
+        %li /
+        %li Escuela Bíblica
+        %li /
+        %li Maestros 
+  / Page title end
+  / Row start
+  .row
+    .col-md-12
+      .widget
+        .widget-body{style:"border:none;"}
+          .row
+            .col-md-12.col-sm-12
+              %button#registrar_grupo.btn.btn-primary.btn-block{type: "button"} 
+                %span.fs1{"aria-hidden" => "true", "data-icon" => ""} 
+                Asignar Maestros
+  / Row end
+  / Row start
+  .row
+  .col-md-12#grupo{style: "display:none"}
+    .widget
+      .widget-header
+        .title
+          %span.fs1{"aria-hidden" => "true", "data-icon" => ""}
+          Lista de Miembros
+      /.widget-body
+      = form_tag("" , {:method=>'post',:class=>'form-horizontal', :id => "form_grupos" , :name => "form_grupos"}) do
+        .widget-body
+          %table#-table.table.table-condensed.table-striped.table-hover.table-bordered.pull-left 
+            %thead
+              %tr
+              %th{style: "width:25%"} Nro
+              %th{style: "width:25%"} Nombres y Apellidos
+              %th{style: "width:25%"} Telefono
+              %th{style: "width:25%"} Asignar
+            %tbody
+              %tr
+                %th 1234
+                %th Nombre y Apellido
+                %th Teléfono 
+                %th 
+                  %a.btn{'href' => '#showModal', 'data-toggle' => 'modal', "data-icon" => ""}  
+                                            
+          .clearfix
+        
+  / Row end
+  / Row start                                   
+  .row
+    .col-md-12
+      .widget
+        .widget-header
+          .title
+            %span.fs1{"aria-hidden" => "true", "data-icon" => ""}
+            Lista de Miembros
+        .widget-body
+          .dt_example.example_alt_pagination
+            %table.data-table.table.table-condensed.table-striped.table-hover.table-bordered.pull-left
+              %thead
+                %tr
+                  %th{style: "width:10%"} N°
+                  %th{style: "width:20%"} Nombre y Apellido
+                  %th{style: "width:15%"} Teléfono
+                  %th{style: "width:15%"} Fecha Asignado                
+                  %th{style: "width:20%"} Especialidad
+                  %th{style: "width:20%"} Estado
+              %tbody
+
+            .clearfix
+  / Row end
+- content_for :bloquejavascript do
+  = javascript_include_tag "custom-tables.js"
+  / Editable Inputs 
+  = javascript_include_tag "wysiwyg/bootstrap-wysihtml5.js"
+  / Custom Js 
+  = javascript_include_tag "wizard/bwizard.js"
+  / custom Js
+  /= javascript_include_tag "custom-forms.js"
+  /= javascript_include_tag "jquery.blockUI.js"
+  = javascript_include_tag "util/datatable_plugins.js" 
+  = javascript_include_tag :maestro
+  :javascript
+    $('##{@mactive} > span').addClass('current-arrow');

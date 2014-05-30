@@ -1,0 +1,107 @@
+/ Dashboard wrapper start
+.dashboard-wrapper
+  / Page title start
+  .row.page-title
+    %h2
+      Asistencia
+      %small
+        %li Home
+        %li /
+        %li Dashboard
+        %li /
+        %li Asistencia
+  / Page title end
+  / Row start
+  .row
+    .col-md-12
+      .widget
+        .row
+          .col-md-12.col-sm-12
+            .widget
+              .widget-header
+                .title 
+                  %span.fs1{"aria-hidden" => "true", "data-icon" => ""}
+                    Estadísticas
+              .widget-body
+                %form#form_asistencia.form-horizontal{name: "form_asistencia", method: "post"}
+                  .form-group
+                    %label.col-lg-2.control-label{for: "servicio"} Servicio
+                    .col-lg-10
+                      .row
+                        .col-lg-2.col-sm-2
+                          = servicios_select_sin()
+                        %label.col-lg-1.col-sm-1.checkbox-inline{style:"text-align:right;"}
+                          Año
+                        .col-lg-1.col-sm-1
+                          %input#anio.form-control{name: "anio", type: "text", class: "validate[required,custom[onlyNumberSp],minSize[4],maxSize[4]]"}
+                        %label.col-lg-1.col-sm-1.checkbox-inline{style:"text-align:right;"}
+                          %input#mes{type: "checkbox", name: "mes", style:"float:none;"}
+                          Mes
+                        .col-lg-2.col-sm-2
+                          %select#mes_lista.form-control{name: "mes_lista", disabled:"disabled"}
+                            %option{value: "0"} Todos
+                            %option{value: "1"} Enero
+                            %option{value: "2"} Febrero
+                            %option{value: "3"} Marzo
+                            %option{value: "4"} Abril
+                            %option{value: "5"} Mayo
+                            %option{value: "6"} Junio
+                            %option{value: "7"} Julio
+                            %option{value: "8"} Agosto
+                            %option{value: "9"} Setiembre
+                            %option{value: "10"} Octubre
+                            %option{value: "11"} Noviembre
+                            %option{value: "12"} Diciembre
+                        %div#semanadiv{style:"display:none;"}
+                          %label.col-lg-1.col-sm-1.checkbox-inline{style:"text-align:right;"}
+                            %input#semana{type: "checkbox", name: "semana", style:"float:none;"}
+                            Semana
+                          .col-lg-2.col-sm-2
+                            %select#semana_lista.form-control{name: "semana_lista", disabled:"disabled"}
+                              %option{value: "0"} Todas
+                              /%option{value: "1"} 1°
+                              /%option{value: "2"} 2°
+                              /%option{value: "3"} 3°
+                              /%option{value: "4"} 4°
+                        .col-lg-2.col-sm-2
+                          %button#btnGenerar_asistencia.btn.btn-success{type: "button", name: "btnGenerar_asistencia"} 
+                            Generar
+          .row
+            .col-md-6.col-sm-6.col-md-offset-3
+              .widget
+                .widget-body
+                  #dash_general_pie
+          .row
+            .col-md-12.col-sm-12
+              .widget
+                .widget-body
+                  #dash_general_lineas
+          /.row
+          /  .col-md-6.col-sm-6
+          /    .widget
+          /      .widget-body
+          /        #dash_mujeres_joven
+
+          /  .col-md-6.col-sm-6
+          /    .widget
+          /      .widget-body
+          /        #dash_hombres_joven
+
+          /.row
+          /  .col-md-6.col-sm-6
+          /    .widget
+          /      .widget-body
+          /        #dash_mujeres_adulto
+
+          /  .col-md-6.col-sm-6
+          /    .widget
+          /      .widget-body
+          /        #dash_hombres_adulto
+
+- content_for :bloquejavascript do
+  = javascript_include_tag "highcharts.js"
+  = javascript_include_tag "exporting.js"
+  = javascript_include_tag :informacion
+  = javascript_include_tag :dash_asistencia
+  :javascript
+    $('##{@mactive} > span').addClass('current-arrow');

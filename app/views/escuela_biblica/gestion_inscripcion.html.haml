@@ -1,0 +1,168 @@
+/ Dashboard wrapper start
+.dashboard-wrapper
+  / Page title start
+  .row.page-title
+    %h2
+      Gestión de Inscripción
+      %small
+        %li Home
+        %li /
+        %li Escuela Bíblica
+        %li /
+        %li Gestión de Inscripción
+  / Page title end
+  / Row start
+  .row
+    .col-md-12
+      .widget
+        .row
+          .col-md-12.col-sm-12
+            .widget
+              .widget-header
+                .title 
+                  %span.fs1{"aria-hidden" => "true", "data-icon" => ""}
+                    Filtro
+                              
+              .widget-body
+                %br
+                %form.form-horizontal{name: "form_plan_trabajo", method: "post"}
+                  .form-group
+                    %label.col-lg-2.control-label{for: "nombre"} Año
+                    .col-lg-10
+                      .row
+                        .col-lg-2.col-sm-3
+                          %input#nombre.form-control{name: "nombre", type: "text"}                          
+                        %label.col-lg-1.col-sm-1.checkbox-inline{style:"text-align:right;"}
+                          %input#mes{type: "checkbox", name: "mes", style:"float:none;"}
+                          Mes
+                        .col-lg-2.col-sm-2
+                          %select#mes_lista.form-control{name: "mes_lista"}
+                            %option{value: "0"} Todos
+                            %option{value: "1"} Enero
+                            %option{value: "2"} Febrero
+                            %option{value: "3"} Marzo
+                            %option{value: "4"} Abril
+                            %option{value: "5"} Mayo
+                            %option{value: "6"} Junio
+                            %option{value: "7"} Julio
+                            %option{value: "8"} Agosto
+                            %option{value: "9"} Setiembre
+                            %option{value: "10"} Octubre
+                            %option{value: "11"} Noviembre
+                            %option{value: "12"} Diciembre
+      
+       
+        .row
+          .col-md-12.col-sm-12
+            .widget
+              .widget-header
+                .title
+                  %span.fs1{"aria-hidden" => "true", "data-icon" => ""}
+                  Lista de Cursos Programados
+            .widget-body
+              %table.table.table-condensed.table-striped.table-hover.table-bordered.pull-left
+                %thead
+                  %tr
+                    %th Nro
+                    %th Curso
+                    %th Fecha Inicio
+                    %th Fecha Fin
+                    %th Maestro
+                    %th Estado
+                    %th Accion
+                %tbody
+                  %tr
+                    %td 1
+                    %td Post-Encuentro
+                    %td 2014-03-01
+                    %td 2014-03-31
+                    %td Marco Ant
+                    %td En curso
+                    %td Editar
+              .clearfix
+              
+          
+  / Row end
+  / Row start
+  .row
+    #accordion.col-md-12
+      .widget
+        .widget-header
+          %a#agregar.btn.btn-primary.btn-block
+            %span.fs1{"aria-hidden" => "true", "data-icon" => ""} 
+            Administrar Inscripción
+        #reg_gestioninscrip{style: "display:NONE"}
+          .widget-body
+            = form_tag(asistencia_guardar_path , {:method=>'post',:class=>'form-horizontal', :id => "form_cursos", :name=> "form_cursos"}) do
+              .col-lg-4                
+                .form-group
+                  %label.col-lg-2.col-sm-2.control-label Curso
+                  .col-lg-7.col-sm-6
+                    %input#curso.form-control{name: "curso", type: "text"}              
+                
+              .col-lg-8                 
+                .form-group
+                  %label.col-sm-2.control-label Fecha Inicio
+                  .col-lg-10
+                    .row                    
+                      .col-lg-4.col-sm-2
+                        %input#fec_ini.form-control.datepicker{type: "text", name:"fec_ini"}                    
+                      %label.col-sm-2.control-label Fecha Fin
+                      .col-lg-4.col-sm-2
+                        %input#fec_fin.form-control.datepicker{type: "text", name:"fec_fin"}                   
+                                     
+              .row
+                .col-md-12
+                  .widget
+                    .widget-body{style:"border:none;"}
+                      .row
+                        .col-md-6.col-sm-6
+                          %button.btn.btn-success.btn-block{type: "button", "data-icon" => ""} 
+                            Asignar Alumnos del Curso Anterior 
+                        .col-md-6.col-sm-6
+                          %button.btn.btn-success.btn-block{'href' => '#showModal', 'data-toggle' => 'modal',type: "button", "data-icon" =>""}  
+                            Agregar Persona
+                          #showModal.modal.fade{'aria-hidden' => 'true',:tabindex => "-1"}
+                            .modal-dialog
+                              .modal-content
+                                .modal-header
+                                  %button.close{'aria-hidden' => 'true','data-dismiss' => 'modal', type: "button"}
+                                  %h4.modal-title Buscar Persona  
+                                .modal-body
+                                  .form-horizontal
+                                    %table#-table.table.table-condensed.table-striped.table-hover.table-bordered.pull-left 
+                                      %thead
+                                        %tr
+                                          %th{style: "width:40%"} #
+                                          %th{style: "width:60%"} Nombres y Apellidos
+                                      %tbody
+                                        
+                                    .clearfix
+                                .modal-footer     
+                                  %button.btn.btn-default{'data-dismiss' => 'modal',type: "button"}              
+                                    Cancelar
+                                  %button.btn.btn-primary{type: "button"}              
+                                    Seleccionar
+
+
+            %table#-table.table.table-condensed.table-striped.table-hover.table-bordered.pull-left 
+              %thead
+                %tr
+                  %th{style: "width:20%"} Nro
+                  %th{style: "width:20%"} Nombre y Apellido 
+                  %th{style: "width:20%"} Telefono
+                  %th{style: "width:20%"} Estado
+                  %th{style: "width:20%"} Acción 
+              %tbody
+                
+            .clearfix  
+  / Row end
+  #loader{style: "display:none"}
+    = render "layouts/loader"
+/ Dashboard wrapper end
+/ Main Container end
+- content_for :bloquejavascript do
+  = javascript_include_tag "wizard/bwizard.js"
+  = javascript_include_tag :gestion_inscripcion
+  :javascript
+    $('##{@mactive} > span').addClass('current-arrow');

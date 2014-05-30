@@ -1,0 +1,121 @@
+/ Dashboard wrapper start
+.dashboard-wrapper
+  / Page title start
+  .row.page-title
+    %h2
+      Gestión Asistencia
+      %small
+        %li Home
+        %li /
+        %li Escuela Bíblica
+        %li /
+        %li Gestión Asistencia
+  / Page title end
+  / Row start
+  .row
+    .col-md-12
+      .widget
+        .row
+          .col-md-12.col-sm-12
+            .widget
+              .widget-header
+                .title 
+                  %span.fs1{"aria-hidden" => "true", "data-icon" => ""}
+                    Filtro
+                              
+              .widget-body
+                %br
+                %form#form_plan_trabajo.form-horizontal{name: "form_plan_trabajo", method: "post"}
+                  .form-group
+                    %label.col-lg-2.control-label{for: "nombre"} Año
+                    .col-lg-10
+                      .row
+                        .col-lg-2.col-sm-2
+                          %input#nombre.form-control{name: "nombre", type: "text"}                          
+                        %label.col-lg-1.col-sm-1.checkbox-inline{style:"text-align:right;"}
+                          %input#mes{type: "checkbox", name: "mes", style:"float:none;"}
+                          Mes
+                        .col-lg-2.col-sm-2
+                          %select#mes_lista.form-control{name: "mes_lista"}
+                            %option{value: "0"} Todos
+                            %option{value: "1"} Enero
+                            %option{value: "2"} Febrero
+                            %option{value: "3"} Marzo
+                            %option{value: "4"} Abril
+                            %option{value: "5"} Mayo
+                            %option{value: "6"} Junio
+                            %option{value: "7"} Julio
+                            %option{value: "8"} Agosto
+                            %option{value: "9"} Setiembre
+                            %option{value: "10"} Octubre
+                            %option{value: "11"} Noviembre
+                            %option{value: "12"} Diciembre
+      
+       
+        %div
+
+          .col-md-12.col-sm-12
+            .widget
+              .widget-header
+                .title
+                  %span.fs1{"aria-hidden" => "true", "data-icon" => ""}
+                  Lista de Cursos
+            .widget-body
+              %table#ganadostable.table.table-condensed.table-striped.table-hover.table-bordered.pull-left
+                %thead
+                  %tr
+                  %th Nro
+                  %th Curso
+                  %th Fecha Inicio
+                  %th Fecha Fin
+                  %th Maestro
+                  %th Estado
+                %tbody
+                  %tr
+                  %td 1
+                  %td Post-Encuentro
+                  %td 2014-03-01
+                  %td 2014-03-31
+                  %td Marco Ant
+                  %td En curso
+              .clearfix
+              
+        %br
+        %br        
+        .form-group{style:"text-align:end;"}
+          %label.col-sm-9.control-label{for: "fec_creacion"} Fecha Asistencia
+          .col-sm-3
+            .row
+              .col-sm-8
+                %input#fec_creacion.form-control.datepicker{type: "text", name:"fec_creacion"}
+
+        %div
+          .col-md-12.col-sm-12
+            .widget
+              .widget-header
+                .title
+                  %span.fs1{"aria-hidden" => "true", "data-icon" => ""}
+                  Lista de Alumnos
+            .widget-body
+              %table#ganadostable.table.table-condensed.table-striped.table-hover.table-bordered.pull-left
+                %thead
+                  %tr
+                  %th Nro
+                  %th Nombres y Apellidos
+                  %th Fecha Asitencia
+                  %th Asistió?
+                %tbody
+                  %tr 
+                  %td Cell 1
+                  %td 4/01/2014
+                  %td Richard Oruna
+                  %td
+                    %label.checkbox-inline
+                      %input#fecha{type: "checkbox", check:"", name: "fecha"} 
+                        Si
+                    %label.checkbox-inline
+                      %input#fecha{type: "checkbox", check:"", name: "fecha"} 
+                        No
+              .clearfix
+
+                    

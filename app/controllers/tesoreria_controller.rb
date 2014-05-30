@@ -1,0 +1,2 @@
+class TesoreriaController < ApplicationController
+end

@@ -1,0 +1,276 @@
+@font-face {
+    font-family: 'alegreya_sansmedium';
+    src: url('http://adminchurch.com/css/fonts/AlegreyaSans-Medium-webfont.eot');
+    src: url('http://adminchurch.com/css/fonts/AlegreyaSans-Medium-webfont.eot?#iefix') format('embedded-opentype'),
+         url('http://adminchurch.com/css/fonts/AlegreyaSans-Medium-webfont.woff') format('woff'),
+         url('http://adminchurch.com/css/fonts/AlegreyaSans-Medium-webfont.ttf') format('truetype'),
+         url('http://adminchurch.com/css/fonts/AlegreyaSans-Medium-webfont.svg#alegreya_sansmedium') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'noto_sansregular';
+    src: url('http://adminchurch.com/css/fonts/NotoSans-Regular-webfont.eot');
+    src: url('http://adminchurch.com/css/fonts/NotoSans-Regular-webfont.eot?#iefix') format('embedded-opentype'),
+         url('http://adminchurch.com/css/fonts/NotoSans-Regular-webfont.woff') format('woff'),
+         url('http://adminchurch.com/css/fonts/NotoSans-Regular-webfont.ttf') format('truetype'),
+         url('http://adminchurch.com/css/fonts/NotoSans-Regular-webfont.svg#noto_sansregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'pt_sansregular';
+    src: url('http://adminchurch.com/css/fonts/PTS55F-webfont.eot');
+    src: url('http://adminchurch.com/css/fonts/PTS55F-webfont.eot?#iefix') format('embedded-opentype'),
+         url('http://adminchurch.com/css/fonts/PTS55F-webfont.woff') format('woff'),
+         url('http://adminchurch.com/css/fonts/PTS55F-webfont.ttf') format('truetype'),
+         url('http://adminchurch.com/css/fonts/PTS55F-webfont.svg#pt_sansregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+#index-landing{
+	background: #fff;
+	color: #333;
+	font-size: 20px;
+	font-family: 'Archivo Narrow', sans-serif;
+	font-weight: 400; 
+}
+h1, #registro h2{
+	color: #F74E4D;
+	font-size: 1.8em;
+	margin-left: 10px; 
+}
+h2{
+	color: #333;
+	font-size: 1.4em;
+}
+h1, h2{
+	font-family: 'alegreya_sansmedium', sans-serif;
+}
+h3{
+	font-family: 'noto_sansregular', sans-serif;
+	font-size: 1.1em;
+	font-weight: bold;
+}
+hr{
+	border: 5px solid #756464;
+}
+footer{
+	margin-top: 50px;
+	font-family: 'pt_sansregular', sans-serif;
+}
+#logo{
+	margin: 150px 0;
+}
+#logo img{
+	width: 80%;
+	padding-left: 20%;
+}
+#slogan{
+	margin-top: 200px;
+}
+#slogan p{
+	font-size: 1.6em;
+}
+#beta img{
+	-webkit-transform: rotate(23deg);
+	-moz-transform: rotate(23deg);
+	rotation: 23deg;
+	filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=23);
+	width: 100%;
+}
+#beta p{
+	margin-top: -200px;
+}
+#descubre{
+	margin: 0 0 160px 0;
+}
+#content3 .content3-text{
+	background: #756464;
+	margin: 1.66666666667%;
+	padding: 40px 60px;
+	width: 100%;
+	height: 388px;
+}
+#content3 .col-lg-4{
+	color: white;
+}
+#content3 .col-lg-4 h3{
+	margin-bottom: 30px;
+}
+#content3 .col-lg-4 img{
+	padding: 0 60px;
+	width: 100%;
+}
+#quote{
+	margin: 50px 0;
+}
+#quote-l, #quote-r{
+	background-position: top left;
+	width: 32px;
+	height: 24px;
+	position: absolute;
+}
+#quote-l{
+	background: url('http://adminchurch.com/img/left_quote.png') no-repeat;
+	left: 50px;
+	top: 40px;
+}
+#quote-r{
+	background: url('http://adminchurch.com/img/right_quote.png') no-repeat;
+	bottom: 60px;
+	right: 50px;
+}
+#registro{
+	margin-top: 150px;
+}
+#panal1, #panal2{
+	position: relative;
+}
+#panal1 div{
+	background: url('http://adminchurch.com/img/panal1.png') no-repeat;
+	top: -0.5em;
+}
+#panal2 div{
+	background: url('http://adminchurch.com/img/panal2.png') no-repeat;
+	top: -10.5em;
+}
+#panal1 div, #panal2 div{
+	background-position: top right;
+	height: 300px;
+	left: 2.05em;
+	position: absolute;
+	width: 100%;
+} 
+#btnreg{
+	background: #F74E4D;
+	color: white;
+	display: block;
+	font-size: 1.4em;
+	margin-top: 50px; 
+	padding: 15px;
+	text-decoration: none;
+	width: 100%;
+}
+#facebook{
+	background: url('http://adminchurch.com/img/facebook.png') no-repeat;
+	background-position: top left;
+	float: right;
+	height: 86px;
+	position: absolute;
+	right: 15px;
+	top: 0;
+	width: 86px;
+}
+.celeste{
+	color: #97d6ff;
+}
+.callout{
+	background: #bbb; 
+	color: #555;
+	font-size: 1.2em;
+	padding: 60px 80px;
+}
+.callout::before {
+	content:"";
+   	position: absolute;
+   	width: 0;
+   	height: 0;
+   	border-left: 26px solid transparent;
+   	border-top: 26px solid #bbb;
+   	border-right: 26px solid transparent;
+   	bottom: -15px;
+   	right: 15%;
+}
+.ps-name{
+	color: #F74E4D;
+}
+.ps-name, .ps-church{
+	font-size: 1.4em;
+	float: right;
+}
+.inf{
+	border-left: 5px solid #756464;
+	border-right: 5px solid #756464;
+	padding: 10px 15px 0;
+	margin-bottom: 150px;
+}
+.col-lg-8 h2{
+	padding: 0 0 15px 10px;
+}
+.col-lg-4 img{
+	margin: 40px 0;
+}
+@media (max-width: 1024px){
+	#logo img{
+		width: 100%;
+		padding-left: 0;
+	}
+	#beta img{
+		width: 95%;	
+	}
+	#beta p{
+		margin-top: 0;
+	}
+	#descubre .col-lg-3, #registro .col-lg-3{
+		z-index: -1;
+		width: 100%
+	}
+	#panal1 div, #panal2 div{
+		background-position: top left;
+		left: 0;
+	}
+	#content3 .content3-text{
+		width: 95%;
+		padding-right: 15px;
+		padding-left: 15px;
+		margin: 0;
+		height: auto;
+	}
+	#content3 .col-lg-4 img {
+		padding: 20px 60px;
+		width: 50%;
+	}
+	.col-lg-3{
+		width: 20%;
+		position: absolute;
+	}
+	.col-lg-3 img{
+		width: auto !important;
+		float: right;
+	}
+	.col-lg-8{
+		width: 80%;
+		float: right;
+	}
+	.callout::before {
+		display: none;
+	}
+	hr{
+		width: 95%;
+	}
+}
+@media (max-width: 966px){
+	#content3 .col-lg-4 img {
+		padding: 20px 60px;
+		width: 60%;
+	}
+	.col-lg-8 h1{
+		text-align: center;
+	}
+}
+@media (max-width: 479px){
+	#content1 .col-lg-4 img, #content2 .col-lg-4 img{
+		width: 100%;
+	}
+	#content3 .col-lg-4 img {
+		padding: 0;
+		width: 60%;
+	}
+	#facebook{
+		position: relative;
+		right: 0;
+		top: 0;
+	}
+}

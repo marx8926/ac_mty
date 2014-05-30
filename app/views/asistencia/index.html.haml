@@ -1,0 +1,86 @@
+/ Dashboard wrapper start
+.dashboard-wrapper
+  / Page title start
+  .row.page-title
+    %h2
+      Asistencia
+      %small
+        %li Home
+        %li /
+        %li Asistencia
+  / Page title end
+  / Row start
+  .row
+    #accordion.col-md-12
+      .widget
+        .widget-header
+          %a#agregar.btn.btn-primary.btn-block
+            Agregar Asistencia
+        #regasistencia{style: "display:NONE"}
+          .widget-body
+            = form_tag(asistencia_guardar_path , {:method=>'post',:class=>'form-horizontal', :id => "form_asistencia", :name=> "form_asistencia"}) do
+              .form-group
+                %label.col-lg-2.control-label{for: "servicio"} Servicio
+                .col-lg-2
+                  = servicios_select()
+              .form-group
+                %label.col-lg-2.control-label{for: "fecha"} Fecha
+                .col-lg-2
+                  %input#fecha.form-control{name: "fecha", type: "text",class:"validate[required,custom[date]]"}/
+              .form-group
+                %label.col-lg-2.control-label{for: "categoria"} Categoría
+                .col-lg-10
+                  .row
+                    .col-lg-3.col-sm-3
+                      %select#categoria.form-control{name: "categoria"}
+                    %label.col-lg-3.col-sm-3.control-label N° Asistentes
+                    .col-lg-1.col-sm-1
+                      %input#asistentes.form-control{name: "asistentes", type: "text", min:"0", class:"validate[custom[integer],min[0]]"}/
+                    .col-lg-1.col-sm-1
+                      %button#agregar_asistentes.btn.btn-default{"data-original-title" => "", type: "button"} +
+              .dt_example.example_alt_pagination.col-lg-7.col-lg-offset-2
+                %table#table_categoria_asistencia.table.table-condensed.table-striped.table-hover.table-bordered.pull-left
+                  %thead
+                    %tr
+                      %th{style: "width:25%"} Servicio
+                      %th{style: "width:25%"} Categoría
+                      %th.hidden-phone{style: "width:25%"} Asistentes
+                      %th.hidden-phone{style: "width:25%"} Acciones
+                  %tbody
+
+              .clearfix
+              .form-group
+                .col-lg-offset-2.col-lg-10
+                  %button.cancelarGuardar.btn.btn-default{type: "button"} Cancelar
+                  %input#btnGuardar_Asistencia.btn.btn-success{type: "button", value: "Guardar"}
+  / Row end
+  / Row start
+  .row
+    .col-md-12
+      .widget
+        .widget-header
+          .title
+            %span.fs1{"aria-hidden" => "true", "data-icon" => ""}
+            Lista de Asistencia
+        .widget-body
+          .dt_example.example_alt_pagination
+            %table#table_asistencia.data-table.table.table-condensed.table-striped.table-hover.table-bordered.pull-left
+              %thead
+                %tr
+                  %th{style: "width:25%"} Servicio
+                  %th{style: "width:35%"} Fecha
+                  %th.hidden-phone{style: "width:15%"} Turno
+                  %th.hidden-phone{style: "width:15%"} # asistencia
+              %tbody
+                
+            .clearfix
+  / Row end
+  #loader{style: "display:none"}
+    = render "layouts/loader"
+/ Dashboard wrapper end
+/ Main Container end
+- content_for :bloquejavascript do
+  = javascript_include_tag "wizard/bwizard.js"
+  = javascript_include_tag :asistencia
+  :javascript
+    $('##{@mactive} > span').addClass('current-arrow');
