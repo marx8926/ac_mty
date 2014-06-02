@@ -2,17 +2,17 @@
   RETURNS SETOF record AS
 $BODY$
 BEGIN
-	return query (SELECT s.int_servicio_tipo as id_tiposervicio,
-			     c.var_constante_descripcion AS tiposervicio,
-			     a.servicio_id AS id_servicio,
-			     s.var_servicio_nombre AS servicio,
-			     round(avg((a.int_asistencia_cantidad))) AS cantidad
-		      FROM asistencia a
-			  JOIN servicios s ON s.int_servicio_id = a.servicio_id
-			  JOIN constantes c ON c.int_constante_valor = s.int_servicio_tipo AND c.int_constante_clase = 1
-			  WHERE DATE(a.dat_asistencia_fecasistencia) between fechaInicio and fechaFin
-			  GROUP BY s.int_servicio_tipo,c.var_constante_descripcion, a.servicio_id, s.var_servicio_nombre
-			  ORDER BY c.var_constante_descripcion, s.var_servicio_nombre);
+  return query (SELECT s.int_servicio_tipo as id_tiposervicio,
+           c.var_constante_descripcion AS tiposervicio,
+           a.servicio_id AS id_servicio,
+           s.var_servicio_nombre AS servicio,
+           round(avg((a.int_asistencia_cantidad))) AS cantidad
+          FROM asistencia a
+        JOIN servicios s ON s.int_servicio_id = a.servicio_id
+        JOIN constantes c ON c.int_constante_valor = s.int_servicio_tipo AND c.int_constante_clase = 1
+        WHERE DATE(a.dat_asistencia_fecasistencia) between fechaInicio and fechaFin
+        GROUP BY s.int_servicio_tipo,c.var_constante_descripcion, a.servicio_id, s.var_servicio_nombre
+        ORDER BY c.var_constante_descripcion, s.var_servicio_nombre);
 END;
 $BODY$
   LANGUAGE plpgsql VOLATILE
@@ -23,35 +23,35 @@ CREATE OR REPLACE FUNCTION sp_get_rpt_asistencia_serviciocategoriames(IN fechain
   RETURNS SETOF record AS
 $BODY$
 BEGIN
-	return query (SELECT 
-	    s.int_servicio_tipo as id_tiposervicio,
-	    c.var_constante_descripcion AS tiposervicio,
-	    a.servicio_id AS id_servicio,
-	    s.var_servicio_nombre AS servicio,
-		(CASE
-		    WHEN date_part('month'::text, a.dat_asistencia_fecasistencia) = 1::double precision THEN CONCAT(date_part('year'::text, a.dat_asistencia_fecasistencia), ' - ' , 'Enero' )::text
-		    WHEN date_part('month'::text, a.dat_asistencia_fecasistencia) = 2::double precision THEN CONCAT(date_part('year'::text, a.dat_asistencia_fecasistencia) , ' - ' , 'Febrero')::text
-		    WHEN date_part('month'::text, a.dat_asistencia_fecasistencia) = 3::double precision THEN CONCAT(date_part('year'::text, a.dat_asistencia_fecasistencia) , ' - ' ,'Marzo')::text
-		    WHEN date_part('month'::text, a.dat_asistencia_fecasistencia) = 4::double precision THEN CONCAT(date_part('year'::text, a.dat_asistencia_fecasistencia) , ' - ' ,'Abril')::text
-		    WHEN date_part('month'::text, a.dat_asistencia_fecasistencia) = 5::double precision THEN CONCAT(date_part('year'::text, a.dat_asistencia_fecasistencia) , ' - ' ,'Mayo')::text
-		    WHEN date_part('month'::text, a.dat_asistencia_fecasistencia) = 6::double precision THEN CONCAT(date_part('year'::text, a.dat_asistencia_fecasistencia) , ' - ' ,'Junio')::text
-		    WHEN date_part('month'::text, a.dat_asistencia_fecasistencia) = 7::double precision THEN CONCAT(date_part('year'::text, a.dat_asistencia_fecasistencia) , ' - ' ,'Julio')::text
-		    WHEN date_part('month'::text, a.dat_asistencia_fecasistencia) = 8::double precision THEN CONCAT(date_part('year'::text, a.dat_asistencia_fecasistencia) , ' - ' ,'Agosto')::text
-		    WHEN date_part('month'::text, a.dat_asistencia_fecasistencia) = 9::double precision THEN CONCAT(date_part('year'::text, a.dat_asistencia_fecasistencia) , ' - ' ,'Septiembre')::text
-		    WHEN date_part('month'::text, a.dat_asistencia_fecasistencia) = 10::double precision THEN CONCAT(date_part('year'::text, a.dat_asistencia_fecasistencia) , ' - ' ,'Octubre')::text
-		    WHEN date_part('month'::text, a.dat_asistencia_fecasistencia) = 11::double precision THEN CONCAT(date_part('year'::text, a.dat_asistencia_fecasistencia) , ' - ' ,'Noviembre')::text
-		    WHEN date_part('month'::text, a.dat_asistencia_fecasistencia) = 12::double precision THEN CONCAT(date_part('year'::text, a.dat_asistencia_fecasistencia) , ' - ' ,'Diciembre')::text
-		    ELSE NULL::text
-		END) AS mes,
-	    c1.var_constante_descripcion AS categoria,
-	    round(avg(a.int_asistencia_cantidad)) AS cantidad
-	   FROM asistencia a
-	   JOIN servicios s ON s.int_servicio_id = a.servicio_id
-	   JOIN constantes c ON c.int_constante_valor = s.int_servicio_tipo AND c.int_constante_clase = 1
-	   JOIN constantes c1 ON c1.int_constante_valor = a.int_asistencia_categoria AND c1.int_constante_clase=2
-	  WHERE DATE(a.dat_asistencia_fecasistencia) between fechaInicio and fechaFin
-	  GROUP BY s.int_servicio_tipo,c.var_constante_descripcion, a.servicio_id, s.var_servicio_nombre, date_part('year'::text, a.dat_asistencia_fecasistencia), date_part('month'::text, a.dat_asistencia_fecasistencia),a.int_asistencia_categoria,c1.var_constante_descripcion
-	  ORDER BY date_part('year'::text, a.dat_asistencia_fecasistencia) desc, date_part('month'::text, a.dat_asistencia_fecasistencia) desc, s.int_servicio_tipo, a.servicio_id, a.int_asistencia_categoria);
+  return query (SELECT 
+      s.int_servicio_tipo as id_tiposervicio,
+      c.var_constante_descripcion AS tiposervicio,
+      a.servicio_id AS id_servicio,
+      s.var_servicio_nombre AS servicio,
+    (CASE
+        WHEN date_part('month'::text, a.dat_asistencia_fecasistencia) = 1::double precision THEN CONCAT(date_part('year'::text, a.dat_asistencia_fecasistencia), ' - ' , 'Enero' )::text
+        WHEN date_part('month'::text, a.dat_asistencia_fecasistencia) = 2::double precision THEN CONCAT(date_part('year'::text, a.dat_asistencia_fecasistencia) , ' - ' , 'Febrero')::text
+        WHEN date_part('month'::text, a.dat_asistencia_fecasistencia) = 3::double precision THEN CONCAT(date_part('year'::text, a.dat_asistencia_fecasistencia) , ' - ' ,'Marzo')::text
+        WHEN date_part('month'::text, a.dat_asistencia_fecasistencia) = 4::double precision THEN CONCAT(date_part('year'::text, a.dat_asistencia_fecasistencia) , ' - ' ,'Abril')::text
+        WHEN date_part('month'::text, a.dat_asistencia_fecasistencia) = 5::double precision THEN CONCAT(date_part('year'::text, a.dat_asistencia_fecasistencia) , ' - ' ,'Mayo')::text
+        WHEN date_part('month'::text, a.dat_asistencia_fecasistencia) = 6::double precision THEN CONCAT(date_part('year'::text, a.dat_asistencia_fecasistencia) , ' - ' ,'Junio')::text
+        WHEN date_part('month'::text, a.dat_asistencia_fecasistencia) = 7::double precision THEN CONCAT(date_part('year'::text, a.dat_asistencia_fecasistencia) , ' - ' ,'Julio')::text
+        WHEN date_part('month'::text, a.dat_asistencia_fecasistencia) = 8::double precision THEN CONCAT(date_part('year'::text, a.dat_asistencia_fecasistencia) , ' - ' ,'Agosto')::text
+        WHEN date_part('month'::text, a.dat_asistencia_fecasistencia) = 9::double precision THEN CONCAT(date_part('year'::text, a.dat_asistencia_fecasistencia) , ' - ' ,'Septiembre')::text
+        WHEN date_part('month'::text, a.dat_asistencia_fecasistencia) = 10::double precision THEN CONCAT(date_part('year'::text, a.dat_asistencia_fecasistencia) , ' - ' ,'Octubre')::text
+        WHEN date_part('month'::text, a.dat_asistencia_fecasistencia) = 11::double precision THEN CONCAT(date_part('year'::text, a.dat_asistencia_fecasistencia) , ' - ' ,'Noviembre')::text
+        WHEN date_part('month'::text, a.dat_asistencia_fecasistencia) = 12::double precision THEN CONCAT(date_part('year'::text, a.dat_asistencia_fecasistencia) , ' - ' ,'Diciembre')::text
+        ELSE NULL::text
+    END) AS mes,
+      c1.var_constante_descripcion AS categoria,
+      round(avg(a.int_asistencia_cantidad)) AS cantidad
+     FROM asistencia a
+     JOIN servicios s ON s.int_servicio_id = a.servicio_id
+     JOIN constantes c ON c.int_constante_valor = s.int_servicio_tipo AND c.int_constante_clase = 1
+     JOIN constantes c1 ON c1.int_constante_valor = a.int_asistencia_categoria AND c1.int_constante_clase=2
+    WHERE DATE(a.dat_asistencia_fecasistencia) between fechaInicio and fechaFin
+    GROUP BY s.int_servicio_tipo,c.var_constante_descripcion, a.servicio_id, s.var_servicio_nombre, date_part('year'::text, a.dat_asistencia_fecasistencia), date_part('month'::text, a.dat_asistencia_fecasistencia),a.int_asistencia_categoria,c1.var_constante_descripcion
+    ORDER BY date_part('year'::text, a.dat_asistencia_fecasistencia) desc, date_part('month'::text, a.dat_asistencia_fecasistencia) desc, s.int_servicio_tipo, a.servicio_id, a.int_asistencia_categoria);
 END;
 $BODY$
   LANGUAGE plpgsql VOLATILE
@@ -63,11 +63,11 @@ CREATE OR REPLACE FUNCTION sp_inst_registrar_constante(descripcion character var
 $BODY$
 BEGIN
 
-	INSERT INTO constantes (int_constante_id,var_constante_descripcion,int_constante_valor,int_constante_clase,created_at,updated_at) 
-	VALUES ((SELECT max(int_constante_id)+ 1 FROM constantes),descripcion,
-	(SELECT max(int_constante_valor)+ 1 FROM constantes where int_constante_clase = clase),clase,current_timestamp,current_timestamp);
-	
-	return;
+  INSERT INTO constantes (int_constante_id,var_constante_descripcion,int_constante_valor,int_constante_clase,created_at,updated_at) 
+  VALUES ((SELECT max(int_constante_id)+ 1 FROM constantes),descripcion,
+  (SELECT max(int_constante_valor)+ 1 FROM constantes where int_constante_clase = clase),clase,current_timestamp,current_timestamp);
+  
+  return;
 END;
 $BODY$
   LANGUAGE plpgsql VOLATILE
@@ -226,7 +226,7 @@ CREATE OR REPLACE VIEW view_get_rpt_miembros AS
            FROM direccions d
           WHERE d.persona_id = p.int_persona_id
          LIMIT 1), ''::character varying) AS referencias,
-    COALESCE(( SELECT concat('(', t.var_telefono_codigo, ')', ' - ', COALESCE(t.var_telefono, ''::character varying)) AS concat
+    COALESCE(( SELECT concat('(', t.var_telefono_codigo, ')', ' - ', COALESCE(t.var_telefono_numero, ''::character varying)) AS concat
            FROM telefonos t
           WHERE t.persona_id = p.int_persona_id
          LIMIT 1), ''::text) AS telefono,
@@ -252,7 +252,7 @@ CREATE OR REPLACE VIEW view_get_rpt_visitantes AS
  SELECT concat(p.var_persona_nombres, ' ', p.var_persona_apellidos) AS nombrecompleto,
     COALESCE(p.int_persona_edad, 0) AS edad,
     p."dat_persona_fecNacimiento" AS fecnacimiento,
-    COALESCE(( SELECT concat('(', t.var_telefono_codigo, ')', ' - ', COALESCE(t.var_telefono, ''::character varying)) AS concat
+    COALESCE(( SELECT concat('(', t.var_telefono_codigo, ')', ' - ', COALESCE(t.var_telefono_numero, ''::character varying)) AS concat
            FROM telefonos t
           WHERE t.persona_id = p.int_persona_id
          LIMIT 1), ''::text) AS telefono,

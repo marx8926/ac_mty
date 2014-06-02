@@ -331,10 +331,10 @@ Chart.create(
       :int_chart_ninio => 10,
       )
 
-sql = ""
-source = File.new("db/functions.sql", "r")
-while (line = source.gets)
-  sql << line
-end
-source.close
-ActiveRecord::Base.connection.execute(sql)
+#sql = ""
+#source = File.new("db/functions.sql", "r")
+#while (line = source.gets)
+#  sql << line
+#end
+#source.close
+#ActiveRecord::Base.connection.execute(sql)

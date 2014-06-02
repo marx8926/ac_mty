@@ -16,14 +16,17 @@ class ConfiguracionController < ApplicationController
   def recuperar_datos_generales
     data = {}
     iglesia = Iglesia.first
-    pastor = NivelCrecimiento.find_by(:int_nivelcrecimiento_escala => -1, :int_nivelcrecimiento_estadoactual => 1).persona
+    pastor = NivelCrecimiento.where(:int_nivelcrecimiento_escala => -1, :int_nivelcrecimiento_estadoactual => 1)
+    pastor2 = pastor.last.persona
     distrito = iglesia.ubigeo
+
     provincia = Ubigeo.find(distrito.int_ubigeo_dependencia)
     departamento = Ubigeo.find(provincia.int_ubigeo_dependencia)
     data[:dat_iglesia_feccreacion] = iglesia[:dat_iglesia_feccreacion].strftime("%d/%m/%Y")
     data[:dat_iglesia_fecregistro] = iglesia[:dat_iglesia_fecregistro].strftime("%d/%m/%Y")  
     data[:iglesia] = iglesia
-    data[:pastor] = pastor
+    data[:pastor] = pastor.first.persona
+    data[:pastor2] = pastor2
     data[:distrito] = distrito.int_ubigeo_id
     data[:provincia] = provincia.int_ubigeo_id
     data[:departamento] = departamento.int_ubigeo_id
@@ -33,6 +36,7 @@ class ConfiguracionController < ApplicationController
   def guardar_datos_generales
     ActiveRecord::Base.transaction do
       begin
+      	##pastor 1
         if params[:pastoractual] != params[:nuevopastor] && params[:nuevopastor] != ""
           NivelCrecimiento.find_by(:int_nivelcrecimiento_escala => -1,:int_nivelcrecimiento_estadoactual => 1).update(:int_nivelcrecimiento_estadoactual => 0)
           NivelCrecimiento.find_by(:int_nivelcrecimiento_escala => 1,:persona_id => params[:pastoractual]).update(:int_nivelcrecimiento_estadoactual => 1)
@@ -47,6 +51,23 @@ class ConfiguracionController < ApplicationController
               :persona_id => params[:nuevopastor])
           end
         end
+
+        ##pastor 2
+        if params[:pastoractual2] != params[:nuevopastor2] && params[:nuevopastor2] != ""
+          NivelCrecimiento.find_by(:int_nivelcrecimiento_escala => -1,:int_nivelcrecimiento_estadoactual => 1).update(:int_nivelcrecimiento_estadoactual => 0)
+          NivelCrecimiento.find_by(:int_nivelcrecimiento_escala => 1,:persona_id => params[:pastoractual2]).update(:int_nivelcrecimiento_estadoactual => 1)
+          NivelCrecimiento.find_by(:persona_id => params[:nuevopastor2],:int_nivelcrecimiento_estadoactual => 1).update(:int_nivelcrecimiento_estadoactual => 0)
+          npnivel = NivelCrecimiento.find_by(:persona_id => params[:nuevopastor2],:int_nivelcrecimiento_escala => -1)
+          if npnivel != nil
+            npnivel.update(:int_nivelcrecimiento_estadoactual => 1)
+          else
+            NivelCrecimiento.create(
+              :int_nivelcrecimiento_escala => -1,
+              :int_nivelcrecimiento_estadoactual => 1,
+              :persona_id => params[:nuevopastor2])
+          end
+        end
+
         Iglesia.first.update(
           :dat_iglesia_feccreacion => params[:fec_creacion],
           :var_iglesia_telefono => params[:telefono],
