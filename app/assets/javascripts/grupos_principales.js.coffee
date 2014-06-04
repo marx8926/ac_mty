@@ -5,6 +5,28 @@
 jQuery ->
   count = 0
 
+  ResponsablesTable = $('#table_responsables').dataTable
+    "aoColumns": [{"mDataProp": "id"},{"mDataProp": "label"}]
+    "bPaginate": false
+    "sDom": "<r>t<'row-fluid'>"
+    "sAjaxSource": "gettablaresponsables_red"
+    "fnCreatedRow": (  nRow, aData, iDisplayIndex ) ->
+      $(nRow).find('a').tooltip('hide');
+      $(nRow).find('tr').click (e) ->
+        index = $(ResponsablesTable.fnGetData()).getIndexObj aData, 'id'
+        console.log index
+
+
+  $("#table_responsables tbody").on "click", "tr", ->
+    if $(this).hasClass("selected")
+      $(this).removeClass "selected"
+      
+    else
+      ResponsablesTable.$("tr.selected").removeClass "selected"
+      $(this).addClass "selected"
+      
+    return
+
 
   PrepararDatosRegistrar = ->
     root.DatosEnviar =

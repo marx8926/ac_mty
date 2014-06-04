@@ -21,8 +21,22 @@ class ServiciosgeneralesController < ApplicationController
 		render :json => categorias , :status => :ok
 	end
 
-  def get_dia_servicio
-    turno = Turno.find_by("servicio_id" => params[:idservicio])
-    render :json => turno[:int_turno_dia], :status => :ok
-  end
+  	def get_dia_servicio
+    	turno = Turno.find_by("servicio_id" => params[:idservicio])
+    	render :json => turno[:int_turno_dia], :status => :ok
+  	end
+
+	def responsables_red
+  		recup = NivelCrecimiento.where(:int_nivelcrecimiento_escala => 2, :int_nivelcrecimiento_estadoactual => 1)
+  		todo = []
+  		recup.each{ |t|
+  			item = { }
+			p = t.persona
+			item['label'] = p.var_persona_nombres+" "+p.var_persona_apellidos
+			item['id'] = p.int_persona_id
+			todo.push item
+  		}
+		render :json => { :aaData => todo }, :status => :ok
+  	end
+
 end
