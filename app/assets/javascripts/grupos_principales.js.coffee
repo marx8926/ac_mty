@@ -12,7 +12,7 @@ jQuery ->
     "sAjaxSource": "gettablaresponsables_red"
     "fnCreatedRow": (  nRow, aData, iDisplayIndex ) ->
       $(nRow).find('a').tooltip('hide');
-      $(nRow).find('tr').click (e) ->
+      $(nRow).find('.selected').click (e) ->
         index = $(ResponsablesTable.fnGetData()).getIndexObj aData, 'id'
         console.log index
 
