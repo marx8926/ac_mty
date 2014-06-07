@@ -108,16 +108,19 @@ CREATE OR REPLACE VIEW view_get_personas AS
     concat(p.var_persona_nombres, ' ', p.var_persona_apellidos) AS nombrecompleto,
     to_char(p.dat_persona_fecregistro::timestamp with time zone, 'dd/mm/yyyy'::text) AS fecconvertido,
     to_char(p."dat_persona_fecNacimiento"::timestamp with time zone, 'dd/mm/yyyy'::text) AS fecnacimiento,
-        CASE ( SELECT nc.int_nivelcrecimiento_escala
-               FROM nivel_crecimientos nc
-              WHERE nc.persona_id = p.int_persona_id AND nc.int_nivelcrecimiento_estadoactual = 1)
-            WHEN (-1) THEN 'Pastor Principal'::text
-            WHEN 0 THEN 'Visitante'::text
-            WHEN 1 THEN 'Miembro'::text
-            ELSE 'Indefinido'::text
-        END AS nivel
+    array_to_string(ARRAY( SELECT
+                CASE nc.int_nivelcrecimiento_escala
+                    WHEN (-1) THEN 'Pastor Principal'::text
+                    WHEN 0 THEN 'Visitante'::text
+                    WHEN 1 THEN 'Miembro'::text
+                    ELSE 'Indefinido'::text
+                END AS "case"
+           FROM nivel_crecimientos nc
+          WHERE nc.persona_id = p.int_persona_id AND nc.int_nivelcrecimiento_estadoactual = 1), '<br>'::text) AS nivel
    FROM personas p
   WHERE p.var_persona_estado::text = '1'::text;
+
+
 
 CREATE OR REPLACE VIEW view_get_rpt_asistencia_bycategoriaservicio AS 
  SELECT s.var_servicio_nombre AS servicio,

@@ -3,7 +3,7 @@
 	/ Page title start
 	.row.page-title
 		%h2
-			Niveles de la Organización
+			Árbol de Liderazgo
 			%small
 				%li Home
 				%li /
@@ -45,14 +45,46 @@
 								Crear Nivel
 						.widget-body          
 							= form_tag("", {:method=>'post',:class=>'form-horizontal', :id => "form_nivelOrga", :name=> "form_nivelOrga"}) do   
+								
+								.form-group
+									%label.col-lg-2.control-label{for: "persona"} Miembro
+									%input{name: "persona_hidden", required: true, type: "hidden"}
+									.col-lg-5
+										%input#persona.form-control{name: "persona", type: "text"}                      
+									%a.btn{'href' => '#showModal', 'data-toggle' => 'modal', "data-icon" => ""}
+									#showModal.modal.fade{'aria-hidden' => 'true',:tabindex => "-1"}
+										.modal-dialog
+											.modal-content
+												.modal-header
+													%button.close{'aria-hidden' => 'true','data-dismiss' => 'modal', type: "button"}
+													%h4.modal-title Buscar Responsable  
+												.modal-body
+													.form-horizontal
+														%table#miembrotable.table.table-condensed.table-striped.table-hover.table-bordered.pull-left 
+															%thead
+																%tr
+																	%th{style: "width:40%"} #
+																	%th{style: "width:60%"} Nombres y Apellidos
+															%tbody
+																
+														.clearfix
+												.modal-footer     
+													%button.btn.btn-default{'data-dismiss' => 'modal',type: "button"}              
+														Cancelar
+													%button.btn.btn-primary{type: "button"}              
+														Guardar
+									
 								.form-group
 									%label.col-lg-2.col-sm-2.control-label Tipo Nivel                           
 									.col-lg-5.col-sm-5
 										%select.form-control{name: "tipo_nivel"}
-											%option{value: "1"} A
-											%option{value: "0"} B             
-								.form-group
-									%label.col-lg-2.control-label{for: "persona"} Persona
+											%option{value: "0"} Pastor
+											%option{value: "1"} Lider 12
+											%option{value: "2"} Lider 144
+											%option{value: "3"} Asesor
+
+								.form-group									
+									%label.col-lg-2.control-label{for: "persona"} Responsable
 									%input{name: "persona_hidden", required: true, type: "hidden"}
 									.col-lg-5
 										%input#persona.form-control{name: "persona", type: "text"}                      
@@ -78,8 +110,7 @@
 														Cancelar
 													%button.btn.btn-primary{type: "button"}              
 														Guardar
-																		
-
+									
 								.form-group
 									.col-lg-offset-2.col-lg-10
 										%button.cancelarGuardar.btn.btn-default{type: "button"} Cancelar
@@ -125,6 +156,11 @@
 / Main Container end
 - content_for :bloquejavascript do
 	= javascript_include_tag "wizard/bwizard.js"
+	= javascript_include_tag "custom-tables.js"
+	= javascript_include_tag "wysiwyg/bootstrap-wysihtml5.js"
+	= javascript_include_tag "custom-forms.js"
+	= javascript_include_tag "jquery.blockUI.js"
+	= javascript_include_tag "util/datatable_plugins.js"
 	= javascript_include_tag :niveles_organizacion
 	:javascript
 		$('##{@mactive} > span').addClass('current-arrow');
