@@ -45,6 +45,7 @@ function DTActions(options)
 	            tr.addClass('row_selected');
 	            $(tds[tds.length-1]).append(divaction);
 
+
 				ul.find(".btn-view").click(function(e){
 					e.preventDefault();
 					options.ViewFunction(nRow, aData, iDisplayIndex);
@@ -57,6 +58,11 @@ function DTActions(options)
 					e.preventDefault();
 					options.DropFunction(nRow, aData, iDisplayIndex);
 				});
+
+				ul.find(".btn-select").click(function(e){
+					e.preventDefault();
+					options.SelectFunction(nRow, aData, iDisplayIndex)
+				});
         	}
 		});
     };
@@ -67,10 +73,13 @@ function getButtons(conf){
 	actions = "<ul>";
 	if(conf.substring(0,1)==1)
 		actions += '<li><button class="btn btn-default btn-action btn-view"><img alt="ver" class="icons" src="/view.png"></button></li>';
-	if(conf.substring(1,2)==1)
+	else if(conf.substring(1,2)==1)
 		actions += '<li><button class="btn btn-default btn-action btn-edit"><img alt="edit" class="icons" src="/images/edit-icon.png"></button></li>';
-	if(conf.substring(2,3)==1)
+	else if(conf.substring(2,3)==1)
 		actions += '<li><button class="btn btn-default btn-action btn-drop"><img alt="trash" src="/images/trash-icon.png"></button></li>';
+	else if(conf.substring(3,4)==1)
+		actions += '<li><button class="btn btn-default btn-action btn-select"><img alt="select" src="/images/select2.png"></button></li>';
+	
 	actions += '<ul>';
 	return actions;
 }

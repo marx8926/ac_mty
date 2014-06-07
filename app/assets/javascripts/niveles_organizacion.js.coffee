@@ -23,18 +23,21 @@ jQuery ->
     $("#regniveles_org").hide()
 
 
+
   $("form").validationEngine 'attach',{autoHidePrompt:true,autoHideDelay:3000,promptPosition : "topRight", scroll: false}
 
   Actions = new DTActions
-    'conf' : '000',
+    'conf' : '0001',
     'idtable': 'miembrotable',
-    'ViewFunction': (nRow, aData, iDisplayIndex) ->
+    'SelectFunction': (nRow, aData, iDisplayIndex) ->
+    	$("#miembro_hidden").val aData.int_persona_id
+	    $("#miembro").val aData.nombrecompleto
+
       
     'DropFunction': (nRow, aData, iDisplayIndex) ->
       root.SelectToDrop = aData.int_persona_id
       DisplayBlockUISingle "dangermodal"
 
-  root.actionMiembros = getActionButtons "000"
 
   MiembroRowCB = (  nRow, aData, iDisplayIndex ) ->
     Actions.RowCBFunction nRow, aData, iDisplayIndex
@@ -45,3 +48,15 @@ jQuery ->
                             ]
 
   MiembroTable = createDataTable "miembrotable", root.SourceTServicio, FormatoMiembroTable, null, MiembroRowCB
+
+  ResponsableActions = new DTActions
+    'conf' : '0001',
+    'idtable': 'responsabletable',
+    'SelectFunction': (nRow, aData, iDisplayIndex) ->
+    	$("#responsable_hidden").val aData.int_persona_id
+	    $("#responsable").val aData.nombrecompleto
+
+  ResponsableRowCB = (  nRow, aData, iDisplayIndex ) ->
+    ResponsableActions.RowCBFunction nRow, aData, iDisplayIndex
+
+  ResponsableTable = createDataTable "responsabletable", root.SourceTServicio, FormatoMiembroTable, null, ResponsableRowCB

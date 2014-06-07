@@ -64,10 +64,13 @@ function getActionButtons(conf){
   actions = "<p>"
   if(conf.substring(0,1)==1)
     actions += '<a class="ver_row actions-icons" data-original-title="Ver" href="#"><img alt="ver" class="icons" src="view.png"></a>';
-  if(conf.substring(1,2)==1)
+  else if(conf.substring(1,2)==1)
     actions += '<a class="edit_row actions-icons" data-original-title="Editar" href="#"><img alt="edit" class="icons" src="/images/edit-icon.png"></a>';
-  if(conf.substring(2,3)==1)
+  else if(conf.substring(2,3)==1)
     actions += '<a class="delete-row actions-icons" data-original-title="Eliminar" href="#"><img alt="trash" src="/images/trash-icon.png"></a>';
+  else if(conf.substring(3,4)==1)
+    actions += '<a class="select-row actions-icons" data-original-title="Select" href="#"><img alt="select" src="/images/select2.png"></a>';
+
   actions += '</p>'
   return actions;
 }
