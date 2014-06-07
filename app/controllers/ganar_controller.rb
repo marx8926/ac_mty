@@ -80,7 +80,7 @@ class GanarController < ApplicationController
 						x = y.last
 						telefono = Telefono.new({:int_telefono_tipo => x[:tipo_val],
 						:var_telefono_codigo => x[:codigo],
-						:var_telefono => x[:tel], :persona => persona})
+						:var_telefono_numero => x[:tel], :persona => persona})
 						telefono.save!
 					end
 				end
@@ -143,16 +143,16 @@ class GanarController < ApplicationController
 							x = y.last
 							telefono = Telefono.lock.find_by({:int_telefono_tipo => x[:tipo_val],
 							:var_telefono_codigo => x[:codigo],
-							:var_telefono => x[:tel], :persona_id => idPersona})
+							:var_telefono_numero => x[:tel], :persona_id => idPersona})
 
 							if telefono != nil
 								telefono.update!({:int_telefono_tipo => x[:tipo_val],
 								:var_telefono_codigo => x[:codigo],
-								:var_telefono => x[:tel], :persona_id => idPersona})
+								:var_telefono_numero => x[:tel], :persona_id => idPersona})
 							else
 								Telefono.create!({:int_telefono_tipo => x[:tipo_val],
 								:var_telefono_codigo => x[:codigo],
-								:var_telefono => x[:tel], :persona_id => idPersona})
+								:var_telefono_numero => x[:tel], :persona_id => idPersona})
 							end
 
 						}
@@ -258,7 +258,7 @@ class GanarController < ApplicationController
 						x = y.last
 						telefono = Telefono.new({:int_telefono_tipo => x[:tipo_val],
 						:var_telefono_codigo => x[:codigo],
-						:var_telefono => x[:tel], :persona => persona})
+						:var_telefono_numero => x[:tel], :persona => persona})
 
 						telefono.save!
 					}
@@ -302,7 +302,7 @@ class GanarController < ApplicationController
           x = y.last
 					Telefono.create!(:int_telefono_tipo => x[:tipo_val],
 					:var_telefono_codigo => x[:codigo],
-					:var_telefono => x[:tel], :persona_id => idPersona)
+					:var_telefono_numero => x[:tel], :persona_id => idPersona)
 				end
 			rescue
 				raise ActiveRecord::Rollback
