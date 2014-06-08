@@ -76,7 +76,7 @@
 								.form-group
 									%label.col-lg-2.col-sm-2.control-label Tipo Nivel                           
 									.col-lg-5.col-sm-5
-										%select.form-control{name: "tipo_nivel"}
+										%select.form-control{name: "tipo_nivel", id: "tipo_nivel"}
 											%option{value: "0"} Pastor
 											%option{value: "1"} Lider 12
 											%option{value: "2"} Lider 144
@@ -110,8 +110,8 @@
 									
 								.form-group
 									.col-lg-offset-2.col-lg-10
-										%button.cancelarGuardar.btn.btn-default{type: "button"} Cancelar
-										%input#btnGuardar_Asistencia.btn.btn-success{type: "button", value: "Crear"}
+										%button#btneliminar.btn.btn-default{type: "button"} Eliminar
+										%input#btncrear.btn.btn-success{type: "button", value: "Crear"}
 		/ Row end
 	/fin row
 	.row
@@ -140,7 +140,7 @@
 							%thead
 								%tr
 									%th{style: "width:25%"} Niveles
-									%th{style: "width:35%"} Reposnsables
+									%th{style: "width:35%"} Responsables
 									%th.hidden-phone{style: "width:15%"} Fecha Asignada
 									%th.hidden-phone{style: "width:15%"} Estado
 							%tbody

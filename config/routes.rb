@@ -101,6 +101,7 @@ Lean::Application.routes.draw do
 
   get "informacion_general/datos_generales" => "informacion_general#datos_generales"
   get "informacion_general/niveles_organizacion" => "informacion_general#niveles_organizacion"
+  post "informacion_general/guardar_nivel_organizacion" => "informacion_general#guardar_nivel_organizacion"
   get "informacion_general/grupos" => "informacion_general#grupos"
   get "informacion_general/ministerios_area" => "informacion_general#ministerios_area"
   get "informacion_general/plan_trabajo" => "informacion_general#plan_trabajo"

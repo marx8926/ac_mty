@@ -14,6 +14,29 @@ class InformacionGeneralController < ApplicationController
     @titulo = 'Niveles de la Organización - Información General'    
   end
 
+  def guardar_nivel_organizacion
+
+    form = params[:formulario]
+    miembro = form[:miembro_hidden]
+    responsable = form[:responsable_hidden]
+    nivel = form[:tipo_nivel]
+
+    ActiveRecord::Base.transaction do
+      begin
+        persona = Miembro.find_by(:persona_id=>miembro)
+        nivelid = NivelLiderazgo.create({:int_niveliderazgo_tiponivel => nivel,
+            :int_niveliderazgo_responsable => responsable,
+             :miembro => persona })
+        nivelid.save!
+
+        rescue
+          raise ActiveRecord::Rollback
+        end
+    end
+    render :json => {:resp => "ok" } , :status => :ok
+
+  end
+
   def grupos
     @titulo = 'Grupos - Información General'    
   end

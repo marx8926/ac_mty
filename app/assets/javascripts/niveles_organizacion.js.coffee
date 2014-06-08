@@ -60,3 +60,29 @@ jQuery ->
     ResponsableActions.RowCBFunction nRow, aData, iDisplayIndex
 
   ResponsableTable = createDataTable "responsabletable", root.SourceTServicio, FormatoMiembroTable, null, ResponsableRowCB
+
+
+  PrepararDatos = ->
+    root.DatosEnviar =
+      "formulario" : $("#form_nivelOrga").serializeObject()
+
+  SuccessFunction = ( data ) ->
+    MessageSucces()
+
+  MessageSucces = ->
+    setTimeout (->
+      $.unblockUI onUnblock: ->
+        $.growlUI "Operacion Exitosa"
+
+    ), 1000
+
+
+  $("#btncrear").click (event) ->
+    event.preventDefault()
+    if $('#form_nivelOrga').validationEngine 'validate'
+      DisplayBlockUI "loader"
+      PrepararDatos()
+      enviar "/informacion_general/guardar_nivel_organizacion", root.DatosEnviar, SuccessFunction, null
+
+  $("#btneliminar").click (event) ->
+    event.preventDefault()
