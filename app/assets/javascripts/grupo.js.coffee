@@ -13,6 +13,45 @@ root.isedit = true
 
 jQuery(document).ready -> 
 
+  Actions = new DTActions
+    'conf' : '0001',
+    'idtable': 'table_responsables',
+    'SelectFunction': (nRow, aData, iDisplayIndex) ->
+      $("#responsable_hidden").val aData.int_persona_id
+      $("#responsable").val aData.nombrecompleto
+
+      
+    'DropFunction': (nRow, aData, iDisplayIndex) ->
+      root.SelectToDrop = aData.int_persona_id
+      DisplayBlockUISingle "dangermodal"
+
+  ActionsP = new DTActions
+    'conf' : '0001',
+    'idtable': 'miembros_table',
+    'SelectFunction': (nRow, aData, iDisplayIndex) ->
+      $("#persona_hidden").val aData.int_persona_id
+      $("#persona").val aData.nombrecompleto
+
+      
+    'DropFunction': (nRow, aData, iDisplayIndex) ->
+      root.SelectToDrop = aData.int_persona_id
+      DisplayBlockUISingle "dangermodal"
+
+
+  MiembroRowCB = (  nRow, aData, iDisplayIndex ) ->
+    Actions.RowCBFunction nRow, aData, iDisplayIndex
+
+  MiembroPRowCB = (  nRow, aData, iDisplayIndex ) ->
+    ActionsP.RowCBFunction nRow, aData, iDisplayIndex
+
+  FormatoMiembroTable = [   { "sWidth": "35%","mDataProp": "int_persona_id"},
+                            { "sWidth": "10%","mDataProp": "nombrecompleto"}
+                           
+                            ]
+
+  ResponsablesTable = createDataTable "table_responsables", root.SourceTServicio, FormatoMiembroTable, null, MiembroRowCB
+  PersonaTable = createDataTable "miembros_table", root.SourceTServicio, FormatoMiembroTable, null, MiembroPRowCB
+
   $("#form_grupos").validationEngine 'attach',{autoHidePrompt:true,autoHideDelay:3000}  
 
   $("#Grupowizard").bwizard
