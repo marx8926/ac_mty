@@ -24,7 +24,7 @@ jQuery ->
 
 
 
-  $("form").validationEngine 'attach',{autoHidePrompt:true,autoHideDelay:3000,promptPosition : "topRight", scroll: false}
+  $("#form_nivelOrga").validationEngine 'attach',{autoHidePrompt:true,autoHideDelay:3000,promptPosition : "topRight", scroll: false}
 
   Actions = new DTActions
     'conf' : '0001',
@@ -68,6 +68,7 @@ jQuery ->
 
   SuccessFunction = ( data ) ->
     MessageSucces()
+    $("#form_nivelOrga").reset()
 
   MessageSucces = ->
     setTimeout (->

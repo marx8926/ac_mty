@@ -64,4 +64,27 @@ class InformacionGeneralController < ApplicationController
   def grupos_principales
     @titulo = 'Grupos Principales - Información General'   
   end
+
+  def guardar_grupos_principales
+
+    form = params[:formulario]
+    responsable = form[:responsable_hidden]
+    codigo = form[:codigo]
+    fecha = form[:fec_creacion]
+    tipo = form[:tipo_grupo]
+
+    ActiveRecord::Base.transaction do
+      begin
+        gr = GrupoPrincipal.create({:var_grupoprincipal_codigo => codigo,
+          :int_grupoprincipal_tipo => tipo, :int_grupoprincipal_responsable => responsable,
+          :dat_grupoprincipal_fechaCreacion => fecha,
+          :int_grupoprincipal_nromiembros => 0})
+        gr.save!
+
+        rescue
+          raise ActiveRecord::Rollback
+        end
+    end
+    render :json => {:resp => "ok" } , :status => :ok
+  end
 end

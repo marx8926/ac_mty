@@ -109,6 +109,7 @@ Lean::Application.routes.draw do
   get "informacion_general/inform_ministerio_area" => "informacion_general#inform_ministerio_area"
   get "informacion_general/inform_rept_grupos" => "informacion_general#inform_rept_grupos"
   get "informacion_general/grupos_principales" => "informacion_general#grupos_principales"
+  post "informacion_general/guardar_grupos_principales" => "informacion_general#guardar_grupos_principales"
   get "informacion_general/gettablaresponsables_red" => "serviciosgenerales#responsables_red"
 
   get "escuela_biblica/maestros" => "escuela_biblica#maestros"

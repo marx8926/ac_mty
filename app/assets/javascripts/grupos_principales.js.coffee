@@ -3,41 +3,65 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
 jQuery ->
-  count = 0
-
-  ResponsablesTable = $('#table_responsables').dataTable
-    "aoColumns": [{"mDataProp": "id"},{"mDataProp": "label"}]
-    "bPaginate": false
-    "sDom": "<r>t<'row-fluid'>"
-    "sAjaxSource": "gettablaresponsables_red"
-    "fnCreatedRow": (  nRow, aData, iDisplayIndex ) ->
-      $(nRow).find('a').tooltip('hide');
-      $(nRow).find('.selected').click (e) ->
-        index = $(ResponsablesTable.fnGetData()).getIndexObj aData, 'id'
-        console.log index
-
-
-  $("#table_responsables tbody").on "click", "tr", ->
-    if $(this).hasClass("selected")
-      $(this).removeClass "selected"
-      
-    else
-      ResponsablesTable.$("tr.selected").removeClass "selected"
-      $(this).addClass "selected"
-      
-    return
-
-
-  PrepararDatosRegistrar = ->
-    root.DatosEnviar =
-      "formulario" : $("#form_asistencia").serializeObject()  
-
+  count = 0 
+  root = exports ? this
+  root.SourceTServicio = "/recuperar_personas_inicio"
+  root.DatosEnviar = null
+  root.count = 0
+  root.SelectToDrop = null
+  root.TipoForm = null
+  root.actionPersonas = null
+  root.isedit = true
 
   $('#agregar').click (event) ->
     event.preventDefault()
     $("#regasistencia").show()
 
-  $(".cancelarGuardar").click (event) ->
+  Actions = new DTActions
+    'conf' : '0001',
+    'idtable': 'table_responsables',
+    'SelectFunction': (nRow, aData, iDisplayIndex) ->
+      $("#responsable_hidden").val aData.int_persona_id
+      $("#responsable").val aData.nombrecompleto
+
+      
+    'DropFunction': (nRow, aData, iDisplayIndex) ->
+      root.SelectToDrop = aData.int_persona_id
+      DisplayBlockUISingle "dangermodal"
+
+
+  MiembroRowCB = (  nRow, aData, iDisplayIndex ) ->
+    Actions.RowCBFunction nRow, aData, iDisplayIndex
+
+  FormatoMiembroTable = [   { "sWidth": "35%","mDataProp": "int_persona_id"},
+                            { "sWidth": "10%","mDataProp": "nombrecompleto"}
+                           
+                            ]
+
+  ResponsablesTable = createDataTable "table_responsables", root.SourceTServicio, FormatoMiembroTable, null, MiembroRowCB
+
+  PrepararDatos = ->
+    root.DatosEnviar =
+      "formulario" : $("#form_grupoprincipal").serializeObject()
+
+  SuccessFunction = ( data ) ->
+    MessageSucces()
+    $("#form_grupoprincipal").reset()
+
+  MessageSucces = ->
+    setTimeout (->
+      $.unblockUI onUnblock: ->
+        $.growlUI "Operacion Exitosa"
+
+    ), 1000
+
+
+  $("#btncrear").click (event) ->
     event.preventDefault()
-    $("form").reset()
-    $("#regasistencia").hide()
+    if $('#form_grupoprincipal').validationEngine 'validate'
+      DisplayBlockUI "loader"
+      PrepararDatos()
+      enviar "/informacion_general/guardar_grupos_principales", root.DatosEnviar, SuccessFunction, null
+
+  $("#btneliminar").click (event) ->
+    event.preventDefault()
