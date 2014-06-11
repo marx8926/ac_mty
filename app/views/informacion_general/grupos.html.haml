@@ -51,12 +51,17 @@
                         %option{value: "1"} Evangelismo
                         %option{value: "0"} Discipulado
               .form-group
-                %label.col-lg-2.control-label{for: "reponsable"} Responsable
-                %input#responsable_hidden{name: "responsable_hidden", required: true, type: "hidden"}
+                %label.col-lg-2.control-label{for: "grupo_principal"} Grupo Principal
                 .col-lg-10
                   .row
                     .col-lg-4.col-sm-4
-                      %input#responsable.form-control{name: "responsable", type: "text"}                      
+                      = grupos_principales_select()
+
+                    %label.col-lg-2.col-sm-2.control-label{for: "responsable"} Responsable
+                    .col-lg-4.col-sm-4
+                      %input#responsable.form-control{name: "responsable", type: "text"}
+                      %input#responsable_hidden{name: "responsable_hidden", required: true, type: "hidden"}
+                      
                     %a.btn{'href' => '#showModal', 'data-toggle' => 'modal', "data-icon" => ""}
                     #showModal.modal.fade{'aria-hidden' => 'true',:tabindex => "-1"}
                       .modal-dialog
@@ -77,6 +82,7 @@
                           .modal-footer     
                             %button.btn.btn-default{'data-dismiss' => 'modal',type: "button"}              
                               Cerrar
+                      
               .form-group
                 %label.col-lg-2.control-label{for: "lugar"} Lugar
                 .col-lg-10
@@ -144,12 +150,12 @@
                               Cerrar
                                       
               .form-group
-                %table.table.table-condensed.table-striped.table-hover.table-bordered.pull-left
+                %table#tabla_seleccionada.table.table-condensed.table-striped.table-hover.table-bordered.pull-left
                   %thead
                     %tr
-                      %th{style: "width:33%"} #
-                      %th.hidden-phone{style: "width:33%"} Nombre y Apellido
-                      %th.hidden-phone{style: "width:33%"} Tipo
+                      %th{style: "width:15%"} #
+                      %th.hidden-phone{style: "width:50%"} Nombre y Apellido
+                      %th{style: "width:35"} Acciones
                   %tbody 
               .form-group
                 .col-lg-offset-10.col-lg-10
@@ -178,7 +184,6 @@
             .clearfix
   / Row end
 - content_for :bloquejavascript do
-  = javascript_include_tag "custom-tables.js"
   / Editable Inputs 
   = javascript_include_tag "wysiwyg/bootstrap-wysihtml5.js"
   / Custom Js 

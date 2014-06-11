@@ -114,11 +114,12 @@ ActiveRecord::Schema.define(version: 20140530210045) do
   add_index "direccions", ["persona_id"], name: "index_direccions_on_persona_id", using: :btree
   add_index "direccions", ["ubigeo_id"], name: "index_direccions_on_ubigeo_id", using: :btree
 
-  create_table "grupo_pequenios", id: false, force: true do |t|
-    t.string   "var_grupopequenio_id",                limit: 5,   null: false
+  create_table "grupo_pequenios", primary_key: "int_grupopequenio_id", force: true do |t|
+    t.string   "var_grupopequenio_code",              limit: 10
     t.string   "var_grupopequenio_nombre",            limit: 150
     t.integer  "int_grupopequenio_tipo"
     t.integer  "lugar_id"
+    t.integer  "grupo_principal_id"
     t.date     "dat_grupopequenio_fechaInicio"
     t.integer  "int_grupopequenio_diaReunion"
     t.string   "var_grupopequenio_hora",              limit: 10
@@ -129,6 +130,7 @@ ActiveRecord::Schema.define(version: 20140530210045) do
     t.datetime "updated_at"
   end
 
+  add_index "grupo_pequenios", ["grupo_principal_id"], name: "index_grupo_pequenios_on_grupo_principal_id", using: :btree
   add_index "grupo_pequenios", ["lugar_id"], name: "index_grupo_pequenios_on_lugar_id", using: :btree
 
   create_table "grupo_principals", primary_key: "int_grupoprincipal_id", force: true do |t|
@@ -204,13 +206,14 @@ ActiveRecord::Schema.define(version: 20140530210045) do
   create_table "lista_miembro_gps", primary_key: "int_listamiembrogp_id", force: true do |t|
     t.string   "grupo_pequenio_id",                limit: 5
     t.integer  "persona_id"
+    t.integer  "grupo_pequenios_id"
     t.date     "dat_listamimebrogp_fechaRegistro"
     t.string   "var_listamiembrogp_estado",        limit: 1
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "lista_miembro_gps", ["grupo_pequenio_id"], name: "fki_foreign_grupo_pequenio", using: :btree
+  add_index "lista_miembro_gps", ["grupo_pequenios_id"], name: "index_lista_miembro_gps_on_grupo_pequenios_id", using: :btree
   add_index "lista_miembro_gps", ["persona_id"], name: "index_lista_miembro_gps_on_persona_id", using: :btree
 
   create_table "lista_nota", primary_key: "int_listanota_id", force: true do |t|

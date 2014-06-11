@@ -41,6 +41,44 @@ class InformacionGeneralController < ApplicationController
     @titulo = 'Grupos - Información General'    
   end
 
+  def guardar_grupos
+
+    form = params[:formulario]
+    tabla = params[:tabla]
+
+    ActiveRecord::Base.transaction do
+      begin
+        gp = GrupoPequenio.create({:var_grupopequenio_nombre => form[:nombre],
+          :int_grupopequenio_tipo => form[:tipo_grupo],
+          :lugar => Lugar.find(form[:lugar]) , :grupo_principal => GrupoPrincipal.find(form[:grupo_principal]),
+          :dat_grupopequenio_fechaInicio => form[:fecha_grupo],
+          :int_grupopequenio_diaReunion => form[:select_dia],
+          :var_grupopequenio_hora => form[:hora],
+          :var_grupopequenio_direccion => form[:direccion] ,
+          :int_grupopequenio_frecuenciareunion => form[:select_reunion] ,
+          :int_grupopequenio_responsable => form[:responsable_hidden] 
+          })
+        gp.save!
+
+        if tabla != nil
+          tabla.each do |y|
+            x = y.last
+            lm = ListaMiembroGp.create({:grupo_pequenio=> gp,
+          :persona => Persona.find(x[:int_persona_id]), :dat_listamiembrogp_fechaRegistro => form[:fecha_grupo],
+          :var_listamiembrogp_estado => "1"})
+            lm.save!
+          end
+        end
+
+        
+        rescue
+          raise ActiveRecord::Rollback
+        end
+    end
+    render :json => {:resp => "ok" } , :status => :ok
+
+  end
+
   def ministerios_area
     @titulo = 'Ministerios/ Áreas de Servicios - Información General'    
   end

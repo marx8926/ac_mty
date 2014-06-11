@@ -13,7 +13,6 @@ class GanarController < ApplicationController
 		@titulo = 'Persona'
 	end
 
-
 	def guardar_miembro
 
 		form = params[:formulario]

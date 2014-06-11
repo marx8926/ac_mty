@@ -32,10 +32,18 @@ jQuery(document).ready ->
       $("#persona_hidden").val aData.int_persona_id
       $("#persona").val aData.nombrecompleto
 
+      eliminar = getActionButtons "001"
+      nom=
+        "int_persona_id": aData.int_persona_id
+        "nombrecompleto" : aData.nombrecompleto
+        "btn_elim": eliminar 
+
+      MiembrosTable.fnAddData nom
       
     'DropFunction': (nRow, aData, iDisplayIndex) ->
       root.SelectToDrop = aData.int_persona_id
       DisplayBlockUISingle "dangermodal"
+
 
 
   MiembroRowCB = (  nRow, aData, iDisplayIndex ) ->
@@ -43,6 +51,7 @@ jQuery(document).ready ->
 
   MiembroPRowCB = (  nRow, aData, iDisplayIndex ) ->
     ActionsP.RowCBFunction nRow, aData, iDisplayIndex
+
 
   FormatoMiembroTable = [   { "sWidth": "35%","mDataProp": "int_persona_id"},
                             { "sWidth": "10%","mDataProp": "nombrecompleto"}
@@ -52,36 +61,52 @@ jQuery(document).ready ->
   ResponsablesTable = createDataTable "table_responsables", root.SourceTServicio, FormatoMiembroTable, null, MiembroRowCB
   PersonaTable = createDataTable "miembros_table", root.SourceTServicio, FormatoMiembroTable, null, MiembroPRowCB
 
+
+  MiembrosTable = $('#tabla_seleccionada').dataTable
+    "aoColumns": [{"sWidth": "15%" , "mDataProp": "int_persona_id"},{ "sWidth": "50%", "mDataProp": "nombrecompleto"},
+    { "sWidth": "35%", "mDataProp": "btn_elim"}]
+    "bPaginate": false
+    "sDom": "<r>t<'row-fluid'>"
+    "fnCreatedRow": (  nRow, aData, iDisplayIndex ) ->
+      $(nRow).find('a').tooltip('hide');
+      $(nRow).find('.delete-row').click (e) ->
+        index = $(MiembrosTable.fnGetData()).getIndexObj aData, 'id'
+        MiembrosTable.fnDeleteRow index
+
+
+
   $("#form_grupos").validationEngine 'attach',{autoHidePrompt:true,autoHideDelay:3000}  
 
   $("#Grupowizard").bwizard
     nextBtnText: "Siguiente &rarr;"
     backBtnText: "&larr; Anterior"   
    
-
-  ubigeos = getAjaxObject "/ubi.json"
-  cargarUbigeo ubigeos, "distrito", "provincia", "departamento"
-
- 
   PrepararDatosMiembro = ->
     root.DatosEnviar =
       "formulario" : $("#form_grupos").serializeObject()
-      "tabla" : TelefonoTable.fnGetData()
+      "tabla" : MiembrosTable.fnGetData()
 
   HideForms = ->   
     $("#grupo").hide()    
-    $("form").reset()
-    cargarUbigeo ubigeos, "distrito", "provincia", "departamento"  
+    $("#form_grupos").reset()
     aux = root.isedit
     root.isedit = false
     $("#Grupowizard").bwizard 'show', '0'
     root.isedit = aux
-    $("form").enable()
+    $("#form_grupos").enable()
 
+  MessageSucces = ->
+    setTimeout (->
+      $.unblockUI onUnblock: ->
+        $.growlUI "Operacion Exitosa"
+
+    ), 100
 
   $('#registrar_grupo').click (event) ->
     root.isedit = true 
     event.preventDefault()
+    PrepararDatosMiembro()
+    enviar "/informacion_general/guardar_grupos", root.DatosEnviar, MessageSucces, null
     HideForms()
     $("#grupo").show()
 
