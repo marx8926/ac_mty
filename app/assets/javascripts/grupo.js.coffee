@@ -105,10 +105,17 @@ jQuery(document).ready ->
   $('#registrar_grupo').click (event) ->
     root.isedit = true 
     event.preventDefault()
+    HideForms()
+    $("#grupo").show()
+
+  $('#guardar').click (event) ->
+    event.preventDefault
+    DisplayBlockUI "loader"
     PrepararDatosMiembro()
     enviar "/informacion_general/guardar_grupos", root.DatosEnviar, MessageSucces, null
     HideForms()
-    $("#grupo").show()
+
+    
 
   $(".btncancelarform").click (event) ->
     event.preventDefault()

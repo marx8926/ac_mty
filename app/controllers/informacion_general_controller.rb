@@ -50,7 +50,8 @@ class InformacionGeneralController < ApplicationController
       begin
         gp = GrupoPequenio.create({:var_grupopequenio_nombre => form[:nombre],
           :int_grupopequenio_tipo => form[:tipo_grupo],
-          :lugar => Lugar.find(form[:lugar]) , :grupo_principal => GrupoPrincipal.find(form[:grupo_principal]),
+          :lugar => Lugar.find(form[:lugar]) ,
+          :grupo_principal => GrupoPrincipal.find(form[:grupo_principal]),
           :dat_grupopequenio_fechaInicio => form[:fecha_grupo],
           :int_grupopequenio_diaReunion => form[:select_dia],
           :var_grupopequenio_hora => form[:hora],
@@ -64,8 +65,8 @@ class InformacionGeneralController < ApplicationController
           tabla.each do |y|
             x = y.last
             lm = ListaMiembroGp.create({:grupo_pequenio=> gp,
-          :persona => Persona.find(x[:int_persona_id]), :dat_listamiembrogp_fechaRegistro => form[:fecha_grupo],
-          :var_listamiembrogp_estado => "1"})
+            :persona => Persona.find(x[:int_persona_id]), :dat_listamiembrogp_fechaRegistro => form[:fecha_grupo],
+            :var_listamiembrogp_estado => "1"})
             lm.save!
           end
         end

@@ -7,8 +7,8 @@ class Persona < ActiveRecord::Base
 	has_many :diezmos
 	has_many :direccions
 	has_many :peticions
-	has_many :lista_miembro_gp
-	has_many :inscripcion_alumno
-	has_many :consolidador
+	has_many :lista_miembro_gps
+	has_many :inscripcion_alumnos
+	has_many :consolidadors
 	has_one :miembro
 end

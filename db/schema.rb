@@ -204,16 +204,15 @@ ActiveRecord::Schema.define(version: 20140530210045) do
   add_index "lista_clases", ["curso_id"], name: "index_lista_clases_on_curso_id", using: :btree
 
   create_table "lista_miembro_gps", primary_key: "int_listamiembrogp_id", force: true do |t|
-    t.string   "grupo_pequenio_id",                limit: 5
     t.integer  "persona_id"
-    t.integer  "grupo_pequenios_id"
-    t.date     "dat_listamimebrogp_fechaRegistro"
+    t.integer  "grupo_pequenio_id"
+    t.date     "dat_listamiembrogp_fechaRegistro"
     t.string   "var_listamiembrogp_estado",        limit: 1
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "lista_miembro_gps", ["grupo_pequenios_id"], name: "index_lista_miembro_gps_on_grupo_pequenios_id", using: :btree
+  add_index "lista_miembro_gps", ["grupo_pequenio_id"], name: "index_lista_miembro_gps_on_grupo_pequenio_id", using: :btree
   add_index "lista_miembro_gps", ["persona_id"], name: "index_lista_miembro_gps_on_persona_id", using: :btree
 
   create_table "lista_nota", primary_key: "int_listanota_id", force: true do |t|
