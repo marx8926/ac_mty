@@ -44,6 +44,16 @@ jQuery(document).ready ->
       root.SelectToDrop = aData.int_persona_id
       DisplayBlockUISingle "dangermodal"
 
+  ActionsG = new DTActions
+    'conf' : '110',
+    'idtable': 'tabla_grupos',
+    'ViewFunction': (nRow, aData, iDisplayIndex) ->
+      root.isedit = false           
+
+    'EditFunction': (nRow, aData, iDisplayIndex) ->      
+      root.isedit = true 
+
+
 
 
   MiembroRowCB = (  nRow, aData, iDisplayIndex ) ->
@@ -52,14 +62,25 @@ jQuery(document).ready ->
   MiembroPRowCB = (  nRow, aData, iDisplayIndex ) ->
     ActionsP.RowCBFunction nRow, aData, iDisplayIndex
 
+  MiembroGRowCB = (  nRow, aData, iDisplayIndex ) ->
+    ActionsG.RowCBFunction nRow, aData, iDisplayIndex
+
 
   FormatoMiembroTable = [   { "sWidth": "35%","mDataProp": "int_persona_id"},
                             { "sWidth": "10%","mDataProp": "nombrecompleto"}
                            
                             ]
 
+  FormatoMiembroGTable = [  { "sWidth": "5%","mDataProp": "id"},
+                            { "sWidth": "20%","mDataProp": "nombre"},
+                            { "sWidth": "20%", "mDataProp": "grupo_principal"},
+                            { "sWidth": "20%", "mDataProp": "grupo_pequenio"},
+                            { "sWidth": "20%", "mDataProp": "dat_grupopequenio_fechaInicio"}                           
+                            ]
+
   ResponsablesTable = createDataTable "table_responsables", root.SourceTServicio, FormatoMiembroTable, null, MiembroRowCB
   PersonaTable = createDataTable "miembros_table", root.SourceTServicio, FormatoMiembroTable, null, MiembroPRowCB
+  GrupoTable = createDataTable "tabla_grupos", "/informacion_general/servicio_grupos", FormatoMiembroGTable, null, MiembroGRowCB
 
 
   MiembrosTable = $('#tabla_seleccionada').dataTable
@@ -94,6 +115,7 @@ jQuery(document).ready ->
     $("#Grupowizard").bwizard 'show', '0'
     root.isedit = aux
     $("#form_grupos").enable()
+    MiembrosTable.fnClearTable()
 
   MessageSucces = ->
     setTimeout (->
@@ -113,9 +135,9 @@ jQuery(document).ready ->
     DisplayBlockUI "loader"
     PrepararDatosMiembro()
     enviar "/informacion_general/guardar_grupos", root.DatosEnviar, MessageSucces, null
+    GrupoTable.fnReloadAjax "/informacion_general/servicio_grupos"
     HideForms()
-
-    
+ 
 
   $(".btncancelarform").click (event) ->
     event.preventDefault()

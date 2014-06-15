@@ -297,3 +297,18 @@ CREATE OR REPLACE VIEW view_menu_usuario AS
  SELECT m.var_menu_nombre
    FROM menus m
    JOIN usuario_menus um ON m.int_menu_id = um.menu_id;
+
+
+CREATE OR REPLACE VIEW view_list_grupo_pequenios AS 
+ SELECT g.int_grupopequenio_id AS id,
+    g.var_grupopequenio_nombre AS nombre,
+    g.grupo_principal_id,
+    ( SELECT concat(p.var_persona_nombres, p.var_persona_apellidos) AS concat
+           FROM grupo_principals gp
+      JOIN personas p ON p.int_persona_id = gp.int_grupoprincipal_responsable) AS grupo_principal,
+    g.int_grupopequenio_responsable,
+    ( SELECT concat(personas.var_persona_nombres, personas.var_persona_apellidos) AS concat
+           FROM personas
+          WHERE personas.int_persona_id = g.int_grupopequenio_responsable) AS grupo_pequenio,
+    g."dat_grupopequenio_fechaInicio"
+   FROM grupo_pequenios g;

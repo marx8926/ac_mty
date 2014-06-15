@@ -80,6 +80,11 @@ class InformacionGeneralController < ApplicationController
 
   end
 
+  def servicio_grupos
+    persona = ActiveRecord::Base.connection.execute("SELECT * FROM view_list_grupo_pequenios")    
+    render :json => { 'aaData' => persona }, :status => :ok
+  end
+
   def ministerios_area
     @titulo = 'Ministerios/ Áreas de Servicios - Información General'    
   end
