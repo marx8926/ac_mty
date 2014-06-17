@@ -9,7 +9,7 @@ root.count = 0
 root.SelectToDrop = null
 root.TipoForm = null
 root.actionPersonas = null
-root.isedit = true
+root.isedit = false
 
 jQuery(document).ready -> 
 
@@ -19,7 +19,6 @@ jQuery(document).ready ->
     'SelectFunction': (nRow, aData, iDisplayIndex) ->
       $("#responsable_hidden").val aData.int_persona_id
       $("#responsable").val aData.nombrecompleto
-
       
     'DropFunction': (nRow, aData, iDisplayIndex) ->
       root.SelectToDrop = aData.int_persona_id
@@ -45,13 +44,28 @@ jQuery(document).ready ->
       DisplayBlockUISingle "dangermodal"
 
   ActionsG = new DTActions
-    'conf' : '110',
+    'conf' : '1100',
     'idtable': 'tabla_grupos',
     'ViewFunction': (nRow, aData, iDisplayIndex) ->
-      root.isedit = false           
+      root.isedit = false   
+      $("#isedit").val "0"
 
     'EditFunction': (nRow, aData, iDisplayIndex) ->      
-      root.isedit = true 
+      root.isedit = true
+      $("#isedit").val "1"
+      $("#nombre").val aData.nombre
+      $("#idgroup").val aData.id
+      $("#grupo_principal").val aData.grupo_principal_id
+      $("#responsable_hidden").val aData.int_grupopequenio_responsable
+      $("#responsable").val aData.grupo_pequenio
+      $("#tipo_grupo").val aData.tipo
+      $("#lugar").val aData.lugar
+      $("#fecha_grupo").val aData.inicio
+      $("#direccion").val aData.direccion
+      $("#select_dia").val aData.dia
+      $("#select_reunion").val aData.frecuencia
+      $("#hora").val aData.hora
+      console.log aData
 
 
 

@@ -33,6 +33,8 @@
       .widget-body
         = form_tag("" , {:method=>'post',:class=>'form-horizontal', :id => "form_grupos" , :name => "form_grupos"}) do
           %input#idpersona{type:"hidden",name:"idpersona"}
+          %input#isedit{type: "hidden", name: "isedit", value: "0"}
+          %input#idgroup{type: "hidden", name:"idgroup", value: "-1"}
           #Grupowizard
             %ol
               %li Datos 

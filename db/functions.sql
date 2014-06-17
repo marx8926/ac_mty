@@ -302,6 +302,12 @@ CREATE OR REPLACE VIEW view_menu_usuario AS
 CREATE OR REPLACE VIEW view_list_grupo_pequenios AS 
  SELECT g.int_grupopequenio_id AS id,
     g.var_grupopequenio_nombre AS nombre,
+    g.int_grupopequenio_tipo AS tipo,
+    g.lugar_id AS lugar,
+    g.var_grupopequenio_direccion AS direccion,
+    g."int_grupopequenio_diaReunion" AS dia,
+    g.int_grupopequenio_frecuenciareunion AS frecuencia,
+    g.var_grupopequenio_hora AS hora,
     g.grupo_principal_id,
     ( SELECT concat(p.var_persona_nombres, p.var_persona_apellidos) AS concat
            FROM grupo_principals gp

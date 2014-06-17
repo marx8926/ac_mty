@@ -73,11 +73,11 @@ function getButtons(conf){
 	actions = "<ul>";
 	if(conf.substring(0,1)==1)
 		actions += '<li><button class="btn btn-default btn-action btn-view"><img alt="ver" class="icons" src="/view.png"></button></li>';
-	else if(conf.substring(1,2)==1)
+	if(conf.substring(1,2)==1)
 		actions += '<li><button class="btn btn-default btn-action btn-edit"><img alt="edit" class="icons" src="/images/edit-icon.png"></button></li>';
-	else if(conf.substring(2,3)==1)
+	if(conf.substring(2,3)==1)
 		actions += '<li><button class="btn btn-default btn-action btn-drop"><img alt="trash" src="/images/trash-icon.png"></button></li>';
-	else if(conf.substring(3,4)==1)
+	if(conf.substring(3,4)==1)
 		actions += '<li><button class="btn btn-default btn-action btn-select"><img alt="select" src="/images/select2.png"></button></li>';
 	
 	actions += '<ul>';
