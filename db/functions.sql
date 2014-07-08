@@ -86,6 +86,7 @@ CREATE OR REPLACE VIEW view_get_persona_completo AS
     p.var_persona_sexo,
     to_char(p.dat_persona_fecregistro::timestamp with time zone, 'dd/mm/yyyy'::text) AS fecconvertido,
     to_char(p."dat_persona_fecNacimiento"::timestamp with time zone, 'dd/mm/yyyy'::text) AS fecnacimiento,
+    to_char(p."dat_persona_bautismo"::timestamp with time zone, 'dd/mm/yyyy'::text) AS bautismo,
     nc.int_nivelcrecimiento_escala AS nivel,
     p.var_persona_invitado,
     p.lugar_id,

@@ -29,6 +29,13 @@ class GanarController < ApplicationController
 					:dat_persona_bautismo => form[:fec_bautismo],
 					:var_persona_invitado => form[:invitado] , :iglesia => Iglesia.first , :lugar => Lugar.find(form[:lugar]) })
 
+				if form[:fec_bautismo].length > 0 
+					
+					miem = Miembro.create({:persona => persona, 
+						:dat_miembro_fechaAsignacion => form[:fec_conversion],
+						:var_miembro_estado => '1'})
+				end
+
 				ch = Chart.lock.find_by(:int_chart_anio => persona.dat_persona_fecregistro.year,
 				 :int_chart_mes => persona.dat_persona_fecregistro.month)
 
@@ -110,7 +117,8 @@ class GanarController < ApplicationController
 
 				if idPersona!= nil and idPersona.length > 0
 
-					p= Persona.lock.find(idPersona).update(
+					p= Persona.lock.find(idPersona)
+					p.update(
             :dat_persona_fecregistro => form[:fec_conversion],
             :var_persona_nombres => form[:nombre],
             :var_persona_apellidos => form[:apellido],
@@ -125,6 +133,18 @@ class GanarController < ApplicationController
             :dat_persona_bautismo => form[:fec_bautismo],
             :var_persona_invitado => form[:invitado],
             :lugar_id => form[:lugar])
+
+					m = Miembro.lock.find_by(:persona_id => idPersona)
+					if m != nil 
+						m.update(
+						:dat_miembro_fechaAsignacion => form[:fec_conversion])
+					else
+						miem = Miembro.create({:persona => p, 
+						:dat_miembro_fechaAsignacion => form[:fec_conversion],
+						:var_miembro_estado => '1'})
+					end
+
+					
 
         Peticion.find_by(:persona_id => idPersona).update(:var_peticion_motivooracion => form[:mot_oracion])
 

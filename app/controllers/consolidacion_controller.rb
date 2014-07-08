@@ -10,6 +10,10 @@ class ConsolidacionController < ApplicationController
 	@titulo = 'Datos Generales - Configuración'
 	end
 
+	def servicios_nuevos_ganados
+
+	end
+
 	def coordinadores
 	@titulo = 'Datos Generales - Configuración'
 	end
