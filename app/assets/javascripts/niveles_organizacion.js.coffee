@@ -33,7 +33,6 @@ jQuery ->
     	$("#miembro_hidden").val aData.int_persona_id
 	    $("#miembro").val aData.nombrecompleto
 
-      
     'DropFunction': (nRow, aData, iDisplayIndex) ->
       root.SelectToDrop = aData.int_persona_id
       DisplayBlockUISingle "dangermodal"
@@ -55,6 +54,7 @@ jQuery ->
     'SelectFunction': (nRow, aData, iDisplayIndex) ->
     	$("#responsable_hidden").val aData.int_persona_id
 	    $("#responsable").val aData.nombrecompleto
+
 
   ResponsableRowCB = (  nRow, aData, iDisplayIndex ) ->
     ResponsableActions.RowCBFunction nRow, aData, iDisplayIndex

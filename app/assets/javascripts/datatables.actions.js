@@ -78,7 +78,7 @@ function getButtons(conf){
 	if(conf.substring(2,3)==1)
 		actions += '<li><button class="btn btn-default btn-action btn-drop"><img alt="trash" src="/images/trash-icon.png"></button></li>';
 	if(conf.substring(3,4)==1)
-		actions += '<li><button class="btn btn-default btn-action btn-select"><img alt="select" src="/images/select2.png"></button></li>';
+		actions += '<li><button class="btn btn-default btn-action btn-select" data-dismiss="modal" type= "button"><img alt="select" src="/images/select2.png"></button></li>';
 	
 	actions += '<ul>';
 	return actions;

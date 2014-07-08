@@ -318,3 +318,16 @@ CREATE OR REPLACE VIEW view_list_grupo_pequenios AS
           WHERE personas.int_persona_id = g.int_grupopequenio_responsable) AS grupo_pequenio,
     g."dat_grupopequenio_fechaInicio"
    FROM grupo_pequenios g;
+   
+CREATE OR REPLACE VIEW public.view_lista_herramientas AS
+SELECT int_herramconsolidacion_id as id, var_herramconsolidacion_descripcion as descripcion, 
+       int_herramconsolidacion_nrodias as duracion, int_herramconsolidacion_repeticion as repeticion, 
+  case when (select count(*) from lista_temas l where l.herramienta_consolidacion_id = int_herramconsolidacion_id) > 0 then 'Si'::text
+  else 'No'::text end as asignado,
+       case when var_herramconsolidacion_estado = '1' then 'Activo'::text
+       else 'Inactivo'::text
+       end as estado
+       
+  FROM herramienta_consolidacions;
+ALTER TABLE public.view_lista_herramientas
+  OWNER TO postgres;

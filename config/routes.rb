@@ -105,6 +105,9 @@ Lean::Application.routes.draw do
   get "informacion_general/grupos" => "informacion_general#grupos"
   post "informacion_general/guardar_grupos" => "informacion_general#guardar_grupos"
   get "informacion_general/servicio_grupos" => "informacion_general#servicio_grupos"
+  get "informacion_general/lista_personas_grupo/(:id)" => "informacion_general#lista_personas_grupo"
+  post "informacion_general/editar_grupos" => "informacion_general#editar_grupos"
+
   get "informacion_general/ministerios_area" => "informacion_general#ministerios_area"
   get "informacion_general/plan_trabajo" => "informacion_general#plan_trabajo"
   get "informacion_general/inform_plantrabajo" => "informacion_general#inform_plantrabajo"
@@ -127,6 +130,8 @@ Lean::Application.routes.draw do
   get "consolidacion/coordinadores" => "consolidacion#coordinadores"
   get "consolidacion/consolidadores" => "consolidacion#consolidadores"
   get "consolidacion/herramientas_consolidacion" => "consolidacion#herramientas_consolidacion"
+  post "consolidacion/guardar_herramienta" => "consolidacion#guardar_herramienta"
+  get "consolidacion/servicios_herramientas_tabla" => "consolidacion#servicios_herramientas_tabla"
   get "consolidacion/asignar_miembros_consolidacion" => "consolidacion#asignar_miembros_consolidacion"
   get "consolidacion/seguimiento_consolidado" => "consolidacion#seguimiento_consolidado"
 

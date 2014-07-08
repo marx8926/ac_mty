@@ -21,19 +21,19 @@
             Crear Herramienta de Consolidación
         #regasistencia{style: "display:none"}
           .widget-body
-            = form_tag(asistencia_guardar_path , {:method=>'post',:class=>'form-horizontal', :id => "form_asistencia", :name=> "form_asistencia"}) do
+            = form_tag(consolidacion_guardar_herramienta_path , {:method=>'post',:class=>'form-horizontal', :id => "form_herramienta", :name=> "form_herramienta"}) do
               %br
               
               .form-group
-                %label.col-sm-2.control-label{for: "nombre"} Persona
+                %label.col-sm-2.control-label{for: "nombre_herramienta"} Herramienta
                 .col-sm-10
                   .row
                     .col-sm-2
-                      %input#nombre.form-control{type: "text", name:"nombre",class:"validate[required]"}
+                      %input#nombre_herramienta.form-control{type: "text", name:"nombre_herramienta",class:"validate[required]"}
                     %label.col-lg-4.col-sm-2.checkbox-inline{style:"text-align:right;"}                    
                     .col-sm-5
-                      %input#red{type: "checkbox", name: "red", style:"float:none;"}
-                        Red
+                      %input#temas{type: "checkbox", name: "temas", style:"float:none;" , "data-toggle" => "modal"}
+                        Asignar Temas
                     
                     /.........Modal para Asignar Temas........./ 
                     #showModal.modal.fade{'aria-hidden' => 'true',:tabindex => "-1"}
@@ -52,32 +52,34 @@
                                   .row
                                   .col-lg-10.col-sm-10
                                     %input#Nombre.form-control{name: "Nombre", type: "text", style:"float: left;"}
-                                  %a.btn{'href' => '#showModal', 'data-toggle' => 'modal', "data-icon" => ""}                    
+                                  %button#add.btn{"data-icon" => ""}                    
                               .form-group
-                                %table#-table.table.table-condensed.table-striped.table-hover.table-bordered.pull-left 
+                                %table#clases.table.table.table-condensed.table-striped.table-hover.table-bordered.pull-left 
                                   %thead
                                     %tr
-                                      %th{style: "width:40%"} ID
-                                      %th{style: "width:60%"} Nombress
+                                      %th{style: "width:20%"} ID
+                                      %th{style: "width:60%"} Nombres
+                                      %th{style: "width:20%"} Acción
+
                                   %tbody
                               .clearfix
 
                           .modal-footer
                               
-                            %button.btn.btn-default{'data-dismiss' => 'modal',type: "button"}              
+                            %button#canceltemas.btn.btn-default{'data-dismiss' => 'modal',type: "button"}              
                               Cancelar
-                            %button.btn.btn-primary{type: "button"}              
+                            %button.btn.btn-primary{'data-dismiss' => 'modal', type: "button"}              
                               Guardar
 
               .form-group
-                %label.col-sm-2.control-label{for: "nombre"} Duración(días)
+                %label.col-sm-2.control-label{for: "numero_clases"} Duración(días)
                 .col-sm-10
                   .row
                     .col-sm-2
-                      %input#nombre.form-control{type: "number", name:"nombre",class:"validate[required]"}
-                    %label.col-sm-5.control-label{for: "nombre"} Repetición(días)
+                      %input#numero_clases.form-control{type: "number", name:"numero_clases",class:"validate[required]"}
+                    %label.col-sm-5.control-label{for: "numero_repeticion"} Repetición(días)
                     .col-sm-2
-                      %input#nombre.form-control{type: "number", name:"nombre",class:"validate[required]"}
+                      %input#numero_repeticion.form-control{type: "number", name:"numero_repeticion",class:"validate[required]"}
               
              
               %br
@@ -85,7 +87,7 @@
               .form-group
                 .col-lg-offset-2.col-lg-10
                   %button.cancelarGuardar.btn.btn-default{type: "button"} Cancelar
-                  %input#btnGuardar_Asistencia.btn.btn-success{type: "button", value: "Guardar"}
+                  %input#btnGuardar_Herramienta.btn.btn-success{type: "button", value: "Guardar"}
   / Row end
 
   / Row start
@@ -98,7 +100,7 @@
             Lista de Herramientas
         .widget-body
           .dt_example.example_alt_pagination
-            %table#-table.table.table-condensed.table-striped.table-hover.table-bordered.pull-left
+            %table#tabla_herramientas.table.table-condensed.table-striped.table-hover.table-bordered.pull-left
  
               %thead
                 %tr

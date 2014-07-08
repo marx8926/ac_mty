@@ -65,7 +65,18 @@ jQuery(document).ready ->
       $("#select_dia").val aData.dia
       $("#select_reunion").val aData.frecuencia
       $("#hora").val aData.hora
-      console.log aData
+      $("#grupo").show()
+
+      persona = getAjaxObject "/informacion_general/lista_personas_grupo/"+aData.id
+      $(persona).each (index) ->
+        eliminar = getActionButtons "001"
+        nom= 
+          "int_persona_id": this.persona_id
+          "nombrecompleto" : this.nombre
+          "btn_elim": eliminar 
+
+        MiembrosTable.fnAddData nom
+
 
 
 
@@ -89,7 +100,7 @@ jQuery(document).ready ->
                             { "sWidth": "20%","mDataProp": "nombre"},
                             { "sWidth": "20%", "mDataProp": "grupo_principal"},
                             { "sWidth": "20%", "mDataProp": "grupo_pequenio"},
-                            { "sWidth": "20%", "mDataProp": "dat_grupopequenio_fechaInicio"}                           
+                            { "sWidth": "20%", "mDataProp": "inicio"}                           
                             ]
 
   ResponsablesTable = createDataTable "table_responsables", root.SourceTServicio, FormatoMiembroTable, null, MiembroRowCB
@@ -148,7 +159,11 @@ jQuery(document).ready ->
     event.preventDefault
     DisplayBlockUI "loader"
     PrepararDatosMiembro()
-    enviar "/informacion_general/guardar_grupos", root.DatosEnviar, MessageSucces, null
+    if($("#isedit").val == "0")
+      enviar "/informacion_general/guardar_grupos", root.DatosEnviar, MessageSucces, null
+    else
+      enviar "/informacion_general/editar_grupos", root.DatosEnviar, MessageSucces, null
+
     GrupoTable.fnReloadAjax "/informacion_general/servicio_grupos"
     HideForms()
  
