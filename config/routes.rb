@@ -127,7 +127,9 @@ Lean::Application.routes.draw do
 
 
   get "consolidacion/lista_nuevos_ganados" => "consolidacion#lista_nuevos_ganados"
-  get "consolidacion/servicios_nuevos_ganados" => "consolidacion#servicios_nuevos_ganados"
+  get "consolidacion/servicios_nuevos_ganados/(:inicio)/(:fin)" => "consolidacion#servicios_nuevos_ganados"
+  get "consolidacion/servicios_grupos_principales" => "consolidacion#servicios_grupos_principales"
+  post "consolidacion/guardar_nuevos_grupos" => "consolidacion#guardar_nuevos_grupos"
   get "consolidacion/coordinadores" => "consolidacion#coordinadores"
   get "consolidacion/consolidadores" => "consolidacion#consolidadores"
   get "consolidacion/herramientas_consolidacion" => "consolidacion#herramientas_consolidacion"

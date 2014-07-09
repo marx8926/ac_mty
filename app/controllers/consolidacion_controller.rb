@@ -12,8 +12,49 @@ class ConsolidacionController < ApplicationController
 
 	def servicios_nuevos_ganados
 
+		inicio = params[:inicio]
+		fin = params[:fin]
+
+		sql = "select * from sp_get_nuevos_ganados('"+inicio+"','"+fin+"')"
+		todo = ActiveRecord::Base.connection.execute(sql)
+		render :json => { :aaData => todo }, :status => :ok
+
+
 	end
 
+	def servicios_grupos_principales
+		todo = ActiveRecord::Base.connection.execute("select * from view_get_grupos_principales")
+		render :json => { :aaData => todo }, :status => :ok
+	end
+
+	def guardar_nuevos_grupos
+		form = params[:formulario]
+		nuevo = form[:nuevo]
+		red = form[:red]
+
+		ActiveRecord::Base.transaction do
+
+			begin
+				g = GrupoPrincipal.lock.find(red)
+				g.update(:int_grupoprincipal_nromiembros => g.int_grupoprincipal_nromiembros + 1 )
+
+				
+      			m = Miembro.lock.find_by({:persona_id => nuevo})
+				p = PersonaGrupoPrincipal.create!({:grupo_principal => g, :var_pergrupoprincipal_estado => "1",
+					:dat_pergrupoprincipal_fechaAsignacion => Date.new() ,
+					:miembro => m})
+
+			rescue
+				raise ActiveRecord::Rollback
+
+				render :json => {:resp => "bad" } , :status => :ok
+			end
+
+		end
+
+		render :json => {:resp => "ok" } , :status => :ok
+
+	end
 	def coordinadores
 	@titulo = 'Datos Generales - Configuración'
 	end

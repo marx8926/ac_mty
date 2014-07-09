@@ -29,7 +29,7 @@ class GanarController < ApplicationController
 					:dat_persona_bautismo => form[:fec_bautismo],
 					:var_persona_invitado => form[:invitado] , :iglesia => Iglesia.first , :lugar => Lugar.find(form[:lugar]) })
 
-				if form[:fec_bautismo].length > 0 
+				if form[:fec_conversion].length > 0 
 					
 					miem = Miembro.create({:persona => persona, 
 						:dat_miembro_fechaAsignacion => form[:fec_conversion],

@@ -332,3 +332,33 @@ SELECT int_herramconsolidacion_id as id, var_herramconsolidacion_descripcion as 
   FROM herramienta_consolidacions;
 ALTER TABLE public.view_lista_herramientas
   OWNER TO postgres;
+
+CREATE OR REPLACE FUNCTION sp_get_nuevos_ganados(IN ini date, IN fin date, OUT id integer, OUT nombres text,
+OUT direccion text, OUT telefono text, OUT convertido text)
+  RETURNS SETOF record AS
+$BODY$
+BEGIN
+  return query select D.int_miembro_id as id, concat(v.var_persona_nombres, ' ',v.var_persona_apellidos)::text as nombres, v.direccion::text,
+ ( SELECT concat( t.var_telefono_codigo, ' - ', t.var_telefono_numero) AS concat
+           FROM telefonos t
+          WHERE t.persona_id = v.int_persona_id and  t.var_telefono_numero is not null
+         LIMIT 1) AS telefono,         
+v.fecconvertido as convertido
+ from 
+(select * from miembros m  where m.int_miembro_id not in  ( select p.miembro_id from persona_grupo_principals p)) as D inner join
+view_get_persona_completo v on v.int_persona_id = D.persona_id and v.fecconvertido::date between ini and fin;
+
+END;
+$BODY$
+  LANGUAGE plpgsql VOLATILE
+  COST 100
+  ROWS 1000;
+
+
+CREATE OR REPLACE VIEW public.view_get_grupos_principales AS
+SELECT g.int_grupoprincipal_id as id , g.var_grupoprincipal_codigo as codigo, 
+       concat(p.var_persona_nombres,' ', p.var_persona_apellidos)as nombres, 
+       g.int_grupoprincipal_nromiembros as num_miembros
+  FROM grupo_principals g inner join personas p on  g.int_grupoprincipal_responsable = p.int_persona_id;
+ALTER TABLE public.view_get_grupos_principales
+  OWNER TO postgres;
