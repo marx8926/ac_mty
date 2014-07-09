@@ -32,11 +32,7 @@
                       
                       Grupos Principales
                     .col-lg-3.col-sm-2
-                      %select#red_lista.form-control{name: "red_lista"}
-                        %option{value: "0"} RH 1 - Hombres
-                        %option{value: "1"} R1
-                        %option{value: "2"} R2
-                        %option{value: "3"} R3
+                      = grupos_principales_select()
 
         .row
           .col-md-12.col-sm-12

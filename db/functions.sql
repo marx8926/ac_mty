@@ -362,3 +362,25 @@ SELECT g.int_grupoprincipal_id as id , g.var_grupoprincipal_codigo as codigo,
   FROM grupo_principals g inner join personas p on  g.int_grupoprincipal_responsable = p.int_persona_id;
 ALTER TABLE public.view_get_grupos_principales
   OWNER TO postgres;
+
+
+CREATE OR REPLACE FUNCTION sp_get_miembro_coordinador(IN idg int, OUT id integer, OUT nombres text,
+OUT conversion text, OUT bautismo text)
+  RETURNS SETOF record AS
+$BODY$
+BEGIN
+  return query 
+
+  SELECT p.miembro_id as id , concat(pe.var_persona_nombres,' ', pe.var_persona_apellidos) as nombres,
+to_char(pe.dat_persona_fecregistro::timestamp with time zone, 'dd/mm/yyyy'::text) as conversion,
+   to_char(pe.dat_persona_bautismo::timestamp with time zone, 'dd/mm/yyyy'::text) as bautismo
+  FROM persona_grupo_principals p inner join miembros m on p.miembro_id = m.int_miembro_id 
+  and p.grupo_principal_id = idg 
+  and (select true from nivel_liderazgos n where   n.int_niveliderazgo_tiponivel != 2 and n.miembro_id != m.int_miembro_id )
+  inner join personas pe on pe.int_persona_id = m.persona_id;
+
+END;
+$BODY$
+  LANGUAGE plpgsql VOLATILE
+  COST 100
+  ROWS 1000;
